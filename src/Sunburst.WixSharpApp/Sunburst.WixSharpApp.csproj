@@ -6,6 +6,7 @@
 
     <AssemblyTitle>WiX Sharp</AssemblyTitle>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <NoWarn>CS8002</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
