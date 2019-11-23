@@ -21,6 +21,9 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)shipping.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="$(MSBuildProjectFileName.EndsWith('.Tests'))">$(MSBuildThisFileDirectory)tests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
