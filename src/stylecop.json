@@ -1,5 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+
   "settings": {
     "documentationRules": {
       "companyName": "William Kent",
@@ -10,6 +11,15 @@
       },
       "fileNamingConvention": "metadata",
       "xmlHeader": false
+    },
+
+    "layoutRules": {
+      "newlineAtEndOfFile": "require"
+    },
+
+    "orderingRules": {
+      "usingDirectivesPlacement": "outsideNamespace",
+      "systemUsingDirectivesFirst": true
     }
   }
 }
