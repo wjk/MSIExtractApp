@@ -63,6 +63,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Directory.Build.props" />
     <Content Include="Images\SplashScreen.scale-200.png" />
     <Content Include="Images\LockScreenLogo.scale-200.png" />
     <Content Include="Images\Square150x150Logo.scale-200.png" />

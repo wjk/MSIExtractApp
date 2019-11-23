@@ -2,6 +2,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm</RuntimeIdentifiers>
     <UseWPF>true</UseWPF>
 
     <AssemblyTitle>WiX Sharp</AssemblyTitle>
