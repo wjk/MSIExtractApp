@@ -16,25 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\version.json = ..\version.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunburst.WixSharpApp", "Sunburst.WixSharpApp\Sunburst.WixSharpApp.csproj", "{7E3262BD-DAA4-4FDF-83E8-FEB9998363B4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunburst.WixSharpApp.Tests", "Sunburst.WixSharpApp.Tests\Sunburst.WixSharpApp.Tests.csproj", "{BD48761F-FA84-4842-AF09-C785926D679F}"
-EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7E3262BD-DAA4-4FDF-83E8-FEB9998363B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7E3262BD-DAA4-4FDF-83E8-FEB9998363B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7E3262BD-DAA4-4FDF-83E8-FEB9998363B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7E3262BD-DAA4-4FDF-83E8-FEB9998363B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD48761F-FA84-4842-AF09-C785926D679F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD48761F-FA84-4842-AF09-C785926D679F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD48761F-FA84-4842-AF09-C785926D679F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD48761F-FA84-4842-AF09-C785926D679F}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
