@@ -2,17 +2,31 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <RuntimeIdentifiers>win-x86;win-x64;win-arm</RuntimeIdentifiers>
+    <Platforms>x86;x64;ARM</Platforms>
     <UseWPF>true</UseWPF>
 
     <AssemblyTitle>WiX Sharp</AssemblyTitle>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <NoWarn>CS8002</NoWarn>
+
+    <TrimUnusedDependencies>true</TrimUnusedDependencies>
+    <TreatAllPackagesAsTrimmable>true</TreatAllPackagesAsTrimmable>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Packaging.Tools.Trimming" Version="1.1.0-preview1-26619-01" />
     <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.17763.1000" />
     <PackageReference Include="PresentationTheme.Aero" Version="0.5.0" />
     <ProjectReference Include="..\TaskDialog\TaskDialog.csproj" />
+
+    <TrimFilesRootFiles Include="PresentationTheme.Aero.Win10.dll" />
+    <TrimFilesRootFiles Include="PresentationTheme.Aero.Win8.dll" />
+    <TrimFilesRootFiles Include="PresentationTheme.AeroLite.Win10.dll" />
+    <TrimFilesRootFiles Include="PresentationTheme.AeroLite.Win8.dll" />
+    <TrimFilesRootFiles Include="PresentationTheme.HighContrast.Win10.dll" />
+    <TrimFilesRootFiles Include="PresentationTheme.HighContrast.Win8.dll" />
+    <TrimFilesRootFiles Include="System.Windows.Controls.Ribbon.dll" />
   </ItemGroup>
 </Project>
