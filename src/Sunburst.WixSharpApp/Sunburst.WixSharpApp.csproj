@@ -5,6 +5,7 @@
     <UseWPF>true</UseWPF>
 
     <AssemblyTitle>WiX Sharp</AssemblyTitle>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
