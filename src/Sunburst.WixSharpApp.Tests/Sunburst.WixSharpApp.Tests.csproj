@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Library\Library.csproj" />
+    <ProjectReference Include="..\Sunburst.WixSharpApp\Sunburst.WixSharpApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>
