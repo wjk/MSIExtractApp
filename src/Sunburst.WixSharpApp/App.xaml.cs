@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using KPreisser.UI;
+using PresentationTheme.Aero;
 using Windows.ApplicationModel;
 
 namespace Sunburst.WixSharpApp
@@ -39,6 +40,9 @@ namespace Sunburst.WixSharpApp
 
                 this.Shutdown();
             }
+
+            ThemeManager.Install();
+            AeroTheme.SetAsCurrentTheme();
 
             this.MainWindow = new MainWindow();
             this.MainWindow.Show();
