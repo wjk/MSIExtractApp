@@ -1,5 +1,8 @@
 <Project>
-  <Import Project="..\Directory.Build.props" />
+  <PropertyGroup>
+    <BaseOutputPath>..\..\bin\$(MSBuildProjectName)\</BaseOutputPath>
+    <BaseIntermediateOutputPath>..\..\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+  </PropertyGroup>
 
   <ItemDefinitionGroup>
     <ProjectReference>
