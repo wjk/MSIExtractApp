@@ -19,8 +19,8 @@ jobs:
     - uses: seanmiddleditch/gha-setup-vsdevenv@master
       name: Configure Visual Studio
     - name: Restore
-      run: MSBuild.exe /nologo /m /t:Restore
-      working-directory: ./src
+      run: MSBuild.exe /nologo /t:Restore
+      working-directory: ./src/Sunburst.WixSharpApp
     - name: Build
       run: MSBuild.exe /nologo /m /p:Configuration=Release /p:Platform=x64
       working-directory: ./src/Sunburst.WixSharpApp
