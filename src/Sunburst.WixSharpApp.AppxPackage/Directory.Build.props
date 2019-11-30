@@ -8,7 +8,6 @@
     <ProjectReference>
       <SetPlatform Condition="'$(Platform)' == 'x86'">RuntimeIdentifier=win-x86</SetPlatform>
       <SetPlatform Condition="'$(Platform)' == 'x64'">RuntimeIdentifier=win-x64</SetPlatform>
-      <SetPlatform Condition="'$(Platform)' == 'ARM'">RuntimeIdentifier=win-arm</SetPlatform>
     </ProjectReference>
   </ItemDefinitionGroup>
 </Project>
