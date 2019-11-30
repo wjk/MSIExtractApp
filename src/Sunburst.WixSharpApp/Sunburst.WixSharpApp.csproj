@@ -2,7 +2,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <Platforms>x86;x64;ARM</Platforms>
+    <Platforms>x86;x64</Platforms>
     <UseWPF>true</UseWPF>
 
     <AssemblyTitle>WiX Sharp</AssemblyTitle>
@@ -11,7 +11,10 @@
 
     <TrimUnusedDependencies>true</TrimUnusedDependencies>
     <TreatAllPackagesAsTrimmable>true</TreatAllPackagesAsTrimmable>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
+    <RuntimeIdentifier Condition="'$(Platform)' == 'x86'">win-x86</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="'$(Platform)' == 'x64'">win-x64</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == ''">win-x64</RuntimeIdentifier>
     <SelfContained>true</SelfContained>
   </PropertyGroup>
 
