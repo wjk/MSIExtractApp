@@ -48,6 +48,8 @@
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <OutputPath>$(BaseOutputPath)$(Platform)\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Platform)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <AppxBundle>Always</AppxBundle>
