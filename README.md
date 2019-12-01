@@ -1,7 +1,7 @@
-# WiX Sharp App for Windows 10
+# MSI Extract App for Windows 10
 
-This repository contains a Windows 10 Desktop Bridge app that provides a user
-interface for editing and building WiX installers (including `*.wixproj` file support).
+This repository contains a Windows 10 Desktop Bridge app that can view and
+extract the contents of an MSI installer file. It is based on Scott Willeke's
+[lessmsi project](https://github.com/activescott/lessmsi).
 
-This repository is licensed under the Mozilla Public License, version 2.0.
-WiX is licensed under the Microsoft Reciprocal License.
+As with upstream lessmsi, this repository is licensed under MIT.
