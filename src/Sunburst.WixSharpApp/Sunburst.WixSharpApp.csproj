@@ -19,7 +19,7 @@
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <PublishTrimmed>true</PublishTrimmed>
-    <PublishReadyToRun>true</PublishReadyToRun>
+    <!--<PublishReadyToRun>true</PublishReadyToRun>-->
   </PropertyGroup>
 
   <ItemGroup>
