@@ -53,6 +53,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Package.StoreAssociation.xml" />
     <None Include="Sunburst.WixSharpApp.AppxPackage_TemporaryKey.pfx" />
     <None Include="Directory.Build.props" />
     <Content Include="Images\SplashScreen.scale-200.png" />
