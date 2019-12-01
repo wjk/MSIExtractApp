@@ -8,7 +8,7 @@
 
   <Identity
     Name="Sunburst.WixSharpApp"
-    Publisher="CN=William Kent"
+    Publisher="CN=382B267D-6047-4C7A-8414-C3EC3B88FF82"
     Version="1.0.0.0" />
 
   <Properties>
