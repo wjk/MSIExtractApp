@@ -21,11 +21,11 @@ jobs:
       uses: seanmiddleditch/gha-setup-vsdevenv@master
       name: Configure Visual Studio
     - name: Restore
-      working-directory: ./src/Sunburst.WixSharpApp
+      working-directory: ./src
       run: |
         & "${{ steps.vsdevcmd.outputs.install_path }}\MSBuild\Current\bin\msbuild.exe" /nologo /t:Restore
     - name: Build
-      working-directory: ./src/Sunburst.WixSharpApp.AppxPackage
+      working-directory: ./src/MSIExtract.AppxPackage
       run: |
         & "${{ steps.vsdevcmd.outputs.install_path }}\MSBuild\Current\bin\msbuild.exe" /nologo /m /p:Configuration=Release /p:Platform=x64
     - uses: actions/upload-artifact@v1.0.0
