@@ -12,8 +12,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Install .NET Core
-      uses: actions/setup-dotnet@v1
+      name: Clone
+    - uses: actions/setup-dotnet@v1
+      name: Install .NET Core
       with:
         dotnet-version: 3.0.100
     - id: vsdevcmd
@@ -27,8 +28,8 @@ jobs:
       working-directory: ./src/Sunburst.WixSharpApp.AppxPackage
       run: |
         & "${{ steps.vsdevcmd.outputs.install_path }}\MSBuild\Current\bin\msbuild.exe" /nologo /m /p:Configuration=Release /p:Platform=x64
-    - name: Upload MSIX Package
-      uses: actions/upload-artifact@v1.0.0
+    - uses: actions/upload-artifact@v1.0.0
+      name: Upload MSIX Package
       with:
         name: MSIX Packages
         path: bin/AppxPackages
