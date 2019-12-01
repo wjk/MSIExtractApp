@@ -2,6 +2,7 @@
   <PropertyGroup>
     <BaseOutputPath>..\..\bin\$(MSBuildProjectName)\</BaseOutputPath>
     <BaseIntermediateOutputPath>..\..\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <AppxPackageDir>..\..\bin\AppxPackages</AppxPackageDir>
   </PropertyGroup>
 
   <ItemDefinitionGroup>
