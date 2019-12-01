@@ -22,8 +22,8 @@ jobs:
     - name: Restore
       working-directory: ./src/Sunburst.WixSharpApp
       run: |
-        & "${{ steps.vsdevcmd.outputs.install_path }}\\MSBuild\\Current\\bin\\msbuild.exe" /nologo /t:Restore
+        & "${{ steps.vsdevcmd.outputs.install_path }}\MSBuild\Current\bin\msbuild.exe" /nologo /t:Restore
     - name: Build
       working-directory: ./src/Sunburst.WixSharpApp
       run: |
-        & "${{ steps.vsdevcmd.outputs.install_path }}\\MSBuild\\Current\\bin\\msbuild.exe" /nologo /m /p:Configuration=Release /p:Platform=x64
+        & "${{ steps.vsdevcmd.outputs.install_path }}\MSBuild\Current\bin\msbuild.exe" /nologo /m /p:Configuration=Release /p:Platform=x64
