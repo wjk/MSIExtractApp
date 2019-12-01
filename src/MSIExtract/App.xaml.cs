@@ -12,7 +12,7 @@ using KPreisser.UI;
 using PresentationTheme.Aero;
 using Windows.ApplicationModel;
 
-namespace Sunburst.WixSharpApp
+namespace MSIExtract
 {
     /// <summary>
     /// The main application subclass.
@@ -29,8 +29,8 @@ namespace Sunburst.WixSharpApp
                 var page = new TaskDialogPage
                 {
                     AllowCancel = true,
-                    Title = "WiX Sharp",
-                    Instruction = "WiX Sharp cannot be run outside of its Windows Store package.",
+                    Title = "MSI Viewer",
+                    Instruction = "MSI Viewer cannot be run outside of its Windows Store package.",
                     Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Error),
                 };
 
@@ -52,7 +52,7 @@ namespace Sunburst.WixSharpApp
         {
             try
             {
-                const string expectedPFN = "40885WilliamKent2015.WiXSharp_vv14yhe95nw30";
+                const string expectedPFN = "40885WilliamKent2015.MSIViewer_vv14yhe95nw30";
                 return Package.Current.Id.FamilyName == expectedPFN;
             }
             catch (InvalidOperationException)

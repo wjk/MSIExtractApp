@@ -30,8 +30,8 @@
     <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
-    <EntryPointProjectUniqueName>..\Sunburst.WixSharpApp\Sunburst.WixSharpApp.csproj</EntryPointProjectUniqueName>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <EntryPointProjectUniqueName>..\MSIExtract\MSIExtract.csproj</EntryPointProjectUniqueName>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
@@ -40,6 +40,7 @@
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <OutputPath>$(BaseOutputPath)$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <PackageCertificateThumbprint>EED983D02503F88BF6271FBFBFAEF41F52DCD25C</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <AppxBundle>Always</AppxBundle>
@@ -54,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />
-    <None Include="Sunburst.WixSharpApp.AppxPackage_TemporaryKey.pfx" />
     <None Include="Directory.Build.props" />
     <Content Include="Images\SplashScreen.scale-200.png" />
     <Content Include="Images\LockScreenLogo.scale-200.png" />
@@ -65,7 +65,7 @@
     <Content Include="Images\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sunburst.WixSharpApp\Sunburst.WixSharpApp.csproj">
+    <ProjectReference Include="..\MSIExtract\MSIExtract.csproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
     </ProjectReference>
   </ItemGroup>

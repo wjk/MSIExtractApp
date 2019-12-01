@@ -5,7 +5,7 @@
     <Platforms>x86;x64</Platforms>
     <UseWPF>true</UseWPF>
 
-    <AssemblyTitle>WiX Sharp</AssemblyTitle>
+    <AssemblyTitle>MSI Viewer</AssemblyTitle>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <NoWarn>CS8002</NoWarn>
 

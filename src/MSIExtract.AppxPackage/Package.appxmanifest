@@ -7,12 +7,12 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="40885WilliamKent2015.WiXSharp"
+    Name="40885WilliamKent2015.MSIViewer"
     Publisher="CN=382B267D-6047-4C7A-8414-C3EC3B88FF82"
     Version="1.0.0.0" />
 
   <Properties>
-    <DisplayName>WiX Sharp</DisplayName>
+    <DisplayName>MSI Viewer</DisplayName>
     <PublisherDisplayName>William Kent</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
@@ -31,8 +31,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="WiX Sharp"
-        Description="An editor and build system for WiX Sharp projects."
+        DisplayName="MSI Viewer"
+        Description="Open MSI files and extract their contents."
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png">
