@@ -18,7 +18,7 @@ jobs:
         dotnet-version: 3.0.100
     - uses: seanmiddleditch/gha-setup-vsdevenv@master
       name: Configure Visual Studio
-      id:   vsdevcmd
+      id: vsdevcmd
     - name: Restore
       run: "${{ steps.vsdevcmd.outputs.install_path }}\\MSBuild\\Current\\bin\\msbuild.exe" /nologo /t:Restore
       working-directory: ./src/Sunburst.WixSharpApp
