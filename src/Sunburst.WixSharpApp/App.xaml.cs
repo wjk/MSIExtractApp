@@ -52,7 +52,7 @@ namespace Sunburst.WixSharpApp
         {
             try
             {
-                const string expectedPFN = "Sunburst.WixSharpApp_2z3815qvxcs6r";
+                const string expectedPFN = "40885WilliamKent2015.WiXSharp_vv14yhe95nw30";
                 return Package.Current.Id.FamilyName == expectedPFN;
             }
             catch (InvalidOperationException)
