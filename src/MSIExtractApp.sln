@@ -22,11 +22,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSIExtract", "MSIExtract\MS
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "MSIExtract.AppxPackage", "MSIExtract.AppxPackage\MSIExtract.AppxPackage.wapproj", "{9877F6B5-A889-49A8-90B0-A1E09A6995F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessIO", "LessIO\LessIO.csproj", "{E3B941C3-00F8-44D1-A23D-1BECBA52B143}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessIO", "LessIO\LessIO.csproj", "{E3B941C3-00F8-44D1-A23D-1BECBA52B143}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WixToolset.Dtf.Compression", "WixToolset.Dtf.Compression\WixToolset.Dtf.Compression.csproj", "{B44B9A37-5E71-4925-B24C-D21EA4506D64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WixToolset.Dtf.Compression.Cab", "WixToolset.Dtf.Compression.Cab\WixToolset.Dtf.Compression.Cab.csproj", "{D7F6629E-D9CF-4C81-B836-C0CF3086AC5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WixToolset.Dtf.Compression.Cab", "WixToolset.Dtf.Compression.Cab\WixToolset.Dtf.Compression.Cab.csproj", "{D7F6629E-D9CF-4C81-B836-C0CF3086AC5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
