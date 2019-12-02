@@ -62,9 +62,6 @@ namespace LessMsi.Msi
 
         private void CreateColumnInfos()
         {
-            const int MSICOLINFONAMES = 0;
-            const int MSICOLINFOTYPES = 1;
-
             var colList = new List<ColumnInfo>();
 
             foreach (var col in _underlyingView.Columns)
