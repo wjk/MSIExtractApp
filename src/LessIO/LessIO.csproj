@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <IsThirdPartyProject>true</IsThirdPartyProject>
+    <NoWarn>CS1591</NoWarn>
+  </PropertyGroup>
+
+</Project>

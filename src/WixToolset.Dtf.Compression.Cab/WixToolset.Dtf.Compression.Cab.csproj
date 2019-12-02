@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IsThirdPartyProject>true</IsThirdPartyProject>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WixToolset.Dtf.Compression\WixToolset.Dtf.Compression.csproj" />
+  </ItemGroup>
+
+</Project>
