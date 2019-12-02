@@ -302,6 +302,8 @@ namespace LessMsi.Msi
         /// Extracts the compressed files from the specified MSI file to the specified output directory.
         /// If specified, the list of <paramref name="filesToExtract"/> objects are the only files extracted.
         /// </summary>
+        /// <param name="msi">The MSI file to extract files from.</param>
+        /// <param name="outputDir">The directory to extract the files into.</param>
         /// <param name="filesToExtract">The files to extract or null or empty to extract all files.</param>
         /// <param name="progressCallback">Will be called during during the operation with progress information, and upon completion. The argument will be of type <see cref="ExtractionProgress"/>.</param>
         public static void ExtractFiles(Path msi, string outputDir, MsiFile[] filesToExtract, AsyncCallback progressCallback)
@@ -437,6 +439,7 @@ namespace LessMsi.Msi
         /// <summary>
         /// Extracts cab files from the specified MSIDB and puts them in the specified outputdir.
         /// </summary>
+        /// <param name="msi"></param>
         /// <param name="msidb"></param>
         /// <param name="outputDir"></param>
         /// <returns></returns>

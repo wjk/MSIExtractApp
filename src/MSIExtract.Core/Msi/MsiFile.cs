@@ -136,6 +136,7 @@ namespace LessMsi.Msi
         /// <summary>
         /// Returns the directory with the specified value for <see cref="MsiDirectory.Directory"/> or null if it cannot be found.
         /// </summary>
+        /// <param name="allDirectories">The list of <see cref="MsiDirectory"/> objects to search.</param>
         /// <param name="directory_Value">The value for the sought directory's <see cref="MsiDirectory.Directory"/> column.</param>
         private static MsiDirectory FindDirectoryByDirectoryKey(MsiDirectory[] allDirectories, string directory_Value)
         {
