@@ -4,6 +4,9 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <IsThirdPartyProject>true</IsThirdPartyProject>
     <UseWPF>true</UseWPF>
+
+    <NoWarn>CS1591</NoWarn>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

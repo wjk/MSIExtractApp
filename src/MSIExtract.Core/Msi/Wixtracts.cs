@@ -247,7 +247,7 @@ namespace LessMsi.Msi
                 get { return _default; }
             }
 
-            int IComparer.Compare(object? x, object? y)
+            int IComparer.Compare(object x, object y)
             {
                 if (x == null) throw new ArgumentNullException(nameof(x));
                 if (y == null) throw new ArgumentNullException(nameof(y));
@@ -269,9 +269,9 @@ namespace LessMsi.Msi
 
             public Func<string, Stream> CreateFileStream { get; set; }
 
-            public Action<string>? FileCompleted { get; set; }
+            public Action<string> FileCompleted { get; set; }
 
-            public IReadOnlyList<CabInfo>? Cabinets { get; }
+            public IReadOnlyList<CabInfo> Cabinets { get; }
 
             public Stream OpenArchiveReadStream(int archiveNumber, string archiveName, CompressionEngine compressionEngine)
             {
