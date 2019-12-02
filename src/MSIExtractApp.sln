@@ -30,6 +30,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WixToolset.Dtf.Compression.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WixToolset.Dtf.WindowsInstaller", "WixToolset.Dtf.WindowsInstaller\WixToolset.Dtf.WindowsInstaller.csproj", "{02119665-665A-44A6-9791-29E75449595B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSIExtract.Core", "MSIExtract.Core\MSIExtract.Core.csproj", "{55E347B5-1890-4244-8950-EEE286FE8189}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -124,6 +126,18 @@ Global
 		{02119665-665A-44A6-9791-29E75449595B}.Release|x64.Build.0 = Release|Any CPU
 		{02119665-665A-44A6-9791-29E75449595B}.Release|x86.ActiveCfg = Release|Any CPU
 		{02119665-665A-44A6-9791-29E75449595B}.Release|x86.Build.0 = Release|Any CPU
+		{55E347B5-1890-4244-8950-EEE286FE8189}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55E347B5-1890-4244-8950-EEE286FE8189}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55E347B5-1890-4244-8950-EEE286FE8189}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{55E347B5-1890-4244-8950-EEE286FE8189}.Debug|x64.Build.0 = Debug|Any CPU
+		{55E347B5-1890-4244-8950-EEE286FE8189}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{55E347B5-1890-4244-8950-EEE286FE8189}.Debug|x86.Build.0 = Debug|Any CPU
+		{55E347B5-1890-4244-8950-EEE286FE8189}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55E347B5-1890-4244-8950-EEE286FE8189}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55E347B5-1890-4244-8950-EEE286FE8189}.Release|x64.ActiveCfg = Release|Any CPU
+		{55E347B5-1890-4244-8950-EEE286FE8189}.Release|x64.Build.0 = Release|Any CPU
+		{55E347B5-1890-4244-8950-EEE286FE8189}.Release|x86.ActiveCfg = Release|Any CPU
+		{55E347B5-1890-4244-8950-EEE286FE8189}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

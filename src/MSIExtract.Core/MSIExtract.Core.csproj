@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LessIO\LessIO.csproj" />
+    <ProjectReference Include="..\WixToolset.Dtf.Compression.Cab\WixToolset.Dtf.Compression.Cab.csproj" />
+    <ProjectReference Include="..\WixToolset.Dtf.WindowsInstaller\WixToolset.Dtf.WindowsInstaller.csproj" />
+  </ItemGroup>
+
+</Project>
