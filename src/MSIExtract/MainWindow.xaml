@@ -23,6 +23,8 @@
 
             <MenuItem Header="_Edit">
                 <MenuItem Header="_Copy" Command="{x:Static ApplicationCommands.Copy}" />
+                <MenuItem Header="Select _All" Command="{x:Static ApplicationCommands.SelectAll}" />
+                <Separator />
                 <MenuItem Header="_Find File" Command="{x:Static ApplicationCommands.Find}" />
             </MenuItem>
 
