@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MSIExtract.Controls;
 
 namespace MSIExtract.Views
 {
@@ -21,6 +22,11 @@ namespace MSIExtract.Views
     /// </summary>
     public partial class ExtractFilesView : UserControl
     {
+        /// <summary>
+        /// Identifier for the "Select None" command.
+        /// </summary>
+        public static readonly RoutedCommand SelectNoneCommand = Commands.CreateCommand("SelectNone", typeof(ExtractFilesView), new KeyGesture(Key.A, ModifierKeys.Control | ModifierKeys.Shift));
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtractFilesView"/> class.
         /// </summary>
@@ -32,6 +38,11 @@ namespace MSIExtract.Views
         private void SelectAllCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             FileListView.SelectAll();
+        }
+
+        private void SelectNoneCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            FileListView.SelectedItems.Clear();
         }
     }
 }
