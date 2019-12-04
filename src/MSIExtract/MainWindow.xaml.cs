@@ -29,6 +29,7 @@ namespace MSIExtract
         public MainWindow()
         {
             this.InitializeComponent();
+            DataContext = new AppModel();
         }
     }
 }
