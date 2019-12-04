@@ -21,6 +21,11 @@ namespace MSIExtract.Controls
         public FileNameDisplayMode DisplayMode { get; set; } = FileNameDisplayMode.Default;
 
         /// <summary>
+        /// Gets or sets the string to use when the input path is <c>null</c> or <see cref="string.Empty"/>.
+        /// </summary>
+        public string FallbackValue { get; set; } = string.Empty;
+
+        /// <summary>
         /// Converts a value to another type.
         /// </summary>
         /// <param name="value">
@@ -40,14 +45,14 @@ namespace MSIExtract.Controls
         /// </returns>
         public object? Convert(object? value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-            {
-                return null;
-            }
-
             if (targetType != typeof(string))
             {
                 throw new InvalidOperationException("Cannot convert to any type except System.String");
+            }
+
+            if (value == null)
+            {
+                return FallbackValue;
             }
 
             var path = (string)value;

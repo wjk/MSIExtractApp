@@ -14,7 +14,7 @@
                             BorderThickness="{TemplateBinding BorderThickness}" Margin="{TemplateBinding Margin}" Padding="{TemplateBinding Padding}">
                         <Border.Resources>
                             <System:String x:Key="NoneText">&lt;None&gt;</System:String>
-                            <Controls:FileNameConverter x:Key="FileNameConverter" DisplayMode="FullPath" />
+                            <Controls:FileNameConverter x:Key="FileNameConverter" DisplayMode="FullPath" FallbackValue="{StaticResource NoneText}" />
                         </Border.Resources>
                         
                         <Grid>
