@@ -179,7 +179,6 @@ namespace MSIExtract.Controls
                 try
                 {
                     iconPart.Source = Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                    iconPart.Visibility = Visibility.Visible;
                 }
                 finally
                 {
