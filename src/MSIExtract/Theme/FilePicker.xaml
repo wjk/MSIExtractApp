@@ -39,15 +39,6 @@
                         <Trigger Property="FilePath" Value="{x:Null}">
                             <Setter TargetName="PART_Icon" Property="Visibility" Value="Collapsed" />
                         </Trigger>
-
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="Controls:SystemParameterProperties.HighContrast" Value="False" />
-                                <Condition Property="FilePath" Value="{x:Null}" />
-                            </MultiTrigger.Conditions>
-
-                            <Setter TargetName="PART_Text" Property="TextBlock.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
-                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
