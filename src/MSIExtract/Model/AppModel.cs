@@ -14,8 +14,8 @@ namespace MSIExtract
     public sealed class AppModel
     {
         /// <summary>
-        /// Gets or sets a <see cref="FileInfo"/> instance corresponding to the MSI file being read.
+        /// Gets or sets the absolute path to the MSI file being read.
         /// </summary>
-        public FileInfo? MsiFile { get; set; } = null;
+        public string? MsiFile { get; set; } = null;
     }
 }
