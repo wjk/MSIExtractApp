@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:System="clr-namespace:System;assembly=System.Runtime"
                     xmlns:Controls="clr-namespace:MSIExtract.Controls">
-    <Style TargetType="Controls:FilePicker">
+    <Style TargetType="Controls:FilePicker" x:Key="{x:Type Controls:FilePicker}">
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="UseLayoutRounding" Value="True" />
 
