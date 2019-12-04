@@ -4,9 +4,9 @@
 namespace MSIExtract.Controls
 {
     /// <summary>
-    /// Specifies what kind of string <see cref="FileInfoConverter"/> returns.
+    /// Specifies what kind of string <see cref="FileNameConverter"/> returns.
     /// </summary>
-    public enum FileInfoDisplayMode
+    public enum FileNameDisplayMode
     {
         /// <summary>
         /// The Windows shell default.

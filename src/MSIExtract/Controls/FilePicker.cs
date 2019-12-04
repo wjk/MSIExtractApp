@@ -14,7 +14,6 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Win32;
 using MSIExtract.Interop;
 
@@ -32,10 +31,10 @@ namespace MSIExtract.Controls
         /// </summary>
         public static readonly DependencyProperty FileProperty = DependencyProperty.Register(
             nameof(File),
-            typeof(FileInfo),
+            typeof(string),
             typeof(FilePicker),
             new FrameworkPropertyMetadata(
-                propertyChangedCallback: (obj, args) => ((FilePicker)obj).FilePropertyChanged((FileInfo)args.NewValue),
+                propertyChangedCallback: (obj, args) => ((FilePicker)obj).FilePropertyChanged((string)args.NewValue),
                 coerceValueCallback: (obj, val) => CoerceFile(val)));
 
         /// <summary>
@@ -59,9 +58,9 @@ namespace MSIExtract.Controls
         /// <summary>
         /// Gets or sets the selected file.
         /// </summary>
-        public FileInfo? File
+        public string? File
         {
-            get => (FileInfo?)GetValue(FileProperty);
+            get => (string?)GetValue(FileProperty);
             set => SetValue(FileProperty, value);
         }
 
@@ -113,23 +112,19 @@ namespace MSIExtract.Controls
             FilePropertyChanged(File);
         }
 
-        private static FileInfo? CoerceFile(object value)
+        private static string? CoerceFile(object value)
         {
             if (value == null)
             {
                 return null;
             }
-            else if (value is FileInfo info)
-            {
-                return info;
-            }
             else if (value is string path)
             {
-                return new FileInfo(path);
+                return path;
             }
             else
             {
-                throw new InvalidCastException($"Cannot coerce value of type {value.GetType().FullName} to type System.IO.FileInfo");
+                throw new InvalidCastException($"Cannot coerce value of type {value.GetType().FullName} to type System.String");
             }
         }
 
@@ -140,11 +135,24 @@ namespace MSIExtract.Controls
 
         private void ChooseButtonPart_Click(object sender, RoutedEventArgs e)
         {
+            string directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (!string.IsNullOrEmpty(File))
+            {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type (checked immediately below)
+                directory = Path.GetDirectoryName(File);
+#pragma warning restore CS8600
+
+                if (directory == null)
+                {
+                    throw new InvalidOperationException("Path.GetDirectoryName() returned null");
+                }
+            }
+
             var dialog = new OpenFileDialog
             {
                 AddExtension = true,
                 Filter = OpenDialogFilter,
-                InitialDirectory = File?.Directory.FullName ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                InitialDirectory = directory,
                 Title = "Choose File",
                 CheckPathExists = true,
                 Multiselect = false,
@@ -153,11 +161,11 @@ namespace MSIExtract.Controls
             bool? result = dialog.ShowDialog(Window.GetWindow(this));
             if (result.HasValue && result.Value)
             {
-                File = new FileInfo(dialog.FileName);
+                File = dialog.FileName;
             }
         }
 
-        private void FilePropertyChanged(FileInfo? newValue)
+        private void FilePropertyChanged(string? newValue)
         {
             if (iconPart == null)
             {
@@ -165,9 +173,14 @@ namespace MSIExtract.Controls
                 return;
             }
 
-            if (newValue != null)
+            if (!string.IsNullOrEmpty(newValue))
             {
-                NativeMethods.IShellItem2 shellItem = NativeMethods.SHCreateItemFromParsingName(newValue.FullName, IntPtr.Zero, typeof(NativeMethods.IShellItem2).GUID);
+                if (!Path.IsPathRooted(newValue))
+                {
+                    throw new ArgumentException("FilePicker.Path must be absolute", nameof(newValue));
+                }
+
+                NativeMethods.IShellItem2 shellItem = NativeMethods.SHCreateItemFromParsingName(newValue, IntPtr.Zero, typeof(NativeMethods.IShellItem2).GUID);
 
                 var window = Window.GetWindow(this);
                 uint scale = NativeMethods.GetDpiForWindow(new WindowInteropHelper(window).Handle) / 96;

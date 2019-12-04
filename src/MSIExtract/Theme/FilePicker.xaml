@@ -14,7 +14,7 @@
                             BorderThickness="{TemplateBinding BorderThickness}" Margin="{TemplateBinding Margin}" Padding="{TemplateBinding Padding}">
                         <Border.Resources>
                             <System:String x:Key="NoneText">&lt;None&gt;</System:String>
-                            <Controls:FileInfoConverter x:Key="FileInfoConverter" DisplayMode="Default" />
+                            <Controls:FileNameConverter x:Key="FileNameConverter" DisplayMode="FullPath" />
                         </Border.Resources>
                         
                         <Grid>
@@ -26,7 +26,7 @@
 
                             <Image x:Name="PART_Icon" Width="16" Height="16" VerticalAlignment="Top" Margin="0 4 4 0" />
                             <TextBlock x:Name="PART_Text" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextWrapping="Wrap" Margin="0 4 4 0"
-                                       Text="{Binding Source={RelativeSource Mode=TemplatedParent}, Path=File, Converter={StaticResource FileInfoConverter}, FallbackValue={StaticResource NoneText}, Mode=OneWay}" />
+                                       Text="{TemplateBinding File, Converter={StaticResource FileNameConverter}}" />
                             <Button x:Name="PART_ChooseButton" Content="_Choose..." Grid.Column="2" VerticalAlignment="Top" Padding="10 1" />
                         </Grid>
                     </Border>

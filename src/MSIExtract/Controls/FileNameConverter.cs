@@ -11,14 +11,14 @@ using MSIExtract.Interop;
 namespace MSIExtract.Controls
 {
     /// <summary>
-    /// Converts <see cref="FileSystemInfo"/> instances to strings suitable for display in the UI.
+    /// Converts absolute (rooted) file paths to strings suitable for display in the UI.
     /// </summary>
-    public sealed class FileInfoConverter : IValueConverter
+    public sealed class FileNameConverter : IValueConverter
     {
         /// <summary>
-        /// Gets or sets a value of type <see cref="FileInfoDisplayMode"/> that indicates what kind of string to convert to.
+        /// Gets or sets a value of type <see cref="FileNameDisplayMode"/> that indicates what kind of string to convert to.
         /// </summary>
-        public FileInfoDisplayMode DisplayMode { get; set; } = FileInfoDisplayMode.Default;
+        public FileNameDisplayMode DisplayMode { get; set; } = FileNameDisplayMode.Default;
 
         /// <summary>
         /// Converts a value to another type.
@@ -50,15 +50,20 @@ namespace MSIExtract.Controls
                 throw new InvalidOperationException("Cannot convert to any type except System.String");
             }
 
-            var file = (FileSystemInfo)value;
-            NativeMethods.IShellItem item = NativeMethods.SHCreateItemFromParsingName(file.FullName, IntPtr.Zero, typeof(NativeMethods.IShellItem).GUID);
+            var path = (string)value;
+            if (!Path.IsPathRooted(path))
+            {
+                throw new ArgumentException("Path must be rooted", nameof(value));
+            }
+
+            NativeMethods.IShellItem2 item = NativeMethods.SHCreateItemFromParsingName(path, IntPtr.Zero, typeof(NativeMethods.IShellItem2).GUID);
 
             NativeMethods.SIGDN sigdn = DisplayMode switch
             {
-                FileInfoDisplayMode.Default => NativeMethods.SIGDN.NORMALDISPLAY,
-                FileInfoDisplayMode.FullPath => NativeMethods.SIGDN.FILESYSPATH,
-                FileInfoDisplayMode.NameOnly => NativeMethods.SIGDN.PARENTRELATIVEPARSING,
-                _ => throw new InvalidOperationException($"Unexpected {nameof(FileInfoDisplayMode)}")
+                FileNameDisplayMode.Default => NativeMethods.SIGDN.NORMALDISPLAY,
+                FileNameDisplayMode.FullPath => NativeMethods.SIGDN.FILESYSPATH,
+                FileNameDisplayMode.NameOnly => NativeMethods.SIGDN.PARENTRELATIVEPARSING,
+                _ => throw new InvalidOperationException($"Unexpected {nameof(FileNameDisplayMode)}")
             };
 
             item.GetDisplayName(sigdn, out string name);
