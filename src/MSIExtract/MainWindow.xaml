@@ -51,7 +51,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Margin="0 0 8 0" VerticalAlignment="Center">File:</TextBlock>
+                <TextBlock Grid.Column="0" Margin="0 4 8 0" VerticalAlignment="Top">File:</TextBlock>
                 <Controls:FilePicker Grid.Column="1" FilePath="{Binding Source=DataContext, Path=MsiFile}" OpenDialogFilter="MSI Files (*.msi)|*.msi" />
             </Grid>
 
