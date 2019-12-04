@@ -48,7 +48,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Margin="0 0 8 0" VerticalAlignment="Center">File:</TextBlock>
-                <Controls:FilePicker Grid.Column="1" File="{Binding Source=DataContext, Path=MsiFile}" />
+                <Controls:FilePicker Grid.Column="1" File="{Binding Source=DataContext, Path=MsiFile}" OpenDialogFilter="MSI Files (*.msi)|*.msi" />
             </Grid>
 
             <TabControl Grid.Row="1" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
