@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MSIExtract.Controls;
 
 namespace MSIExtract
 {
@@ -30,6 +31,11 @@ namespace MSIExtract
         {
             this.InitializeComponent();
             DataContext = new AppModel();
+        }
+
+        private void CloseWindowCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
