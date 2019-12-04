@@ -5,6 +5,7 @@
     <Style TargetType="Controls:FilePicker" x:Key="{x:Type Controls:FilePicker}">
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="Controls:SystemParameterProperties.HighContrast" Value="{DynamicResource {x:Static SystemParameters.HighContrastKey}}" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -24,7 +25,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Image x:Name="PART_Icon" Width="16" Height="16" VerticalAlignment="Center" Margin="0 0 4 0" />
-                            <TextBlock Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0 0 4 0"
+                            <TextBlock x:Name="PART_Text" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0 0 4 0"
                                        Text="{Binding Source={RelativeSource Mode=TemplatedParent}, Path=File, Converter={StaticResource FileInfoConverter}, FallbackValue={StaticResource NoneText}, Mode=OneWay}" />
                             <Button x:Name="PART_ChooseButton" Content="_Choose..." Grid.Column="2" VerticalAlignment="Center" Padding="10 1" />
                         </Grid>
@@ -38,6 +39,15 @@
                         <Trigger Property="File" Value="{x:Null}">
                             <Setter TargetName="PART_Icon" Property="Visibility" Value="Collapsed" />
                         </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Controls:SystemParameterProperties.HighContrast" Value="False" />
+                                <Condition Property="File" Value="{x:Null}" />
+                            </MultiTrigger.Conditions>
+
+                            <Setter TargetName="PART_Text" Property="TextBlock.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
