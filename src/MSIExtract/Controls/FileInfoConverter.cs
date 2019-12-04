@@ -18,7 +18,7 @@ namespace MSIExtract.Controls
         /// <summary>
         /// Gets or sets a value of type <see cref="FileInfoDisplayMode"/> that indicates what kind of string to convert to.
         /// </summary>
-        public FileInfoDisplayMode DisplayMode { get; set; }
+        public FileInfoDisplayMode DisplayMode { get; set; } = FileInfoDisplayMode.Default;
 
         /// <summary>
         /// Converts a value to another type.
