@@ -24,10 +24,10 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Image x:Name="PART_Icon" Width="16" Height="16" VerticalAlignment="Center" Margin="0 0 4 0" />
-                            <TextBlock x:Name="PART_Text" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0 0 4 0"
+                            <Image x:Name="PART_Icon" Width="16" Height="16" VerticalAlignment="Top" Margin="0 4 4 0" />
+                            <TextBlock x:Name="PART_Text" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextWrapping="Wrap" Margin="0 4 4 0"
                                        Text="{Binding Source={RelativeSource Mode=TemplatedParent}, Path=File, Converter={StaticResource FileInfoConverter}, FallbackValue={StaticResource NoneText}, Mode=OneWay}" />
-                            <Button x:Name="PART_ChooseButton" Content="_Choose..." Grid.Column="2" VerticalAlignment="Center" Padding="10 1" />
+                            <Button x:Name="PART_ChooseButton" Content="_Choose..." Grid.Column="2" VerticalAlignment="Top" Padding="10 1" />
                         </Grid>
                     </Border>
 
