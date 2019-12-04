@@ -26,7 +26,7 @@
 
                             <Image x:Name="PART_Icon" Width="16" Height="16" VerticalAlignment="Top" Margin="0 4 4 0" />
                             <TextBlock x:Name="PART_Text" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextWrapping="Wrap" Margin="0 4 4 0"
-                                       Text="{TemplateBinding File, Converter={StaticResource FileNameConverter}}" />
+                                       Text="{TemplateBinding FilePath, Converter={StaticResource FileNameConverter}}" />
                             <Button x:Name="PART_ChooseButton" Content="_Choose..." Grid.Column="2" VerticalAlignment="Top" Padding="10 1" />
                         </Grid>
                     </Border>
@@ -36,14 +36,14 @@
                             <Setter TargetName="PART_ChooseButton" Property="Visibility" Value="Collapsed" />
                         </Trigger>
 
-                        <Trigger Property="File" Value="{x:Null}">
+                        <Trigger Property="FilePath" Value="{x:Null}">
                             <Setter TargetName="PART_Icon" Property="Visibility" Value="Collapsed" />
                         </Trigger>
 
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="Controls:SystemParameterProperties.HighContrast" Value="False" />
-                                <Condition Property="File" Value="{x:Null}" />
+                                <Condition Property="FilePath" Value="{x:Null}" />
                             </MultiTrigger.Conditions>
 
                             <Setter TargetName="PART_Text" Property="TextBlock.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />

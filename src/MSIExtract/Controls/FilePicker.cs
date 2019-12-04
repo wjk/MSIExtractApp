@@ -27,10 +27,10 @@ namespace MSIExtract.Controls
     public class FilePicker : Control
     {
         /// <summary>
-        /// Provides identity for the <see cref="File"/> dependency property.
+        /// Provides identity for the <see cref="FilePath"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty FileProperty = DependencyProperty.Register(
-            nameof(File),
+        public static readonly DependencyProperty FilePathProperty = DependencyProperty.Register(
+            nameof(FilePath),
             typeof(string),
             typeof(FilePicker),
             new FrameworkPropertyMetadata(
@@ -58,10 +58,10 @@ namespace MSIExtract.Controls
         /// <summary>
         /// Gets or sets the selected file.
         /// </summary>
-        public string? File
+        public string? FilePath
         {
-            get => (string?)GetValue(FileProperty);
-            set => SetValue(FileProperty, value);
+            get => (string?)GetValue(FilePathProperty);
+            set => SetValue(FilePathProperty, value);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace MSIExtract.Controls
             chooseButtonPart.Click += ChooseButtonPart_Click;
             iconPart.SizeChanged += IconPart_SizeChanged;
 
-            FilePropertyChanged(File);
+            FilePropertyChanged(FilePath);
         }
 
         private static string? CoerceFile(object value)
@@ -130,16 +130,16 @@ namespace MSIExtract.Controls
 
         private void IconPart_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            FilePropertyChanged(File);
+            FilePropertyChanged(FilePath);
         }
 
         private void ChooseButtonPart_Click(object sender, RoutedEventArgs e)
         {
             string directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            if (!string.IsNullOrEmpty(File))
+            if (!string.IsNullOrEmpty(FilePath))
             {
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type (checked immediately below)
-                directory = Path.GetDirectoryName(File);
+                directory = Path.GetDirectoryName(FilePath);
 #pragma warning restore CS8600
 
                 if (directory == null)
@@ -161,7 +161,7 @@ namespace MSIExtract.Controls
             bool? result = dialog.ShowDialog(Window.GetWindow(this));
             if (result.HasValue && result.Value)
             {
-                File = dialog.FileName;
+                FilePath = dialog.FileName;
             }
         }
 
