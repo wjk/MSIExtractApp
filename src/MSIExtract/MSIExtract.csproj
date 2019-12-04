@@ -7,7 +7,7 @@
 
     <AssemblyTitle>MSI Viewer</AssemblyTitle>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <NoWarn>CS8002;SA1101;IDE0009</NoWarn>
+    <NoWarn>CS8002;CA1303;SA1101;IDE0009</NoWarn>
 
     <UseCentennialDepsFileGeneration>false</UseCentennialDepsFileGeneration>
     <RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
