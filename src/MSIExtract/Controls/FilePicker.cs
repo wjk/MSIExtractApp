@@ -68,9 +68,9 @@ namespace MSIExtract.Controls
         /// <summary>
         /// Gets or sets the filter string used in the choose-file dialog.
         /// </summary>
-        public string OpenDialogFilter
+        public string? OpenDialogFilter
         {
-            get => (string)GetValue(OpenDialogFilterProperty);
+            get => (string?)GetValue(OpenDialogFilterProperty);
             set => SetValue(OpenDialogFilterProperty, value);
         }
 
