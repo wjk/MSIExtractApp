@@ -43,6 +43,11 @@ namespace MSIExtract.Controls
         /// </summary>
         public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(FilePicker), new FrameworkPropertyMetadata(false));
 
+        /// <summary>
+        /// Provides identity for the <see cref="OpenDialogFilter"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty OpenDialogFilterProperty = DependencyProperty.Register(nameof(OpenDialogFilter), typeof(string), typeof(FilePicker), new PropertyMetadata(null));
+
         private Image? iconPart;
         private Button? chooseButtonPart;
 
@@ -58,6 +63,15 @@ namespace MSIExtract.Controls
         {
             get => (FileInfo?)GetValue(FileProperty);
             set => SetValue(FileProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the filter string used in the choose-file dialog.
+        /// </summary>
+        public string OpenDialogFilter
+        {
+            get => (string)GetValue(OpenDialogFilterProperty);
+            set => SetValue(OpenDialogFilterProperty, value);
         }
 
         /// <summary>
@@ -126,7 +140,21 @@ namespace MSIExtract.Controls
 
         private void ChooseButtonPart_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var dialog = new OpenFileDialog
+            {
+                AddExtension = true,
+                Filter = OpenDialogFilter,
+                InitialDirectory = File?.Directory.FullName ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                Title = "Choose File",
+                CheckPathExists = true,
+                Multiselect = false,
+            };
+
+            bool? result = dialog.ShowDialog(Window.GetWindow(this));
+            if (result.HasValue && result.Value)
+            {
+                File = new FileInfo(dialog.FileName);
+            }
         }
 
         private void FilePropertyChanged(FileInfo? newValue)
@@ -143,7 +171,7 @@ namespace MSIExtract.Controls
 
                 var window = Window.GetWindow(this);
                 uint scale = NativeMethods.GetDpiForWindow(new WindowInteropHelper(window).Handle) / 96;
-                var iconSize = new NativeMethods.SIZE((int)(iconPart.ActualWidth * scale), (int)(iconPart.ActualHeight * scale));
+                var iconSize = new NativeMethods.SIZE((int)(iconPart.Width * scale), (int)(iconPart.Height * scale));
 
                 var imageFactory = (NativeMethods.IShellItemImageFactory)shellItem;
                 imageFactory.GetImage(iconSize, NativeMethods.SIIGBF.RESIZETOFIT | NativeMethods.SIIGBF.ICONONLY, out IntPtr hBitmap);
