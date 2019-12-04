@@ -17,14 +17,14 @@
                         
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <Image x:Name="PART_Icon" Width="16" Height="16" VerticalAlignment="Center" Margin="0 0 4 0" />
-                            <TextBlock x:Name="PART_Text" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                       TextWrapping="Wrap" Margin="0 0 4 0" Text="{Binding Source={TemplateBinding File}, Path=FullName, FallbackValue={StaticResource NoneText}}" />
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0 0 4 0"
+                                       Text="{Binding Source={TemplateBinding File}, Path=FullName, FallbackValue={StaticResource NoneText}}" />
                             <Button x:Name="PART_ChooseButton" Content="_Choose..." Grid.Column="2" VerticalAlignment="Center" Padding="10 1" />
                         </Grid>
                     </Border>
@@ -32,6 +32,10 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsReadOnly" Value="True">
                             <Setter TargetName="PART_ChooseButton" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+
+                        <Trigger Property="File" Value="{x:Null}">
+                            <Setter TargetName="PART_Icon" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
