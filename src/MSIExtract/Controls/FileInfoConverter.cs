@@ -11,7 +11,7 @@ using MSIExtract.Interop;
 namespace MSIExtract.Controls
 {
     /// <summary>
-    /// Converts <see cref="File"/> instances to strings suitable for display in the UI.
+    /// Converts <see cref="FileSystemInfo"/> instances to strings suitable for display in the UI.
     /// </summary>
     public sealed class FileInfoConverter : IValueConverter
     {
@@ -38,7 +38,7 @@ namespace MSIExtract.Controls
         /// <returns>
         /// The converted value.
         /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
             {
@@ -50,7 +50,7 @@ namespace MSIExtract.Controls
                 throw new InvalidOperationException("Cannot convert to any type except System.String");
             }
 
-            FileInfo file = (FileInfo)value;
+            var file = (FileSystemInfo)value;
             NativeMethods.IShellItem item = NativeMethods.SHCreateItemFromParsingName(file.FullName, IntPtr.Zero, typeof(NativeMethods.IShellItem).GUID);
 
             NativeMethods.SIGDN sigdn = DisplayMode switch
