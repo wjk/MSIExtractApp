@@ -83,6 +83,7 @@ namespace MSIExtract.Msi
                     _records = new List<object[]>();
                     Record sourceRecord = null;
 
+                    _underlyingView.Execute();
                     while ((sourceRecord = _underlyingView.Fetch()) != null)
                     {
                         using (sourceRecord)
