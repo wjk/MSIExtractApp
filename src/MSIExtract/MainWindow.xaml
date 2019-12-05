@@ -5,10 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         xmlns:Controls="clr-namespace:MSIExtract.Controls"
         xmlns:Views="clr-namespace:MSIExtract.Views"
+        xmlns:Model="clr-namespace:MSIExtract"
         Title="MSI Viewer" Height="450" Width="800" MinHeight="450" MinWidth="800">
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" Executed="CloseWindowCommand_Executed" />
     </Window.CommandBindings>
+
+    <Window.Resources>
+        <Model:AppModel x:Key="AppModel" />
+    </Window.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -52,7 +57,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Margin="0 4 8 0" VerticalAlignment="Top">File:</TextBlock>
-                <Controls:FilePicker Grid.Column="1" FilePath="{Binding Source=DataContext, Path=MsiFile}" OpenDialogFilter="MSI Files (*.msi)|*.msi" />
+                <Controls:FilePicker Grid.Column="1" FilePath="{Binding Source={StaticResource AppModel}, Path=MsiFile}" OpenDialogFilter="MSI Files (*.msi)|*.msi" />
             </Grid>
 
             <TabControl Grid.Row="1" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
