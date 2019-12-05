@@ -17,7 +17,7 @@ namespace MSIExtract
     public sealed class AppModel : INotifyPropertyChanged
     {
         private string? msiPath;
-        private ObservableCollection<MsiFile>? files;
+        private ObservableCollection<MsiFile> files = new ObservableCollection<MsiFile>();
 
         /// <summary>
         /// Raised when a property on this class is changed.
@@ -49,7 +49,7 @@ namespace MSIExtract
                 else
                 {
                     msiPath = null;
-                    files = null;
+                    files.Clear();
                 }
 
                 OnPropertyChanged(nameof(MsiPath));
@@ -60,7 +60,7 @@ namespace MSIExtract
         /// <summary>
         /// Gets a collection of the files installed by the MSI.
         /// </summary>
-        public ObservableCollection<MsiFile>? Files => files;
+        public ObservableCollection<MsiFile> Files => files;
 
         private void OnPropertyChanged(string propertyName)
         {
