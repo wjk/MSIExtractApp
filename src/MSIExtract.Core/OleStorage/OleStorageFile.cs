@@ -19,7 +19,7 @@ using Path = LessIO.Path;
 using SeekOrigin = System.IO.SeekOrigin;
 using Stream = System.IO.Stream;
 
-namespace LessMsi.OleStorage
+namespace MSIExtract.OleStorage
 {
     /// <summary>
     /// Represents a Microsoft OLE Structured Storage File (of which MSIs are one of them, but so are things like the old Office binary documents).

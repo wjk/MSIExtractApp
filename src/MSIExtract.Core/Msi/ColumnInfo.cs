@@ -24,7 +24,7 @@
 //
 using System;
 
-namespace LessMsi.Msi
+namespace MSIExtract.Msi
 {
     /// <summary>
     /// FYI: http://msdn.microsoft.com/library/default.asp?url=/library/en-us/msi/setup/column_definition_format.asp

@@ -31,13 +31,13 @@ using System.IO.Packaging;
 using System.Linq;
 using System.Threading;
 using LessIO;
-using LessMsi.OleStorage;
+using MSIExtract.OleStorage;
 using WixToolset.Dtf.Compression;
 using WixToolset.Dtf.Compression.Cab;
 using WixToolset.Dtf.WindowsInstaller;
 using Path = LessIO.Path;
 
-namespace LessMsi.Msi
+namespace MSIExtract.Msi
 {
     public class Wixtracts
     {

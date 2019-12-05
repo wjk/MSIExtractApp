@@ -27,7 +27,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using WixToolset.Dtf.WindowsInstaller;
 
-namespace LessMsi.Msi
+namespace MSIExtract.Msi
 {
     public class ViewWrapper : IDisposable
     {

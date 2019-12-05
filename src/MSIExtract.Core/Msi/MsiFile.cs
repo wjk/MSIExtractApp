@@ -26,7 +26,7 @@ using System.Collections;
 using System.Diagnostics;
 using WixToolset.Dtf.WindowsInstaller;
 
-namespace LessMsi.Msi
+namespace MSIExtract.Msi
 {
     /// <summary>
     /// Represents a file in the msi file table/view.

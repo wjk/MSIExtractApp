@@ -30,7 +30,7 @@ using System.Diagnostics;
 using System.Linq;
 using WixToolset.Dtf.WindowsInstaller;
 
-namespace LessMsi.Msi
+namespace MSIExtract.Msi
 {
     /// <summary>
     /// Represents an entry in the Directory table of an MSI file.
