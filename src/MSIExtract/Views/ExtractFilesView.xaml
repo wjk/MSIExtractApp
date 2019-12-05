@@ -6,11 +6,31 @@
              xmlns:Controls="clr-namespace:MSIExtract.Controls"
              xmlns:Views="clr-namespace:MSIExtract.Views"
              xmlns:Aero="clr-namespace:PresentationTheme.Aero;assembly=PresentationTheme.Aero"
+             xmlns:Msi="clr-namespace:MSIExtract.Msi;assembly=MSIExtract.Core"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.CommandBindings>
         <CommandBinding Command="{x:Static ApplicationCommands.SelectAll}" Executed="SelectAllCommand_Executed" />
         <CommandBinding Command="{x:Static Views:ExtractFilesView.SelectNoneCommand}" Executed="SelectNoneCommand_Executed" />
     </UserControl.CommandBindings>
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="FileListViewItem" DataType="{x:Type Msi:MsiFile}">
+            <Grid Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock FontWeight="Bold" Text="{Binding Path=File, Mode=OneWay}" Grid.Row="0" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding Path=Directory.TargetName, Mode=OneWay}" Grid.Row="1" TextWrapping="Wrap" />
+                <TextBlock Grid.Row="2" Margin="0 4 0 0" TextWrapping="Wrap">
+                    <Run>Component:</Run>
+                    <Run Text="{Binding Path=Component, Mode=OneWay}" />
+                </TextBlock>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -25,7 +45,15 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <ListView x:Name="FileListView" x:FieldModifier="private" Aero:ThemeOptions.UseExplorerStyle="True" Grid.Row="0" Grid.ColumnSpan="4" SelectionMode="Multiple" />
+        <ListView x:Name="FileListView" x:FieldModifier="private" Aero:ThemeOptions.UseExplorerStyle="True" Grid.Row="0" Grid.ColumnSpan="4" SelectionMode="Multiple"
+                  ItemsSource="{Binding Source={RelativeSource AncestorType=Views:ExtractFilesView}, Path=Files, Mode=OneWay}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn CellTemplate="{StaticResource FileListViewItem}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
         <Button Content="Select _All" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 8 0" Padding="10 1" Command="{x:Static ApplicationCommands.SelectAll}" />
         <Button Content="_Deselect All" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 4 0" Padding="10 1" Command="{x:Static Views:ExtractFilesView.SelectNoneCommand}" />
         <Button Content="_Extract" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4 8 0 0" Padding="10 1" IsDefault="True" />

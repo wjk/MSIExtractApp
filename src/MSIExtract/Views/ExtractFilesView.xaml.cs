@@ -2,7 +2,9 @@
 // Licensed under the MIT License. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MSIExtract.Controls;
+using MSIExtract.Msi;
 
 namespace MSIExtract.Views
 {
@@ -22,6 +25,11 @@ namespace MSIExtract.Views
     /// </summary>
     public partial class ExtractFilesView : UserControl
     {
+        /// <summary>
+        /// Provides identity for the <see cref="MsiFiles"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty MsiFilesProperty = DependencyProperty.Register(nameof(MsiFiles), typeof(ObservableCollection<MsiFile>), typeof(ExtractFilesView), new FrameworkPropertyMetadata(null));
+
         /// <summary>
         /// Identifier for the "Select None" command.
         /// </summary>
@@ -33,6 +41,16 @@ namespace MSIExtract.Views
         public ExtractFilesView()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Gets or sets the collection of <see cref="MsiFile"/> instances that are the data source for this view.
+        /// </summary>
+        [SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "Makes data binding impossible")]
+        public ObservableCollection<MsiFile> MsiFiles
+        {
+            get => (ObservableCollection<MsiFile>)GetValue(MsiFilesProperty);
+            set => SetValue(MsiFilesProperty, value);
         }
 
         private void SelectAllCommand_Executed(object sender, ExecutedRoutedEventArgs e)
