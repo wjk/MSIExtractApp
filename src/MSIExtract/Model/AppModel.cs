@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
@@ -39,7 +39,8 @@ namespace MSIExtract
                 Files.Clear();
                 if (msiPath != null)
                 {
-                    Files.AddRange(MsiFile.CreateMsiFilesFromMSI(new LessIO.Path(msiPath)));
+                    MsiFile[] msiFiles = MsiFile.CreateMsiFilesFromMSI(new LessIO.Path(msiPath));
+                    Files = new ObservableCollection<MsiFile>(msiFiles);
                 }
 
                 OnPropertyChanged(nameof(MsiPath));
@@ -50,7 +51,7 @@ namespace MSIExtract
         /// <summary>
         /// Gets a collection of the files installed by the MSI.
         /// </summary>
-        public List<MsiFile> Files { get; } = new List<MsiFile>();
+        public ObservableCollection<MsiFile> Files { get; private set; } = new ObservableCollection<MsiFile>();
 
         private void OnPropertyChanged(string propertyName)
         {
