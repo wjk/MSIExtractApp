@@ -54,12 +54,12 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Margin="0 4 8 0" VerticalAlignment="Top">File:</TextBlock>
-                <Controls:FilePicker Grid.Column="1" FilePath="{Binding Path=MsiPath}" OpenDialogFilter="MSI Files (*.msi)|*.msi" />
+                <Controls:FilePicker Grid.Column="1" FilePath="{Binding Path=MsiPath, Mode=TwoWay}" OpenDialogFilter="MSI Files (*.msi)|*.msi" />
             </Grid>
 
             <TabControl Grid.Row="1" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <TabItem Header="Extract Files" IsSelected="True">
-                    <Views:ExtractFilesView DataContext="{Binding Source={RelativeSource AncestorType=Model:MainWindow}, Path=DataContext}" />
+                    <Views:ExtractFilesView DataContext="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType=Model:MainWindow}, Path=DataContext}" />
                 </TabItem>
 
                 <TabItem Header="Table View">
