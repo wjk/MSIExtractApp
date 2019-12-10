@@ -57,7 +57,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Margin="0 4 8 0" VerticalAlignment="Top">File:</TextBlock>
-                <Controls:FilePicker Grid.Column="1" FilePath="{Binding Source={StaticResource AppModel}, Path=MsiPath, Mode=TwoWay}" OpenDialogFilter="MSI Files (*.msi)|*.msi" />
+                <Controls:FilePicker Grid.Column="1" FilePath="{Binding Source={StaticResource AppModel}, Path=MsiPath}" OpenDialogFilter="MSI Files (*.msi)|*.msi" />
             </Grid>
 
             <TabControl Grid.Row="1" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
