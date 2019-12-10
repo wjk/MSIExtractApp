@@ -47,5 +47,10 @@ namespace MSIExtract.Views
         {
             FileListView.SelectedItems.Clear();
         }
+
+        private void SelectionCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = FileListView.Items.Count > 0;
+        }
     }
 }
