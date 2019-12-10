@@ -45,7 +45,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <ListView x:Name="FileListView" x:FieldModifier="private" Aero:ThemeOptions.UseExplorerStyle="True" Grid.Row="0" Grid.ColumnSpan="4" SelectionMode="Multiple"
+        <ListView x:Name="FileListView" x:FieldModifier="private" Aero:ThemeOptions.UseExplorerStyle="True" Grid.Row="0" Grid.ColumnSpan="4" SelectionMode="Extended"
                   ItemsSource="{Binding Path=Files, Mode=OneWay}" ItemTemplate="{StaticResource FileListViewItem}">
         </ListView>
 
