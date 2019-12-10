@@ -59,7 +59,7 @@
 
             <TabControl Grid.Row="1" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <TabItem Header="Extract Files" IsSelected="True">
-                    <Views:ExtractFilesView MsiFiles="{Binding Path=Files}" />
+                    <Views:ExtractFilesView DataContext="{Binding Source={RelativeSource AncestorType=Model:MainWindow}, Path=DataContext}" />
                 </TabItem>
 
                 <TabItem Header="Table View">
