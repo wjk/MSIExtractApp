@@ -36,11 +36,14 @@ namespace MSIExtract
             {
                 msiPath = value;
 
-                Files.Clear();
                 if (msiPath != null)
                 {
                     MsiFile[] msiFiles = MsiFile.CreateMsiFilesFromMSI(new LessIO.Path(msiPath));
                     Files = new ObservableCollection<MsiFile>(msiFiles);
+                }
+                else
+                {
+                    Files = new ObservableCollection<MsiFile>();
                 }
 
                 OnPropertyChanged(nameof(MsiPath));
