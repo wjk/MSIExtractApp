@@ -30,6 +30,7 @@ namespace MSIExtract
         public MainWindow()
         {
             this.InitializeComponent();
+            DataContext = new AppModel();
         }
 
         private void CloseWindowCommand_Executed(object sender, ExecutedRoutedEventArgs e)
