@@ -26,11 +26,6 @@ namespace MSIExtract.Views
     public partial class ExtractFilesView : UserControl
     {
         /// <summary>
-        /// Provides identity for the <see cref="MsiFiles"/> dependency property.
-        /// </summary>
-        public static readonly DependencyProperty MsiFilesProperty = DependencyProperty.Register(nameof(MsiFiles), typeof(ObservableCollection<MsiFile>), typeof(ExtractFilesView), new FrameworkPropertyMetadata(null));
-
-        /// <summary>
         /// Identifier for the "Select None" command.
         /// </summary>
         public static readonly RoutedCommand SelectNoneCommand = Commands.CreateCommand("SelectNone", typeof(ExtractFilesView), new KeyGesture(Key.A, ModifierKeys.Control | ModifierKeys.Shift));
@@ -41,16 +36,6 @@ namespace MSIExtract.Views
         public ExtractFilesView()
         {
             InitializeComponent();
-        }
-
-        /// <summary>
-        /// Gets or sets the collection of <see cref="MsiFile"/> instances that are the data source for this view.
-        /// </summary>
-        [SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "Makes data binding impossible")]
-        public ObservableCollection<MsiFile> MsiFiles
-        {
-            get => (ObservableCollection<MsiFile>)GetValue(MsiFilesProperty);
-            set => SetValue(MsiFilesProperty, value);
         }
 
         private void SelectAllCommand_Executed(object sender, ExecutedRoutedEventArgs e)
