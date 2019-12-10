@@ -46,12 +46,7 @@
         </Grid.ColumnDefinitions>
 
         <ListView x:Name="FileListView" x:FieldModifier="private" Aero:ThemeOptions.UseExplorerStyle="True" Grid.Row="0" Grid.ColumnSpan="4" SelectionMode="Multiple"
-                  ItemsSource="{Binding Path=Files, Mode=OneWay}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn CellTemplate="{StaticResource FileListViewItem}" />
-                </GridView>
-            </ListView.View>
+                  ItemsSource="{Binding Path=Files, Mode=OneWay}" ItemTemplate="{StaticResource FileListViewItem}">
         </ListView>
 
         <Button Content="Select _All" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 8 0" Padding="10 1" Command="{x:Static ApplicationCommands.SelectAll}" />
