@@ -26,28 +26,24 @@ using System.Collections;
 using System.Diagnostics;
 using WixToolset.Dtf.WindowsInstaller;
 
-namespace LessMsi.Msi
+namespace MSIExtract.Msi
 {
     /// <summary>
     /// Represents a file in the msi file table/view.
     /// </summary>
     public class MsiFile
     {
-        public string File;// a unique id for the file
-        public string LongFileName;
-        public string ShortFileName;
-        public int FileSize;
-        public string Version;
-        public string Component;
-        private MsiDirectory _directory;
+        public string File { get; private set; }
+        public string LongFileName { get; private set; }
+        public string ShortFileName { get; private set; }
+        public int FileSize { get; private set; }
+        public string Version { get; private set; }
+        public string Component { get; private set; }
 
         /// <summary>
         /// Returns the directory that this file belongs in.
         /// </summary>
-        public MsiDirectory Directory
-        {
-            get { return _directory; }
-        }
+        public MsiDirectory Directory { get; private set; }
 
         private MsiFile()
         {
@@ -103,7 +99,7 @@ namespace LessMsi.Msi
                 file.Version = row.GetString("Version");
                 file.Component = row.GetString("Component_");
 
-                file._directory = GetDirectoryForFile(file, allDirectories, componentsByComponentTable);
+                file.Directory = GetDirectoryForFile(file, allDirectories, componentsByComponentTable);
                 files.Add(file);
             }
             return (MsiFile[])files.ToArray(typeof(MsiFile));

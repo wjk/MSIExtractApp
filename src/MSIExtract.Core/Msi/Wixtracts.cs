@@ -31,13 +31,13 @@ using System.IO.Packaging;
 using System.Linq;
 using System.Threading;
 using LessIO;
-using LessMsi.OleStorage;
+using MSIExtract.OleStorage;
 using WixToolset.Dtf.Compression;
 using WixToolset.Dtf.Compression.Cab;
 using WixToolset.Dtf.WindowsInstaller;
 using Path = LessIO.Path;
 
-namespace LessMsi.Msi
+namespace MSIExtract.Msi
 {
     public class Wixtracts
     {
@@ -260,44 +260,6 @@ namespace LessMsi.Msi
             }
         }
 
-        private sealed class UnpackContext : IUnpackStreamContext
-        {
-            public UnpackContext(IReadOnlyList<CabInfo> cabs)
-            {
-                Cabinets = cabs;
-            }
-
-            public Func<string, Stream> CreateFileStream { get; set; }
-
-            public Action<string> FileCompleted { get; set; }
-
-            public IReadOnlyList<CabInfo> Cabinets { get; }
-
-            public Stream OpenArchiveReadStream(int archiveNumber, string archiveName, CompressionEngine compressionEngine)
-            {
-                return File.Open(Cabinets[archiveNumber].LocalCabFile, FileMode.Open);
-            }
-
-            public void CloseArchiveReadStream(int archiveNumber, string archiveName, Stream stream)
-            {
-                stream.Dispose();
-            }
-
-            public Stream OpenFileWriteStream(string path, long fileSize, DateTime lastWriteTime)
-            {
-                if (CreateFileStream == null) throw new InvalidOperationException("CreateFileStream must be set");
-                return CreateFileStream(path);
-            }
-
-            public void CloseFileWriteStream(string path, Stream stream, System.IO.FileAttributes attributes, DateTime lastWriteTime)
-            {
-                stream.Dispose();
-                File.SetAttributes(path, attributes);
-                File.SetLastWriteTime(path, lastWriteTime);
-                FileCompleted?.Invoke(path);
-            }
-        }
-
         /// <summary>
         /// Extracts the compressed files from the specified MSI file to the specified output directory.
         /// If specified, the list of <paramref name="filesToExtract"/> objects are the only files extracted.
@@ -336,7 +298,7 @@ namespace LessMsi.Msi
 
                 //map short file names to the msi file entry
                 var fileEntryMap = new Dictionary<string, MsiFile>(filesToExtract.Length, StringComparer.InvariantCulture);
-                foreach (var fileEntry in filesToExtract)
+                foreach (MsiFile fileEntry in filesToExtract)
                 {
                     MsiFile existingFile = null;
                     if (fileEntryMap.TryGetValue(fileEntry.File, out existingFile))
@@ -353,42 +315,31 @@ namespace LessMsi.Msi
 
                 Debug.Assert(fileEntryMap.Count == filesToExtract.Length, "Duplicate files must have caused some files to not be in the map.");
 
-                var cabEngine = new CabEngine();
-                var cabInfos = CabsFromMsiToDisk(msi, msidb, outputDir);
-
-                var context = new UnpackContext(cabInfos);
-                context.CreateFileStream = (nameInCab) =>
-                {
-                    if (!fileEntryMap.ContainsKey(nameInCab))
-                    {
-                        // Returning null will instruct Dtf to skip this file.
-#pragma warning disable CS8603 // Possible null reference return (false positive)
-                        return null;
-#pragma warning restore CS8603 // Possible null reference return
-                    }
-
-                    progress.ReportProgress(ExtractionActivity.ExtractingFile, nameInCab, filesExtractedSoFar);
-
-                    Path sourcePath = new Path(nameInCab);
-                    string targetDirectoryForFile = GetTargetDirectory(outputDir, sourcePath.Parent.PathString);
-                    Path destName = Path.Combine(targetDirectoryForFile, sourcePath.Parent.PathString);
-                    return File.Open(destName.PathString, FileMode.CreateNew);
-                };
-                context.FileCompleted = (name) =>
-                {
-                    filesExtractedSoFar++;
-                };
+                progress.ReportProgress(ExtractionActivity.Uncompressing, string.Empty, filesExtractedSoFar);
+                List<CabInfo> cabInfos = CabsFromMsiToDisk(msi, msidb, outputDir);
 
                 try
                 {
-                    cabEngine.Unpack(context, null);
+                    foreach (CabInfo cab in cabInfos)
+                    {
+                        foreach (CabFileInfo cabFile in cab.GetFiles())
+                        {
+                            var sourcePath = Path.Combine(cabFile.Path, cabFile.Name);
+                            if (fileEntryMap.TryGetValue(sourcePath.PathString, out MsiFile msiFile))
+                            {
+                                Path destPath = Path.Combine(GetTargetDirectory(outputDir, msiFile.Directory.FullPath), msiFile.LongFileName);
+                                Path relativeDestPath = Path.Combine(msiFile.Directory.FullPath, msiFile.LongFileName);
+                                progress.ReportProgress(ExtractionActivity.ExtractingFile, relativeDestPath.PathString, ++filesExtractedSoFar);
+                                cab.UnpackFile(sourcePath.PathString, destPath.PathString);
+                            }
+                        }
+                    }
                 }
                 finally
                 {
-                    cabEngine.Dispose();
                     foreach (CabInfo cab in cabInfos)
                     {
-                        DeleteFileForcefully(new Path(cab.LocalCabFile));
+                        DeleteFileForcefully(new Path(cab.FullName));
                     }
                 }
             }
@@ -414,7 +365,7 @@ namespace LessMsi.Msi
         {
             for (var i = 0; i < cabInfos.Count; i++)
             {
-                if (string.Equals(cabInfos[i].CabSourceName, soughtName, StringComparison.InvariantCultureIgnoreCase))
+                if (string.Equals(cabInfos[i].FullName, soughtName, StringComparison.InvariantCultureIgnoreCase))
                 {
                     var found = cabInfos[i];
                     cabInfos.RemoveAt(i);
@@ -449,6 +400,8 @@ namespace LessMsi.Msi
             var localCabFiles = new List<CabInfo>();
             using (View view = msidb.OpenView(query))
             {
+                view.Execute();
+
                 Record record;
                 while ((record = view.Fetch()) != null)
                 {
@@ -485,31 +438,13 @@ namespace LessMsi.Msi
 								* apparently in some cases a file spans multiple CABs (VBRuntime.msi) so due to that we have get all CAB files out of the MSI and then begin extraction. Then after we extract everything out of all CAbs we need to release the CAB extractors and delete temp files.
 								* Thanks to Christopher Hamburg for explaining this!
 							*/
-                            var c = new CabInfo(localCabFile.PathString, cabSourceName);
+                            var c = new CabInfo(localCabFile.PathString);
                             localCabFiles.Add(c);
                         }
                     }
                 }
             }
             return localCabFiles;
-        }
-
-        class CabInfo
-        {
-            /// <summary>
-            /// Name of the cab in the MSI.
-            /// </summary>
-            public string CabSourceName { get; set; }
-            /// <summary>
-            /// Path of the CAB on local disk after we pop it out of the msi.
-            /// </summary>
-            public string LocalCabFile { get; set; } //TODO: Make LocalCabFile use LessIO.Path
-
-            public CabInfo(string localCabFile, string cabSourceName)
-            {
-                LocalCabFile = localCabFile;
-                CabSourceName = cabSourceName;
-            }
         }
 
         public static void ExtractCabFromPackage(Path destCabPath, string cabName, Database inputDatabase, LessIO.Path msiPath)
@@ -568,6 +503,8 @@ namespace LessMsi.Msi
         {
             using (View view = inputDatabase.OpenView("SELECT * FROM `_Streams` WHERE `Name` = '{0}'", cabName))
             {
+                view.Execute();
+
                 Record record;
                 if ((record = view.Fetch()) != null)
                 {

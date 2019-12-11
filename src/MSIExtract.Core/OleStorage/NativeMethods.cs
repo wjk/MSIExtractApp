@@ -4,7 +4,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
-namespace LessMsi.OleStorage
+namespace MSIExtract.OleStorage
 {
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:Elements should be documented", Justification = "Not a public API")]
     internal static class NativeMethods

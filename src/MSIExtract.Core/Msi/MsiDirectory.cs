@@ -30,7 +30,7 @@ using System.Diagnostics;
 using System.Linq;
 using WixToolset.Dtf.WindowsInstaller;
 
-namespace LessMsi.Msi
+namespace MSIExtract.Msi
 {
     /// <summary>
     /// Represents an entry in the Directory table of an MSI file.
@@ -114,26 +114,30 @@ namespace LessMsi.Msi
         /// Returns the full path considering it's parent directories.
         /// </summary>
         /// <returns></returns>
-        public string GetPath()
+        public string FullPath
         {
-            string path = this.TargetName;
-            MsiDirectory parent = this.Parent;
-
-            if (path == ".")
-            {   //happens in python msi
-                Debug.Assert(parent != null, "Can't have null parent and '.' target directory.");
-                path = parent.GetPath();
-                parent = null;
-            }
-
-            while (parent != null)
+            get
             {
-                //Sometimes parent is a '.' In this case, the files should be directly put into the parent of the parent. See http://msdn.microsoft.com/en-us/library/aa368295%28VS.85%29.aspx
-                if (parent.TargetName != ".")
-                    path = Path.Combine(parent.TargetName, path);
-                parent = parent.Parent;
+                string path = this.TargetName;
+                MsiDirectory parent = this.Parent;
+
+                if (path == ".")
+                {
+                    // happens in python msi
+                    Debug.Assert(parent != null, "Can't have null parent and '.' target directory.");
+                    path = parent.FullPath;
+                    parent = null;
+                }
+
+                while (parent != null)
+                {
+                    //Sometimes parent is a '.' In this case, the files should be directly put into the parent of the parent. See http://msdn.microsoft.com/en-us/library/aa368295%28VS.85%29.aspx
+                    if (parent.TargetName != ".")
+                        path = Path.Combine(parent.TargetName, path);
+                    parent = parent.Parent;
+                }
+                return path;
             }
-            return path;
         }
 
         /// <summary>

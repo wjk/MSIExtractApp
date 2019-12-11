@@ -1,0 +1,47 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=System.Runtime"
+                    xmlns:Controls="clr-namespace:MSIExtract.Controls">
+    <Style TargetType="Controls:FilePicker" x:Key="{x:Type Controls:FilePicker}">
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="Controls:SystemParameterProperties.HighContrast" Value="{DynamicResource {x:Static SystemParameters.HighContrastKey}}" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Controls:FilePicker">
+                    <Border x:Name="Root" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" Margin="{TemplateBinding Margin}" Padding="{TemplateBinding Padding}">
+                        <Border.Resources>
+                            <System:String x:Key="NoneText">&lt;None&gt;</System:String>
+                            <Controls:FileNameConverter x:Key="FileNameConverter" DisplayMode="FullPath" FallbackValue="{StaticResource NoneText}" />
+                        </Border.Resources>
+                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Image x:Name="PART_Icon" Width="16" Height="16" VerticalAlignment="Top" Margin="0 4 4 0" />
+                            <TextBlock x:Name="PART_Text" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextWrapping="Wrap" Margin="0 4 4 0"
+                                       Text="{TemplateBinding FilePath, Converter={StaticResource FileNameConverter}}" />
+                            <Button x:Name="PART_ChooseButton" Content="_Choose..." Grid.Column="2" VerticalAlignment="Top" Padding="10 1" />
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsReadOnly" Value="True">
+                            <Setter TargetName="PART_ChooseButton" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+
+                        <Trigger Property="FilePath" Value="{x:Null}">
+                            <Setter TargetName="PART_Icon" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

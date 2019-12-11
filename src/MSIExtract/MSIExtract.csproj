@@ -7,7 +7,7 @@
 
     <AssemblyTitle>MSI Viewer</AssemblyTitle>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <NoWarn>CS8002</NoWarn>
+    <NoWarn>CS8002;CA1303;SA1101;IDE0009;NU1701</NoWarn>
 
     <UseCentennialDepsFileGeneration>false</UseCentennialDepsFileGeneration>
     <RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
@@ -24,7 +24,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.17763.1000" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="1.1.0" />
     <PackageReference Include="PresentationTheme.Aero" Version="0.5.0" />
+    <ProjectReference Include="..\MSIExtract.Core\MSIExtract.Core.csproj" />
     <ProjectReference Include="..\TaskDialog\TaskDialog.csproj" />
 
     <TrimmerRootAssembly Include="PresentationTheme.Aero.Win10" />

@@ -1,0 +1,41 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Controls="clr-namespace:MSIExtract.Controls">
+    <Style x:Key="HeaderLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Foreground" Value="#003399" />
+        <Setter Property="Controls:SystemParameterProperties.HighContrast" Value="{DynamicResource {x:Static SystemParameters.HighContrastKey}}" />
+
+        <Style.Triggers>
+            <Trigger Property="Controls:SystemParameterProperties.HighContrast" Value="True">
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="FooterArea" TargetType="Border">
+        <Setter Property="BorderBrush" Value="#C0C0C0" />
+        <Setter Property="Background" Value="#DFDFDF" />
+        <Setter Property="BorderThickness" Value="0 1 0 0" />
+        <Setter Property="Controls:SystemParameterProperties.HighContrast" Value="{DynamicResource {x:Static SystemParameters.HighContrastKey}}" />
+
+        <Style.Triggers>
+            <Trigger Property="Controls:SystemParameterProperties.HighContrast" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="WindowContentBackground" TargetType="Grid">
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+        <Setter Property="Controls:SystemParameterProperties.HighContrast" Value="{DynamicResource {x:Static SystemParameters.HighContrastKey}}" />
+
+        <Style.Triggers>
+            <Trigger Property="Controls:SystemParameterProperties.HighContrast" Value="True">
+                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

@@ -27,7 +27,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using WixToolset.Dtf.WindowsInstaller;
 
-namespace LessMsi.Msi
+namespace MSIExtract.Msi
 {
     public class ViewWrapper : IDisposable
     {
@@ -83,6 +83,7 @@ namespace LessMsi.Msi
                     _records = new List<object[]>();
                     Record sourceRecord = null;
 
+                    _underlyingView.Execute();
                     while ((sourceRecord = _underlyingView.Fetch()) != null)
                     {
                         using (sourceRecord)

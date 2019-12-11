@@ -28,7 +28,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using WixToolset.Dtf.WindowsInstaller;
 
-namespace LessMsi.Msi
+namespace MSIExtract.Msi
 {
     /// <summary>
     /// Represents a generic row in a table.

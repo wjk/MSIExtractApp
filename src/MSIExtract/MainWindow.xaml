@@ -3,8 +3,103 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
-        Title="MSI Viewer" Height="450" Width="800">
+        xmlns:Controls="clr-namespace:MSIExtract.Controls"
+        xmlns:Views="clr-namespace:MSIExtract.Views"
+        xmlns:Model="clr-namespace:MSIExtract"
+        Title="MSI Viewer" Height="450" Width="800" MinHeight="450" MinWidth="800"
+        d:DataContext="{StaticResource DesignTimeAppModel}">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" Executed="CloseWindowCommand_Executed" />
+    </Window.CommandBindings>
+    
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
+        <Menu Grid.Row="0">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open..." Command="{x:Static ApplicationCommands.Open}" />
+                <MenuItem Header="Recent _Files" IsEnabled="False">
+                    <MenuItem Header="_Clear List" />
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="E_xit" Command="{x:Static SystemCommands.CloseWindowCommand}" />
+            </MenuItem>
+
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Copy" Command="{x:Static ApplicationCommands.Copy}" />
+                <MenuItem Header="Select _All" Command="{x:Static ApplicationCommands.SelectAll}" />
+                <Separator />
+                <MenuItem Header="_Find File" Command="{x:Static ApplicationCommands.Find}" />
+            </MenuItem>
+
+            <MenuItem Header="_Help">
+                <MenuItem Header="_Privacy Policy" />
+                <MenuItem Header="_About MSI Viewer" />
+            </MenuItem>
+        </Menu>
+
+        <Grid Style="{StaticResource WindowContentBackground}" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="8 8 8 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Margin="8 4 8 0" VerticalAlignment="Top">File:</TextBlock>
+                <Controls:FilePicker Grid.Column="1" FilePath="{Binding Path=MsiPath, Mode=TwoWay}" OpenDialogFilter="MSI Files (*.msi)|*.msi" />
+            </Grid>
+
+            <TabControl Grid.Row="1" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TabItem Header="Extract Files" IsSelected="True">
+                    <Views:ExtractFilesView />
+                </TabItem>
+
+                <TabItem Header="Table View">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="4">
+                            <TextBlock Text="Table:" Margin="0 0 4 0" VerticalAlignment="Center" />
+                            <ComboBox VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                        </StackPanel>
+
+                        <DataGrid Grid.Row="1" />
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Summary">
+                    <DataGrid />
+                </TabItem>
+
+                <TabItem Header="Streams">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="4">
+                            <TextBlock Text="Table:" Margin="0 0 4 0" VerticalAlignment="Center" />
+                            <ComboBox VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                        </StackPanel>
+
+                        <DataGrid Grid.Row="1" />
+                        <Button Content="_Extract Stream Files..." Grid.Row="2" Margin="0 8 0 4" Padding="10 1" HorizontalAlignment="Right" VerticalAlignment="Bottom" IsEnabled="False" />
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
     </Grid>
 </Window>
