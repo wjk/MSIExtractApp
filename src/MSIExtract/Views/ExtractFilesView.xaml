@@ -10,6 +10,7 @@
     <UserControl.CommandBindings>
         <CommandBinding Command="{x:Static ApplicationCommands.SelectAll}" Executed="SelectAllCommand_Executed" CanExecute="SelectionCommand_CanExecute" />
         <CommandBinding Command="{x:Static Views:ExtractFilesView.SelectNoneCommand}" Executed="SelectNoneCommand_Executed" CanExecute="SelectionCommand_CanExecute" />
+        <CommandBinding Command="{x:Static Views:ExtractFilesView.ExtractCommand}" Executed="ExtractCommand_Executed" CanExecute="ExtractCommand_CanExecute" />
     </UserControl.CommandBindings>
 
     <UserControl.Resources>
@@ -50,6 +51,6 @@
 
         <Button Content="Select _All" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 8 0" Padding="10 1" Command="{x:Static ApplicationCommands.SelectAll}" />
         <Button Content="_Deselect All" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 4 0" Padding="10 1" Command="{x:Static Views:ExtractFilesView.SelectNoneCommand}" />
-        <Button Content="_Extract" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4 8 0 0" Padding="10 1" IsDefault="True" />
+        <Button Content="_Extract" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4 8 0 0" Padding="10 1" IsDefault="True" Command="{x:Static Views:ExtractFilesView.ExtractCommand}" />
     </Grid>
 </UserControl>
