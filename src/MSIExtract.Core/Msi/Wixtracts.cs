@@ -449,6 +449,8 @@ namespace MSIExtract.Msi
             var localCabFiles = new List<CabInfo>();
             using (View view = msidb.OpenView(query))
             {
+                view.Execute();
+
                 Record record;
                 while ((record = view.Fetch()) != null)
                 {
@@ -568,6 +570,8 @@ namespace MSIExtract.Msi
         {
             using (View view = inputDatabase.OpenView("SELECT * FROM `_Streams` WHERE `Name` = '{0}'", cabName))
             {
+                view.Execute();
+
                 Record record;
                 if ((record = view.Fetch()) != null)
                 {
