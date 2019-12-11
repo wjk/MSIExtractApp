@@ -42,7 +42,6 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <ListView x:Name="FileListView" x:FieldModifier="private" Grid.Row="0" Grid.ColumnSpan="4" SelectionMode="Extended"
@@ -51,6 +50,6 @@
 
         <Button Content="Select _All" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 8 0" Padding="10 1" Command="{x:Static ApplicationCommands.SelectAll}" />
         <Button Content="_Deselect All" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 4 0" Padding="10 1" Command="{x:Static Views:ExtractFilesView.SelectNoneCommand}" />
-        <Button Content="_Extract" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4 8 0 0" Padding="10 1" IsDefault="True" Command="{x:Static Views:ExtractFilesView.ExtractCommand}" />
+        <Button Content="_Extract" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4 8 0 0" Padding="10 1" IsDefault="True" Command="{x:Static Views:ExtractFilesView.ExtractCommand}" />
     </Grid>
 </UserControl>
