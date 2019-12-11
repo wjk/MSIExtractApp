@@ -328,7 +328,8 @@ namespace MSIExtract.Msi
                             if (fileEntryMap.TryGetValue(sourcePath.PathString, out MsiFile msiFile))
                             {
                                 Path destPath = Path.Combine(GetTargetDirectory(outputDir, msiFile.Directory.FullPath), msiFile.LongFileName);
-                                progress.ReportProgress(ExtractionActivity.ExtractingFile, destPath.PathString, ++filesExtractedSoFar);
+                                Path relativeDestPath = Path.Combine(msiFile.Directory.FullPath, msiFile.LongFileName);
+                                progress.ReportProgress(ExtractionActivity.ExtractingFile, relativeDestPath.PathString, ++filesExtractedSoFar);
                                 cab.UnpackFile(sourcePath.PathString, destPath.PathString);
                             }
                         }
