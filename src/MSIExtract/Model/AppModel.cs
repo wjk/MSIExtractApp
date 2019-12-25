@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using MRULib.MRU.Interfaces;
 using MRULib.MRU.Models.Persist;
 using MSIExtract.Msi;
 
@@ -17,6 +18,21 @@ namespace MSIExtract
     public sealed class AppModel : INotifyPropertyChanged
     {
         private string? msiPath;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppModel"/> class.
+        /// </summary>
+        public AppModel()
+        {
+            string dirPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MSI Viewer");
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+
+            string persistPath = Path.Combine(dirPath, "mru.dat");
+            MRUModel = MRUEntrySerializer.Load(persistPath);
+        }
 
         /// <summary>
         /// Raised when a property on this class is changed.
@@ -58,12 +74,24 @@ namespace MSIExtract
         public ObservableCollection<MsiFile> Files { get; private set; } = new ObservableCollection<MsiFile>();
 
         /// <summary>
-        /// Gets an <see cref="MRUList"/> object that contains the list of recently opened MSI files.
+        /// Gets an <see cref="IMRUListViewModel"/> object that contains the list of recently opened MSI files.
         /// </summary>
-        public MRUList MRUList { get; } = new MRUList
+        public IMRUListViewModel MRUModel { get; }
+
+        /// <summary>
+        /// Saves the <see cref="MRUModel"/> to disk.
+        /// </summary>
+        public void SaveMRU()
         {
-            MaxMruEntryCount = 10,
-        };
+            string dirPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MSI Viewer");
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+
+            string persistPath = Path.Combine(dirPath, "mru.dat");
+            MRUEntrySerializer.Save(persistPath, MRUModel);
+        }
 
         private void OnPropertyChanged(string propertyName)
         {

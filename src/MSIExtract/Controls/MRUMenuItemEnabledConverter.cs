@@ -5,12 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
-using MRULib.MRU.Models.Persist;
+using MRULib.MRU.Interfaces;
 
 namespace MSIExtract.Controls
 {
     /// <summary>
-    /// Converts a <see cref="MRUList"/> object into a <see cref="bool"/> value
+    /// Converts a <see cref="IMRUListViewModel"/> object into a <see cref="bool"/> value
     /// that is used to determine whether or not the "Recent Files" menu item is enabled.
     /// </summary>
     public sealed class MRUMenuItemEnabledConverter : IValueConverter
@@ -46,8 +46,8 @@ namespace MSIExtract.Controls
                 return false;
             }
 
-            var list = (List<MRUEntry>)value;
-            return list.Count > 0;
+            var list = (IMRUListViewModel)value;
+            return list.Entries.Count > 0;
         }
 
         /// <summary>
