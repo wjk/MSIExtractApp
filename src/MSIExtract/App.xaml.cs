@@ -39,6 +39,7 @@ namespace MSIExtract
                 td.Show();
 
                 this.Shutdown();
+                return;
             }
 
             ThemeManager.Install();
