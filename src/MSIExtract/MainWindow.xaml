@@ -5,12 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         xmlns:Controls="clr-namespace:MSIExtract.Controls"
         xmlns:Views="clr-namespace:MSIExtract.Views"
-        xmlns:Model="clr-namespace:MSIExtract"
+        xmlns:ComponentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         Title="MSI Viewer" Height="450" Width="800" MinHeight="450" MinWidth="800"
         d:DataContext="{StaticResource DesignTimeAppModel}">
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" Executed="CloseWindowCommand_Executed" />
     </Window.CommandBindings>
+
+    <Window.Resources>
+        <Controls:MRUMenuItemEnabledConverter x:Key="MRUMenuItemEnabledConverter" />
+        <Controls:TruncateFilePathConverter x:Key="TruncateFilePathConverter" />
+    </Window.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -21,8 +26,24 @@
         <Menu Grid.Row="0">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open..." Command="{x:Static ApplicationCommands.Open}" />
-                <MenuItem Header="Recent _Files" IsEnabled="False">
-                    <MenuItem Header="_Clear List" />
+                <MenuItem Header="_Recent Files" IsEnabled="{Binding MRUList.ListOfMRUEntries, Converter={StaticResource MRUMenuItemEnabledConverter}}">
+                    <MenuItem.ItemsSource>
+                        <CompositeCollection>
+                            <CollectionViewSource Source="{Binding MRUList.ListOfMRUEntries}" IsLiveSortingRequested="True">
+                                <CollectionViewSource.SortDescriptions>
+                                    <ComponentModel:SortDescription PropertyName="Value.LastUpdate" Direction="Descending" />
+                                </CollectionViewSource.SortDescriptions>
+                            </CollectionViewSource>
+                            <Separator />
+                            <MenuItem Header="_Clear List" />
+                        </CompositeCollection>
+                    </MenuItem.ItemsSource>
+
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
+                            <Setter Property="Header" Value="{Binding DisplayPathFileName, Mode=OneWay,Converter={StaticResource TruncateFilePathConverter}}" />
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
                 </MenuItem>
                 <Separator />
                 <MenuItem Header="E_xit" Command="{x:Static SystemCommands.CloseWindowCommand}" />
