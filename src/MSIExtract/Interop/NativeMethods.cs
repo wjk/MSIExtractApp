@@ -25,6 +25,7 @@ namespace MSIExtract.Interop
             PARENTRELATIVE = 0x80080001,
         }
 
+        [Flags]
         internal enum SIIGBF : int
         {
             RESIZETOFIT = 0,

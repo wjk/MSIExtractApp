@@ -20,14 +20,16 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Image x:Name="PART_Icon" Width="16" Height="16" VerticalAlignment="Top" Margin="0 4 4 0" />
-                            <TextBlock x:Name="PART_Text" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextWrapping="Wrap" Margin="0 4 4 0"
+                            <ContentPresenter Grid.Column="0" Margin="0 4 8 0" Content="{TemplateBinding Header}" />
+                            <Image x:Name="PART_Icon" Grid.Column="1" Width="16" Height="16" VerticalAlignment="Top" Margin="0 4 4 0" />
+                            <TextBlock x:Name="PART_Text" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextWrapping="Wrap" Margin="0 4 4 0"
                                        Text="{TemplateBinding FilePath, Converter={StaticResource FileNameConverter}}" />
-                            <Button x:Name="PART_ChooseButton" Content="_Choose..." Grid.Column="2" VerticalAlignment="Top" Padding="10 1" />
+                            <Button x:Name="PART_ChooseButton" Content="_Choose..." Grid.Column="3" VerticalAlignment="Top" Padding="10 1" />
                         </Grid>
                     </Border>
 
