@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
 using MRULib.MRU.Models.Persist;
@@ -45,8 +46,8 @@ namespace MSIExtract.Controls
                 return false;
             }
 
-            MRUList list = (MRUList)value;
-            return list.ListOfMRUEntries.Count > 0;
+            var list = (List<MRUEntry>)value;
+            return list.Count > 0;
         }
 
         /// <summary>
