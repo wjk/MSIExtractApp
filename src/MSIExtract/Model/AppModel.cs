@@ -65,6 +65,9 @@ namespace MSIExtract
                 {
                     MsiFile[] msiFiles = MsiFile.CreateMsiFilesFromMSI(new LessIO.Path(msiPath));
                     Files = new ObservableCollection<MsiFile>(msiFiles);
+
+                    MRUModel.UpdateEntry(msiPath);
+                    SaveMRU();
                 }
                 else
                 {
@@ -73,6 +76,7 @@ namespace MSIExtract
 
                 OnPropertyChanged(nameof(MsiPath));
                 OnPropertyChanged(nameof(Files));
+                OnPropertyChanged(nameof(MRUModel));
             }
         }
 
