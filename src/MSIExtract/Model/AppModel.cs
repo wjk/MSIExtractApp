@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using MRULib;
 using MRULib.MRU.Interfaces;
 using MRULib.MRU.Models.Persist;
 using MSIExtract.Msi;
@@ -31,7 +32,14 @@ namespace MSIExtract
             }
 
             string persistPath = Path.Combine(dirPath, "mru.dat");
-            MRUModel = MRUEntrySerializer.Load(persistPath);
+            try
+            {
+                MRUModel = MRUEntrySerializer.Load(persistPath);
+            }
+            catch (FileNotFoundException)
+            {
+                MRUModel = MRU_Service.Create_List();
+            }
         }
 
         /// <summary>
