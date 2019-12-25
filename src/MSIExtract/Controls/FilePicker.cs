@@ -47,6 +47,11 @@ namespace MSIExtract.Controls
         /// </summary>
         public static readonly DependencyProperty OpenDialogFilterProperty = DependencyProperty.Register(nameof(OpenDialogFilter), typeof(string), typeof(FilePicker), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Provides identity for the <see cref="Header"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(nameof(Header), typeof(object), typeof(FilePicker), new PropertyMetadata(null));
+
         private Image? iconPart;
         private Button? chooseButtonPart;
 
@@ -80,6 +85,15 @@ namespace MSIExtract.Controls
         {
             get => (bool)GetValue(IsReadOnlyProperty);
             set => SetValue(IsReadOnlyProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the header (label) content.
+        /// </summary>
+        public object? Header
+        {
+            get => GetValue(HeaderProperty);
+            set => SetValue(HeaderProperty, value);
         }
 
         /// <inheritdoc/>
