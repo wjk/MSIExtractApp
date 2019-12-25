@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using MRULib.MRU.Models.Persist;
 using MSIExtract.Msi;
 
 namespace MSIExtract
@@ -55,6 +56,14 @@ namespace MSIExtract
         /// Gets a collection of the files installed by the MSI.
         /// </summary>
         public ObservableCollection<MsiFile> Files { get; private set; } = new ObservableCollection<MsiFile>();
+
+        /// <summary>
+        /// Gets an <see cref="MRUList"/> object that contains the list of recently opened MSI files.
+        /// </summary>
+        public MRUList MRUList { get; } = new MRUList
+        {
+            MaxMruEntryCount = 10,
+        };
 
         private void OnPropertyChanged(string propertyName)
         {
