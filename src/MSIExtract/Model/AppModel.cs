@@ -91,6 +91,17 @@ namespace MSIExtract
         public IMRUListViewModel MRUModel { get; }
 
         /// <summary>
+        /// Removes all entries from the <see cref="MRUModel"/>.
+        /// </summary>
+        public void ClearMRU()
+        {
+            MRUModel.Clear();
+            SaveMRU();
+
+            OnPropertyChanged(nameof(MRUModel));
+        }
+
+        /// <summary>
         /// Saves the <see cref="MRUModel"/> to disk.
         /// </summary>
         public void SaveMRU()
