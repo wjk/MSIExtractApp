@@ -3,6 +3,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Platforms>x86;x64</Platforms>
+    <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
 
     <AssemblyTitle>MSI Viewer</AssemblyTitle>
