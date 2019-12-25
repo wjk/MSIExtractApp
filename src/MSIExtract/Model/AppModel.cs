@@ -101,10 +101,7 @@ namespace MSIExtract
             OnPropertyChanged(nameof(MRUModel));
         }
 
-        /// <summary>
-        /// Saves the <see cref="MRUModel"/> to disk.
-        /// </summary>
-        public void SaveMRU()
+        private void SaveMRU()
         {
             string dirPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MSI Viewer");
             if (!Directory.Exists(dirPath))
