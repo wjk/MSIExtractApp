@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using KPreisser.UI;
 using MSIExtract.Controls;
 
 namespace MSIExtract
@@ -59,7 +60,31 @@ namespace MSIExtract
             var entry = (MRULib.MRU.Interfaces.IMRUEntryViewModel)e.Parameter;
             var model = (AppModel)DataContext;
 
-            model.MsiPath = entry.PathFileName;
+            try
+            {
+                model.MsiPath = entry.PathFileName;
+            }
+            catch (WixToolset.Dtf.WindowsInstaller.InstallerException)
+            {
+                TaskDialogPage page = new TaskDialogPage
+                {
+                    AllowCancel = true,
+                    Title = "MSI Viewer",
+                    Instruction = $"The file {entry.File.Name} does not exist. Would you like to remove it from the Recent Files list?",
+                    Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Warning),
+                };
+
+                TaskDialogCustomButton removeButton = new TaskDialogCustomButton("Remove");
+                removeButton.DefaultButton = true;
+                page.CustomButtons.Add(removeButton);
+                page.StandardButtons.Add(TaskDialogResult.Cancel);
+
+                TaskDialog dialog = new TaskDialog(page);
+                if (dialog.Show(this).Equals(removeButton))
+                {
+                    model.RemoveMRUItem(entry);
+                }
+            }
         }
     }
 }
