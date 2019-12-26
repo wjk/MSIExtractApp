@@ -69,7 +69,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Controls:FilePicker x:Name="FilePicker" Grid.Row="0" Margin="8 4 8 0" Header="File:" HorizontalAlignment="Stretch"
+            <Controls:FilePicker x:Name="FilePicker" Grid.Row="0" Margin="6 4 4 0" Header="File:" HorizontalAlignment="Stretch"
                                  FilePath="{Binding Path=MsiPath, Mode=TwoWay}" OpenDialogFilter="MSI Files (*.msi)|*.msi" />
 
             <Views:ExtractFilesView Grid.Row="1" Margin="8" />
