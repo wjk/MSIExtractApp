@@ -17,11 +17,6 @@ namespace MSIExtract.ShellExtension
         Default = 0x0,
 
         /// <summary>
-        /// Specifies that the command contains sub-commands.
-        /// </summary>
-        HasSubCommands = 0x1,
-
-        /// <summary>
         /// The command should be displayed as a split button if any sub-commands are defined.
         /// </summary>
         HasSplitButton = 0x2,
