@@ -8,6 +8,7 @@
 
     <AssemblyTitle>MSI Viewer</AssemblyTitle>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Setup.ico</ApplicationIcon>
     <NoWarn>CS8002;CA1303;SA1101;IDE0009;NU1701</NoWarn>
 
     <UseCentennialDepsFileGeneration>false</UseCentennialDepsFileGeneration>
@@ -37,5 +38,10 @@
     <TrimmerRootAssembly Include="PresentationTheme.AeroLite.Win8" />
     <TrimmerRootAssembly Include="PresentationTheme.HighContrast.Win10" />
     <TrimmerRootAssembly Include="PresentationTheme.HighContrast.Win8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Setup.ico" />
+    <Resource Include="Setup.ico" />
   </ItemGroup>
 </Project>
