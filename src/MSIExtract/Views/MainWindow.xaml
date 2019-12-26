@@ -1,4 +1,4 @@
-﻿<Window x:Class="MSIExtract.MainWindow"
+﻿<Window x:Class="MSIExtract.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,14 +6,13 @@
         xmlns:Controls="clr-namespace:MSIExtract.Controls"
         xmlns:Views="clr-namespace:MSIExtract.Views"
         xmlns:ComponentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-        xmlns:self="clr-namespace:MSIExtract"
-        Title="MSI Viewer" Height="450" Width="800" MinHeight="450" MinWidth="800"
+        Title="MSI Viewer" Height="450" Width="800" MinHeight="450" MinWidth="800" Icon="../Setup.ico"
         d:DataContext="{StaticResource DesignTimeAppModel}">
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static ApplicationCommands.Open}" Executed="OpenCommand_Executed" />
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" Executed="CloseWindowCommand_Executed" />
-        <CommandBinding Command="{x:Static self:MainWindow.ClearRecentFileListCommand}" Executed="ClearRecentFileListCommand_Executed" />
-        <CommandBinding Command="{x:Static self:MainWindow.OpenRecentFileCommand}" Executed="OpenRecentFileCommand_Executed" />
+        <CommandBinding Command="{x:Static Views:MainWindow.ClearRecentFileListCommand}" Executed="ClearRecentFileListCommand_Executed" />
+        <CommandBinding Command="{x:Static Views:MainWindow.OpenRecentFileCommand}" Executed="OpenRecentFileCommand_Executed" />
     </Window.CommandBindings>
 
     <Window.Resources>
@@ -41,14 +40,14 @@
                         <CompositeCollection>
                             <CollectionContainer Collection="{Binding Source={StaticResource MRUCollectionViewSource}, Mode=OneWay}" />
                             <Separator />
-                            <MenuItem Header="_Clear List" Command="{x:Static self:MainWindow.ClearRecentFileListCommand}" />
+                            <MenuItem Header="_Clear List" Command="{x:Static Views:MainWindow.ClearRecentFileListCommand}" />
                         </CompositeCollection>
                     </MenuItem.ItemsSource>
 
                     <MenuItem.ItemContainerStyle>
                         <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
                             <Setter Property="Header" Value="{Binding Path=Value.PathFileName, Mode=OneWay, Converter={StaticResource TruncateFilePathConverter}}" />
-                            <Setter Property="Command" Value="{x:Static self:MainWindow.OpenRecentFileCommand}" />
+                            <Setter Property="Command" Value="{x:Static Views:MainWindow.OpenRecentFileCommand}" />
                             <Setter Property="CommandParameter" Value="{Binding Path=Value, Mode=OneWay}" />
                         </Style>
                     </MenuItem.ItemContainerStyle>
@@ -57,16 +56,9 @@
                 <MenuItem Header="E_xit" Command="{x:Static SystemCommands.CloseWindowCommand}" />
             </MenuItem>
 
-            <MenuItem Header="_Edit">
-                <MenuItem Header="_Copy" Command="{x:Static ApplicationCommands.Copy}" />
-                <MenuItem Header="Select _All" Command="{x:Static ApplicationCommands.SelectAll}" />
-                <Separator />
-                <MenuItem Header="_Find File" Command="{x:Static ApplicationCommands.Find}" />
-            </MenuItem>
-
             <MenuItem Header="_Help">
                 <MenuItem Header="_Privacy Policy" />
-                <MenuItem Header="_About MSI Viewer" />
+                <MenuItem Header="_About MSI Viewer" Click="AboutMenuItem_Click" />
             </MenuItem>
         </Menu>
 
@@ -76,52 +68,10 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Controls:FilePicker x:Name="FilePicker" Grid.Row="0" Margin="8 4 8 0" Header="File:" HorizontalAlignment="Stretch"
+            <Controls:FilePicker x:Name="FilePicker" Grid.Row="0" Margin="6 4 4 0" Header="File:" HorizontalAlignment="Stretch"
                                  FilePath="{Binding Path=MsiPath, Mode=TwoWay}" OpenDialogFilter="MSI Files (*.msi)|*.msi" />
 
-            <TabControl Grid.Row="1" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <TabItem Header="Extract Files" IsSelected="True">
-                    <Views:ExtractFilesView />
-                </TabItem>
-
-                <TabItem Header="Table View">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="4">
-                            <TextBlock Text="Table:" Margin="0 0 4 0" VerticalAlignment="Center" />
-                            <ComboBox VerticalAlignment="Center" HorizontalAlignment="Stretch" />
-                        </StackPanel>
-
-                        <DataGrid Grid.Row="1" />
-                    </Grid>
-                </TabItem>
-
-                <TabItem Header="Summary">
-                    <DataGrid />
-                </TabItem>
-
-                <TabItem Header="Streams">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="4">
-                            <TextBlock Text="Table:" Margin="0 0 4 0" VerticalAlignment="Center" />
-                            <ComboBox VerticalAlignment="Center" HorizontalAlignment="Stretch" />
-                        </StackPanel>
-
-                        <DataGrid Grid.Row="1" />
-                        <Button Content="_Extract Stream Files..." Grid.Row="2" Margin="0 8 0 4" Padding="10 1" HorizontalAlignment="Right" VerticalAlignment="Bottom" IsEnabled="False" />
-                    </Grid>
-                </TabItem>
-            </TabControl>
+            <Views:ExtractFilesView Grid.Row="1" Margin="8" />
         </Grid>
     </Grid>
 </Window>

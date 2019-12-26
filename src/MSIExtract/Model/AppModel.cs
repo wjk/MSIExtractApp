@@ -14,7 +14,7 @@ using MSIExtract.Msi;
 namespace MSIExtract
 {
     /// <summary>
-    /// Provides the model backing the <see cref="MainWindow"/>.
+    /// Provides the model backing the <see cref="Views.MainWindow"/>.
     /// </summary>
     public sealed class AppModel : INotifyPropertyChanged
     {
