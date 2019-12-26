@@ -14,7 +14,8 @@ namespace MSIExtract.ShellExtension.Interop
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IEnumExplorerCommand
     {
-        void Next(uint elementCount, [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 0)] out IExplorerCommand[] commands, out uint fetched);
+        [PreserveSig]
+        int Next(uint elementCount, [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 0)] out IExplorerCommand[] commands, out uint fetched);
 
         void Skip(uint count);
 
