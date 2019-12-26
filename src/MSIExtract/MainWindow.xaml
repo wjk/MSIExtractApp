@@ -72,49 +72,7 @@
             <Controls:FilePicker x:Name="FilePicker" Grid.Row="0" Margin="8 4 8 0" Header="File:" HorizontalAlignment="Stretch"
                                  FilePath="{Binding Path=MsiPath, Mode=TwoWay}" OpenDialogFilter="MSI Files (*.msi)|*.msi" />
 
-            <TabControl Grid.Row="1" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <TabItem Header="Extract Files" IsSelected="True">
-                    <Views:ExtractFilesView />
-                </TabItem>
-
-                <TabItem Header="Table View">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="4">
-                            <TextBlock Text="Table:" Margin="0 0 4 0" VerticalAlignment="Center" />
-                            <ComboBox VerticalAlignment="Center" HorizontalAlignment="Stretch" />
-                        </StackPanel>
-
-                        <DataGrid Grid.Row="1" />
-                    </Grid>
-                </TabItem>
-
-                <TabItem Header="Summary">
-                    <DataGrid />
-                </TabItem>
-
-                <TabItem Header="Streams">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="4">
-                            <TextBlock Text="Table:" Margin="0 0 4 0" VerticalAlignment="Center" />
-                            <ComboBox VerticalAlignment="Center" HorizontalAlignment="Stretch" />
-                        </StackPanel>
-
-                        <DataGrid Grid.Row="1" />
-                        <Button Content="_Extract Stream Files..." Grid.Row="2" Margin="0 8 0 4" Padding="10 1" HorizontalAlignment="Right" VerticalAlignment="Bottom" IsEnabled="False" />
-                    </Grid>
-                </TabItem>
-            </TabControl>
+            <Views:ExtractFilesView Grid.Row="1" Margin="8" />
         </Grid>
     </Grid>
 </Window>
