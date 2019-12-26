@@ -10,6 +10,7 @@
         Title="MSI Viewer" Height="450" Width="800" MinHeight="450" MinWidth="800"
         d:DataContext="{StaticResource DesignTimeAppModel}">
     <Window.CommandBindings>
+        <CommandBinding Command="{x:Static ApplicationCommands.Open}" Executed="OpenCommand_Executed" />
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" Executed="CloseWindowCommand_Executed" />
         <CommandBinding Command="{x:Static self:MainWindow.ClearRecentFileListCommand}" Executed="ClearRecentFileListCommand_Executed" />
         <CommandBinding Command="{x:Static self:MainWindow.OpenRecentFileCommand}" Executed="OpenRecentFileCommand_Executed" />
@@ -75,7 +76,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Controls:FilePicker Grid.Row="0" Margin="8 4 8 0" Header="File:" HorizontalAlignment="Stretch"
+            <Controls:FilePicker x:Name="FilePicker" Grid.Row="0" Margin="8 4 8 0" Header="File:" HorizontalAlignment="Stretch"
                                  FilePath="{Binding Path=MsiPath, Mode=TwoWay}" OpenDialogFilter="MSI Files (*.msi)|*.msi" />
 
             <TabControl Grid.Row="1" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">

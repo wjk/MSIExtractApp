@@ -86,5 +86,10 @@ namespace MSIExtract
                 }
             }
         }
+
+        private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            FilePicker.ShowChooseFileDialog();
+        }
     }
 }
