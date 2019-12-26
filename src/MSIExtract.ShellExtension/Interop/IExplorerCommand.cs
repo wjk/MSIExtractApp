@@ -27,6 +27,8 @@ namespace MSIExtract.ShellExtension.Interop
 
         void Invoke(IShellItemArray itemArray, [MarshalAs(UnmanagedType.Interface)] object bindCtx);
 
+        void GetFlags(out int flags);
+
         void EnumSubCommands(out IEnumExplorerCommand commandEnum);
     }
 }
