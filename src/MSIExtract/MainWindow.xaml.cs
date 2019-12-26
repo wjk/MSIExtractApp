@@ -25,6 +25,16 @@ namespace MSIExtract
     public partial class MainWindow
     {
         /// <summary>
+        /// Identifier for the "Clear Recent Files" command.
+        /// </summary>
+        public static readonly RoutedCommand ClearRecentFileListCommand = Commands.CreateCommand("ClearRecentFileList", typeof(MainWindow));
+
+        /// <summary>
+        /// Identifier for the "Open Recent File" command.
+        /// </summary>
+        public static readonly RoutedCommand OpenRecentFileCommand = Commands.CreateCommand("OpenRecentFile", typeof(MainWindow));
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
         public MainWindow()
@@ -36,6 +46,20 @@ namespace MSIExtract
         private void CloseWindowCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Close();
+        }
+
+        private void ClearRecentFileListCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var model = (AppModel)DataContext;
+            model.ClearMRU();
+        }
+
+        private void OpenRecentFileCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var entry = (MRULib.MRU.Interfaces.IMRUEntryViewModel)e.Parameter;
+            var model = (AppModel)DataContext;
+
+            model.MsiPath = entry.PathFileName;
         }
     }
 }
