@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 using KPreisser.UI;
 using MSIExtract.Controls;
 
-namespace MSIExtract
+namespace MSIExtract.Views
 {
     /// <summary>
     /// The main window for the application.

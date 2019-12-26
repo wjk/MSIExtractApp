@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using KPreisser.UI;
+using MSIExtract.Views;
 using PresentationTheme.Aero;
 using Windows.ApplicationModel;
 
