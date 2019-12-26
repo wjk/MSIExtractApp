@@ -101,6 +101,20 @@ namespace MSIExtract
             OnPropertyChanged(nameof(MRUModel));
         }
 
+        /// <summary>
+        /// Removes an <see cref="IMRUEntryViewModel"/> from the <see cref="MRUModel"/>.
+        /// </summary>
+        /// <param name="entry">
+        /// The <see cref="IMRUEntryViewModel"/> to remove.
+        /// </param>
+        public void RemoveMRUItem(IMRUEntryViewModel entry)
+        {
+            MRUModel.RemoveEntry(entry);
+            SaveMRU();
+
+            OnPropertyChanged(nameof(MRUModel));
+        }
+
         private void SaveMRU()
         {
             string dirPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MSI Viewer");
