@@ -45,6 +45,19 @@ namespace MSIExtract.Views
             DataContext = new AppModel();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class, and opens a file immediately.
+        /// </summary>
+        /// <param name="msiPath">
+        /// A path to an MSI file to open immediately.
+        /// </param>
+        public MainWindow(string msiPath)
+            : this()
+        {
+            AppModel model = (AppModel)DataContext;
+            model.MsiPath = msiPath;
+        }
+
         private void CloseWindowCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Close();
