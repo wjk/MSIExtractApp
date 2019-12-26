@@ -21,6 +21,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSIExtract", "MSIExtract\MSIExtract.csproj", "{3A77E494-B813-48BA-9D83-02A3ED00E6DA}"
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "MSIExtract.AppxPackage", "MSIExtract.AppxPackage\MSIExtract.AppxPackage.wapproj", "{9877F6B5-A889-49A8-90B0-A1E09A6995F1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5C810346-608F-4440-8236-E306DB34D318} = {5C810346-608F-4440-8236-E306DB34D318}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessIO", "LessIO\LessIO.csproj", "{E3B941C3-00F8-44D1-A23D-1BECBA52B143}"
 EndProject
@@ -31,6 +34,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WixToolset.Dtf.WindowsInstaller", "WixToolset.Dtf.WindowsInstaller\WixToolset.Dtf.WindowsInstaller.csproj", "{02119665-665A-44A6-9791-29E75449595B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSIExtract.Core", "MSIExtract.Core\MSIExtract.Core.csproj", "{55E347B5-1890-4244-8950-EEE286FE8189}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSIExtract.ShellExtension", "MSIExtract.ShellExtension\MSIExtract.ShellExtension.csproj", "{5C810346-608F-4440-8236-E306DB34D318}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -108,6 +113,14 @@ Global
 		{55E347B5-1890-4244-8950-EEE286FE8189}.Release|x64.Build.0 = Release|Any CPU
 		{55E347B5-1890-4244-8950-EEE286FE8189}.Release|x86.ActiveCfg = Release|Any CPU
 		{55E347B5-1890-4244-8950-EEE286FE8189}.Release|x86.Build.0 = Release|Any CPU
+		{5C810346-608F-4440-8236-E306DB34D318}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5C810346-608F-4440-8236-E306DB34D318}.Debug|x64.Build.0 = Debug|Any CPU
+		{5C810346-608F-4440-8236-E306DB34D318}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5C810346-608F-4440-8236-E306DB34D318}.Debug|x86.Build.0 = Debug|Any CPU
+		{5C810346-608F-4440-8236-E306DB34D318}.Release|x64.ActiveCfg = Release|Any CPU
+		{5C810346-608F-4440-8236-E306DB34D318}.Release|x64.Build.0 = Release|Any CPU
+		{5C810346-608F-4440-8236-E306DB34D318}.Release|x86.ActiveCfg = Release|Any CPU
+		{5C810346-608F-4440-8236-E306DB34D318}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
