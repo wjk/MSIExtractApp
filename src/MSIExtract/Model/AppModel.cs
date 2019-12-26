@@ -6,6 +6,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using MRULib;
+using MRULib.MRU.Interfaces;
+using MRULib.MRU.Models.Persist;
 using MSIExtract.Msi;
 
 namespace MSIExtract
@@ -16,6 +19,28 @@ namespace MSIExtract
     public sealed class AppModel : INotifyPropertyChanged
     {
         private string? msiPath;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppModel"/> class.
+        /// </summary>
+        public AppModel()
+        {
+            string dirPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MSI Viewer");
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+
+            string persistPath = Path.Combine(dirPath, "mru.dat");
+            try
+            {
+                MRUModel = MRUEntrySerializer.Load(persistPath);
+            }
+            catch (FileNotFoundException)
+            {
+                MRUModel = MRU_Service.Create_List();
+            }
+        }
 
         /// <summary>
         /// Raised when a property on this class is changed.
@@ -40,6 +65,9 @@ namespace MSIExtract
                 {
                     MsiFile[] msiFiles = MsiFile.CreateMsiFilesFromMSI(new LessIO.Path(msiPath));
                     Files = new ObservableCollection<MsiFile>(msiFiles);
+
+                    MRUModel.UpdateEntry(msiPath);
+                    SaveMRU();
                 }
                 else
                 {
@@ -48,6 +76,7 @@ namespace MSIExtract
 
                 OnPropertyChanged(nameof(MsiPath));
                 OnPropertyChanged(nameof(Files));
+                OnPropertyChanged(nameof(MRUModel));
             }
         }
 
@@ -55,6 +84,48 @@ namespace MSIExtract
         /// Gets a collection of the files installed by the MSI.
         /// </summary>
         public ObservableCollection<MsiFile> Files { get; private set; } = new ObservableCollection<MsiFile>();
+
+        /// <summary>
+        /// Gets an <see cref="IMRUListViewModel"/> object that contains the list of recently opened MSI files.
+        /// </summary>
+        public IMRUListViewModel MRUModel { get; }
+
+        /// <summary>
+        /// Removes all entries from the <see cref="MRUModel"/>.
+        /// </summary>
+        public void ClearMRU()
+        {
+            MRUModel.Clear();
+            SaveMRU();
+
+            OnPropertyChanged(nameof(MRUModel));
+        }
+
+        /// <summary>
+        /// Removes an <see cref="IMRUEntryViewModel"/> from the <see cref="MRUModel"/>.
+        /// </summary>
+        /// <param name="entry">
+        /// The <see cref="IMRUEntryViewModel"/> to remove.
+        /// </param>
+        public void RemoveMRUItem(IMRUEntryViewModel entry)
+        {
+            MRUModel.RemoveEntry(entry);
+            SaveMRU();
+
+            OnPropertyChanged(nameof(MRUModel));
+        }
+
+        private void SaveMRU()
+        {
+            string dirPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MSI Viewer");
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+
+            string persistPath = Path.Combine(dirPath, "mru.dat");
+            MRUEntrySerializer.Save(persistPath, MRUModel);
+        }
 
         private void OnPropertyChanged(string propertyName)
         {

@@ -126,28 +126,10 @@ namespace MSIExtract.Controls
             FilePropertyChanged(FilePath);
         }
 
-        private static string? CoerceFile(object value)
-        {
-            if (value == null)
-            {
-                return null;
-            }
-            else if (value is string path)
-            {
-                return path;
-            }
-            else
-            {
-                throw new InvalidCastException($"Cannot coerce value of type {value.GetType().FullName} to type System.String");
-            }
-        }
-
-        private void IconPart_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            FilePropertyChanged(FilePath);
-        }
-
-        private void ChooseButtonPart_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Shows an <see cref="OpenFileDialog"/>, as if the "Choose" button was pressed.
+        /// </summary>
+        public void ShowChooseFileDialog()
         {
             string directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             if (!string.IsNullOrEmpty(FilePath))
@@ -177,6 +159,32 @@ namespace MSIExtract.Controls
             {
                 FilePath = dialog.FileName;
             }
+        }
+
+        private static string? CoerceFile(object value)
+        {
+            if (value == null)
+            {
+                return null;
+            }
+            else if (value is string path)
+            {
+                return path;
+            }
+            else
+            {
+                throw new InvalidCastException($"Cannot coerce value of type {value.GetType().FullName} to type System.String");
+            }
+        }
+
+        private void IconPart_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            FilePropertyChanged(FilePath);
+        }
+
+        private void ChooseButtonPart_Click(object sender, RoutedEventArgs e)
+        {
+            ShowChooseFileDialog();
         }
 
         private void FilePropertyChanged(string? newValue)
