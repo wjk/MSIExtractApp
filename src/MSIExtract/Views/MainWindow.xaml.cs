@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -90,6 +91,67 @@ namespace MSIExtract.Views
         private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             FilePicker.ShowChooseFileDialog();
+        }
+
+        private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            static string GetTaskDialogInstruction()
+            {
+                string appTitle = "MSI Viewer";
+
+                Assembly? entryAssembly = Assembly.GetEntryAssembly();
+                if (entryAssembly == null)
+                {
+                    return appTitle;
+                }
+
+                Version? version = entryAssembly.GetName().Version;
+                if (version == null)
+                {
+                    return appTitle;
+                }
+
+                string versionString = version.ToString();
+                if (versionString.EndsWith(".0.0", StringComparison.InvariantCulture))
+                {
+                    versionString = versionString.Substring(0, versionString.Length - 4);
+                }
+                else if (versionString.EndsWith(".0", StringComparison.InvariantCulture))
+                {
+                    versionString = versionString.Substring(0, versionString.Length - 2);
+                }
+
+                return appTitle + " " + versionString;
+            }
+
+            TaskDialogPage page = new TaskDialogPage
+            {
+                AllowCancel = true,
+                Title = "About MSI Viewer",
+                Instruction = GetTaskDialogInstruction(),
+                Text = "Copyright © 2019 William Kent. Licensed under the MIT License.\r\n\r\n" +
+                "<a href=\"github\">View on GitHub</a> — <a href=\"tpn\">Third-Party Notices</a>",
+                EnableHyperlinks = true,
+            };
+            page.StandardButtons.Add(TaskDialogResult.OK);
+
+            page.HyperlinkClicked += (s, e) =>
+            {
+                if (e.Hyperlink == "github")
+                {
+                    // Apparently, System.Diagnostics.Process.Start does not support URLs on .NET Core.
+                    IntPtr hWnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+                    Interop.NativeMethods.ShellExecute(hWnd, "open", "https://github.com/wjk/MSIExtractApp", null, null);
+                }
+                else if (e.Hyperlink == "tpn")
+                {
+                    // FIXME: Implement this.
+                    System.Media.SystemSounds.Beep.Play();
+                }
+            };
+
+            TaskDialog dialog = new TaskDialog(page);
+            dialog.Show(this);
         }
     }
 }

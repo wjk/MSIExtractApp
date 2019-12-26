@@ -112,6 +112,9 @@ namespace MSIExtract.Interop
         [DllImport("shell32.dll", CharSet = CharSet.Unicode, PreserveSig = false)]
         public static extern IShellItem2 SHCreateItemFromParsingName(string pszPath, IntPtr pbc, Guid iid);
 
+        [DllImport("shell32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
+        public static extern IntPtr ShellExecute(IntPtr hWnd, string operation, string file, string? parameters, string? directory, int nShowCmd = 10);
+
         internal struct SIZE
         {
             public int cx;
