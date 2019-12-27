@@ -29,7 +29,12 @@ namespace MSIExtract.ShellExtension
                 throw new ArgumentNullException(nameof(selectedFiles));
             }
 
-            if (selectedFiles.All(path => Path.GetExtension(path) == ".msi"))
+            if (selectedFiles.Count() != 1)
+            {
+                return ExplorerCommandState.Hidden;
+            }
+
+            if (Path.GetExtension(selectedFiles.First()) == ".msi")
             {
                 return ExplorerCommandState.Enabled;
             }
@@ -53,18 +58,20 @@ namespace MSIExtract.ShellExtension
                 throw new ArgumentNullException(nameof(selectedFiles));
             }
 
-            var launchOptions = new LauncherOptions
+            if (!selectedFiles.Any())
             {
-                TargetApplicationPackageFamilyName = "40885WilliamKent2015.MSIViewer_vv14yhe95nw30",
-                PreferredApplicationPackageFamilyName = "40885WilliamKent2015.MSIViewer_vv14yhe95nw30",
-            };
+                // No files selected, nothing to do.
+                return;
+            }
 
-            foreach (string path in selectedFiles)
+            string path = selectedFiles.First();
+            if (Path.GetExtension(path) == ".msi")
             {
-                if (Path.GetExtension(path) != ".msi")
+                var launchOptions = new LauncherOptions
                 {
-                    continue;
-                }
+                    TargetApplicationPackageFamilyName = "40885WilliamKent2015.MSIViewer_vv14yhe95nw30",
+                    PreferredApplicationPackageFamilyName = "40885WilliamKent2015.MSIViewer_vv14yhe95nw30",
+                };
 
                 StorageFile file = StorageFile.GetFileFromPathAsync(path).GetResults();
                 _ = Launcher.LaunchFileAsync(file, launchOptions).GetResults();
