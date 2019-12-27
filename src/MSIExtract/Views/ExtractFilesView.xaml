@@ -19,11 +19,16 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock FontWeight="Bold" Text="{Binding Path=LongFileName, Mode=OneWay}" Grid.Row="0" TextWrapping="Wrap" />
-                <TextBlock Text="{Binding Path=Directory.FullPath, Mode=OneWay}" Grid.Row="1" TextWrapping="Wrap" />
+                <TextBlock Grid.Row="0" TextWrapping="Wrap">
+                    <Run>File:</Run>
+                    <Run FontWeight="Bold" Text="{Binding Path=LongFileName, Mode=OneWay}" />
+                </TextBlock>
+                <TextBlock Grid.Row="1" TextWrapping="Wrap">
+                    <Run>Directory:</Run>
+                    <Run Text="{Binding Path=Directory.FullPath, Mode=OneWay}" />
+                </TextBlock>
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
