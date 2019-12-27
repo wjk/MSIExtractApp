@@ -16,7 +16,7 @@ namespace MSIExtract.ShellExtension
     /// </summary>
     [ComVisible(true)]
     [Guid("754de965-4071-4a89-9620-cf6fe858dca2")]
-    public class MSIViewerOpenCommand : ExplorerCommandBase
+    public sealed class MSIViewerOpenCommand : ExplorerCommandBase
     {
         /// <inheritdoc/>
         public override ExplorerCommandFlag Flags => ExplorerCommandFlag.Default;
