@@ -29,6 +29,7 @@ namespace MSIExtract.ShellExtension.Interop
 
         void GetFlags(out int flags);
 
-        void EnumSubCommands(out IEnumExplorerCommand commandEnum);
+        [PreserveSig]
+        int EnumSubCommands(out IEnumExplorerCommand commandEnum);
     }
 }
