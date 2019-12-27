@@ -24,10 +24,6 @@
 
                 <TextBlock FontWeight="Bold" Text="{Binding Path=LongFileName, Mode=OneWay}" Grid.Row="0" TextWrapping="Wrap" />
                 <TextBlock Text="{Binding Path=Directory.FullPath, Mode=OneWay}" Grid.Row="1" TextWrapping="Wrap" />
-                <TextBlock Grid.Row="2" Margin="0 4 0 0" TextWrapping="Wrap">
-                    <Run>Component:</Run>
-                    <Run Text="{Binding Path=Component, Mode=OneWay}" />
-                </TextBlock>
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
