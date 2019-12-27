@@ -31,7 +31,7 @@ namespace MSIExtract.ShellExtension
         /// <summary>
         /// Gets the sub-commands of this command, or <see langword="null"/> if there are none.
         /// </summary>
-        public virtual IEnumerable<ExplorerCommandBase>? SubCommands { get; }
+        public virtual IEnumerable<ExplorerCommandBase>? SubCommands => null;
 
         /// <summary>
         /// Gets the title of the command, to be displayed to the user.
