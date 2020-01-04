@@ -96,6 +96,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
+      <ModuleDefinitionFile>COMLoader.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -107,6 +108,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
+      <ModuleDefinitionFile>COMLoader.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -118,6 +120,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
+      <ModuleDefinitionFile>COMLoader.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -129,6 +132,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
+      <ModuleDefinitionFile>COMLoader.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -147,6 +151,14 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MSIExtract.ShellExtension\MSIExtract.ShellExtension.csproj">
+      <Project>{5c810346-608f-4440-8236-e306db34d318}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="COMLoader.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
