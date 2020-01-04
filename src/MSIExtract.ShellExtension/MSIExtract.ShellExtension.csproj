@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <EnableComHosting>true</EnableComHosting>
     <NoWarn>CA1714</NoWarn>
   </PropertyGroup>
 
