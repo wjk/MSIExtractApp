@@ -10,3 +10,4 @@
 #include <Windows.h>
 #include <atlbase.h>
 #include <atlcom.h>
+#include <msclr/all.h>

@@ -1,5 +1,4 @@
 #include "pch.h"
-#include <msclr/all.h>
 
 class CCOMLoaderClassFactory :
     public CComObjectRootEx<CComMultiThreadModel>,
