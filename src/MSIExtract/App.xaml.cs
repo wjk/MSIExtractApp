@@ -53,18 +53,7 @@ namespace MSIExtract
                 switch (activationArgs.Kind)
                 {
                     case ActivationKind.Launch:
-                        var launchArgs = (LaunchActivatedEventArgs)activationArgs;
-                        string[] argv = Interop.NativeMethods.CommandLineToArgvW(launchArgs.Arguments, out _);
-
-                        if (argv.Length > 0)
-                        {
-                            this.MainWindow = new MainWindow(argv[0]);
-                        }
-                        else
-                        {
-                            this.MainWindow = new MainWindow();
-                        }
-
+                        this.MainWindow = new MainWindow();
                         break;
 
                     case ActivationKind.File:
