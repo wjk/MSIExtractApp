@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <NoWarn>CA1714</NoWarn>
+    <Platforms>x64;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
