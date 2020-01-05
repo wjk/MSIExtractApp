@@ -32,10 +32,16 @@ private: // ivars
     }
 
 public: // Constructors
-    template<typename T>
-    static GUID GetGUIDFromType(void) {
-        System::Guid managedGuid = T::typeid->GUID;
-        return *reinterpret_cast<GUID*>(&managedGuid);
+    static GUID ToNativeGUID(System::Guid managedGuid) {
+        System::String^ guidString = managedGuid.ToString(L"D")->ToUpperInvariant();
+
+        GUID nativeGuid;
+        auto nativeString = System::Runtime::InteropServices::Marshal::StringToHGlobalUni(guidString);
+        RPC_STATUS status = UuidFromStringW((RPC_WSTR)nativeString.ToPointer(), &nativeGuid);
+        System::Runtime::InteropServices::Marshal::FreeHGlobal(nativeString);
+
+        if (status != RPC_S_OK) throw gcnew System::InvalidOperationException(L"Could not convert GUID to string");
+        return nativeGuid;
     }
 
     static HRESULT Create(System::Type^ type, REFIID iid, void** ppObject) {
@@ -65,7 +71,7 @@ public:
             System::Type^ desiredInterfaceType = nullptr;
 
             for each (auto ifaceType in type.get()->GetInterfaces()) {
-                GUID ifaceIID = *reinterpret_cast<GUID*>(&ifaceType->GUID);
+                GUID ifaceIID = ToNativeGUID(ifaceType->GUID);
                 if (ifaceIID == desiredIID) {
                     desiredInterfaceType = ifaceType;
                     break;
@@ -98,7 +104,7 @@ public:
 };
 
 #define TRY_CREATE_CF_FOR_TYPE(T) \
-    if (clsid == CCOMLoaderClassFactory::GetGUIDFromType<T>()) hr = CCOMLoaderClassFactory::Create(T::typeid, IID_PPV_ARGS(&cf));
+    if (clsid == CCOMLoaderClassFactory::ToNativeGUID(T::typeid->GUID)) hr = CCOMLoaderClassFactory::Create(T::typeid, IID_PPV_ARGS(&cf));
 
 EXTERN_C HRESULT WINAPI DllGetClassObject(REFCLSID clsid, REFIID iid, void** ppObject) {
     HRESULT hr = CLASS_E_CLASSNOTAVAILABLE;
