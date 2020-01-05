@@ -107,13 +107,19 @@ public:
     if (clsid == CCOMLoaderClassFactory::ToNativeGUID(T::typeid->GUID)) hr = CCOMLoaderClassFactory::Create(T::typeid, IID_PPV_ARGS(&cf));
 
 EXTERN_C HRESULT WINAPI DllGetClassObject(REFCLSID clsid, REFIID iid, void** ppObject) {
-    HRESULT hr = CLASS_E_CLASSNOTAVAILABLE;
-    CComPtr<IClassFactory> cf;
-    TRY_CREATE_CF_FOR_TYPE(MSIExtract::ShellExtension::MSIViewerOpenCommand);
+    try
+    {
+        HRESULT hr = CLASS_E_CLASSNOTAVAILABLE;
+        CComPtr<IClassFactory> cf;
+        TRY_CREATE_CF_FOR_TYPE(MSIExtract::ShellExtension::MSIViewerOpenCommand);
 
-    if (FAILED(hr)) return hr;
-    hr = cf->QueryInterface(iid, ppObject);
-    return hr;
+        if (FAILED(hr)) return hr;
+        hr = cf->QueryInterface(iid, ppObject);
+        return hr;
+    }
+    catch (System::Exception ^ ex) {
+        return ex->HResult;
+    }
 }
 
 EXTERN_C HRESULT WINAPI DllCanUnloadNow(void) {
