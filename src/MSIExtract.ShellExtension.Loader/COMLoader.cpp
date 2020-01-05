@@ -59,7 +59,7 @@ public: // Constructors
     }
 
 public:
-    STDMETHOD(CreateInstance)(IUnknown* pUnkOuter, REFIID desiredIID, void** ppObject) {
+    STDMETHOD(CreateInstance)(IUnknown* pUnkOuter, REFIID desiredIID, void** ppObject) noexcept {
         if (pUnkOuter != nullptr) return CLASS_E_NOAGGREGATION;
         if (ppObject == nullptr) return E_INVALIDARG;
 
