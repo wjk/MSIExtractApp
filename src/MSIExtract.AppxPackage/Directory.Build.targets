@@ -1,0 +1,18 @@
+<Project>
+  <ItemGroup>
+    <ExtraContent Include="..\..\bin\MSIExtract.ShellExtension.Loader\$(Platform)\$(Configuration)\*.dll">
+      <TargetDirectory>MSIExtract.ShellExtension</TargetDirectory>
+    </ExtraContent>
+  </ItemGroup>
+
+  <Target Name="AddExtraContent" AfterTargets="BeforeBuild">
+    <Error Text="ExtraContent item has no TargetDirectory" Condition="'%(ExtraContent.TargetDirectory)' == ''" />
+
+    <ItemGroup>
+      <Content Include="@(ExtraContent)">
+        <Link>%(ExtraContent.TargetDirectory)\%(FileName)%(Extension)</Link>
+        <CopyToOutputDirectory>true</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+  </Target>
+</Project>
