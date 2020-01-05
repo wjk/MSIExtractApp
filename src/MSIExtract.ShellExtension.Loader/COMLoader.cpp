@@ -18,7 +18,7 @@ private: // ivars
             if (attributes->Length == 0) return E_INVALIDARG;
 
             auto comVisibleAttribute = safe_cast<ComVisibleAttribute^>(attributes[0]);
-            if (comVisibleAttribute != nullptr || !comVisibleAttribute->Value) return E_INVALIDARG;
+            if (comVisibleAttribute == nullptr || !comVisibleAttribute->Value) return E_INVALIDARG;
 
             attributes = type->GetCustomAttributes(GuidAttribute::typeid, false);
             if (attributes->Length == 0) return E_INVALIDARG;
