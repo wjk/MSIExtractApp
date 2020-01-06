@@ -186,11 +186,15 @@
     <ClInclude Include="longfile.h" />
     <ClInclude Include="pal.h" />
     <ClInclude Include="redirected_error_writer.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="trace.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="comloader.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="comloader.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
