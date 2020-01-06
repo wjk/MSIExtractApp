@@ -6,7 +6,7 @@
     <ExtraContent Include="..\..\bin\MSIExtract.ShellExtension\$(Platform)\$(Configuration)\netcoreapp3.1\MSIExtract.ShellExtension.*.json">
       <TargetDirectory>MSIExtract.ShellExtension\</TargetDirectory>
     </ExtraContent>
-    <ExtraContent Include="..\..\bin\comloader\$(Platform)\$(Configuration)\comloader.dll">
+    <ExtraContent Include="..\..\bin\comloader\$(Platform)\$(Configuration)\*.dll">
       <TargetDirectory>MSIExtract.ShellExtension\</TargetDirectory>
     </ExtraContent>
   </ItemGroup>
