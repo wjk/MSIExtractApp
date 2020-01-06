@@ -5,6 +5,10 @@
 #ifndef _COREHOST_CLI_COMHOST_COMHOST_H_
 #define _COREHOST_CLI_COMHOST_COMHOST_H_
 
+#define RESOURCEID_CLSIDMAP 64
+#define RESOURCETYPE_CLSIDMAP 1024
+
+#if !defined(RC_INVOKED)
 #include <pal.h>
 #include <map>
 #include <cassert>
@@ -17,10 +21,6 @@ struct HResultException
 };
 
 #define RETURN_HRESULT_IF_EXCEPT(exp) try { exp; } catch (const HResultException &e) { return e.hr; } catch (const std::bad_alloc&) { return E_OUTOFMEMORY; }
-
-// Should be shared with core-sdk for tooling support
-#define RESOURCEID_CLSIDMAP 64
-#define RESOURCETYPE_CLSIDMAP 1024
 
 namespace std
 {
@@ -49,6 +49,7 @@ namespace comhost
     // Get the current CLSID map
     clsid_map get_clsid_map();
 }
+#endif /* not RC_INVOKED */
 
 #endif /* _COREHOST_CLI_COMHOST_COMHOST_H_ */
 
