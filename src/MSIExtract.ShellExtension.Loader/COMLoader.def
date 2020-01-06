@@ -1,4 +1,0 @@
-LIBRARY comloader.dll
-EXPORTS
-    DllGetClassObject PRIVATE
-    DllCanUnloadNow   PRIVATE
