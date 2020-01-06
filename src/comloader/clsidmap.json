@@ -1,0 +1,6 @@
+{
+  "754de965-4071-4a89-9620-cf6fe858dca2": {
+    "assembly": "MSIExtract.ShellExtension.dll",
+    "type": "MSIExtract.ShellExtension.MSIViewerOpenCommand"
+  }
+}

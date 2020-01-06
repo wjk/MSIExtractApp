@@ -8,7 +8,7 @@
 // Generated from the TEXTINCLUDE 2 resource.
 //
 #include "winres.h"
-
+#include "comhost.h"
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
@@ -33,7 +33,7 @@ END
 2 TEXTINCLUDE 
 BEGIN
     "#include ""winres.h""\r\n"
-    "\0"
+    "#include ""comhost.h""\0"
 END
 
 3 TEXTINCLUDE 
@@ -82,6 +82,14 @@ BEGIN
         VALUE "Translation", 0x409, 1200
     END
 END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RESOURCETYPE_CLSIDMAP
+//
+
+RESOURCEID_CLSIDMAP     RESOURCETYPE_CLSIDMAP   "clsidmap.json"
 
 #endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////

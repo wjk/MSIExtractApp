@@ -88,6 +88,9 @@
     <None Include="comloader.def">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="clsidmap.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="comloader.rc">

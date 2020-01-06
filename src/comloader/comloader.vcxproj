@@ -191,6 +191,7 @@
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="clsidmap.json" />
     <None Include="comloader.def" />
   </ItemGroup>
   <ItemGroup>
