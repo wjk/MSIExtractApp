@@ -170,8 +170,8 @@
     <ClCompile Include="fxr_resolver.cpp" />
     <ClCompile Include="fx_ver.cpp" />
     <ClCompile Include="json_parser.cpp" />
-    <ClCompile Include="longfile.windows.cpp" />
-    <ClCompile Include="pal.windows.cpp" />
+    <ClCompile Include="longfile.cpp" />
+    <ClCompile Include="pal.cpp" />
     <ClCompile Include="redirected_error_writer.cpp" />
     <ClCompile Include="trace.cpp" />
     <ClCompile Include="utils.cpp" />

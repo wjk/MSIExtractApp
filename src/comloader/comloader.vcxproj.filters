@@ -30,12 +30,6 @@
     <ClCompile Include="json_parser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="longfile.windows.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pal.windows.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="redirected_error_writer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +37,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="longfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
