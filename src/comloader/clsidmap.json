@@ -1,6 +1,6 @@
 {
-  "754de965-4071-4a89-9620-cf6fe858dca2": {
-    "assembly": "MSIExtract.ShellExtension.dll",
+  "{754de965-4071-4a89-9620-cf6fe858dca2}": {
+    "assembly": "MSIExtract.ShellExtension, Version=0.1.0.0, Culture=neutral, PublicKeyToken=d7ced305a3652229",
     "type": "MSIExtract.ShellExtension.MSIViewerOpenCommand"
   }
 }
