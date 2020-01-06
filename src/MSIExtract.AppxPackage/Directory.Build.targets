@@ -1,6 +1,12 @@
 <Project>
   <ItemGroup>
-    <ExtraContent Include="..\..\bin\MSIExtract.ShellExtension.Loader\$(Platform)\$(Configuration)\*.dll">
+    <ExtraContent Include="..\..\bin\MSIExtract.ShellExtension\$(Platform)\$(Configuration)\netcoreapp3.1\*.dll">
+      <TargetDirectory>MSIExtract.ShellExtension\</TargetDirectory>
+    </ExtraContent>
+    <ExtraContent Include="..\..\bin\MSIExtract.ShellExtension\$(Platform)\$(Configuration)\netcoreapp3.1\MSIExtract.ShellExtension.*.json">
+      <TargetDirectory>MSIExtract.ShellExtension\</TargetDirectory>
+    </ExtraContent>
+    <ExtraContent Include="..\..\bin\comloader\$(Platform)\$(Configuration)\comloader.dll">
       <TargetDirectory>MSIExtract.ShellExtension\</TargetDirectory>
     </ExtraContent>
   </ItemGroup>
