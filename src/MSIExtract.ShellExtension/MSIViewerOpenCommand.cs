@@ -6,8 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using Windows.Storage;
-using Windows.System;
+using Windows.ApplicationModel;
 
 namespace MSIExtract.ShellExtension
 {
@@ -67,14 +66,8 @@ namespace MSIExtract.ShellExtension
             string path = selectedFiles.First();
             if (Path.GetExtension(path) == ".msi")
             {
-                var launchOptions = new LauncherOptions
-                {
-                    TargetApplicationPackageFamilyName = "40885WilliamKent2015.MSIViewer_vv14yhe95nw30",
-                    PreferredApplicationPackageFamilyName = "40885WilliamKent2015.MSIViewer_vv14yhe95nw30",
-                };
-
-                StorageFile file = StorageFile.GetFileFromPathAsync(path).GetResults();
-                _ = Launcher.LaunchFileAsync(file, launchOptions).GetResults();
+                string exePath = Path.Combine(Package.Current.InstalledLocation.Path, "MSIExtract", "MSIExtract.exe");
+                System.Diagnostics.Process.Start(exePath, path);
             }
         }
     }
