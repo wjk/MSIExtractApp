@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -28,19 +29,7 @@ namespace MSIExtract.ShellExtension
                 throw new ArgumentNullException(nameof(selectedFiles));
             }
 
-            if (selectedFiles.Count() != 1)
-            {
-                return ExplorerCommandState.Hidden;
-            }
-
-            if (Path.GetExtension(selectedFiles.First()) == ".msi")
-            {
-                return ExplorerCommandState.Enabled;
-            }
-            else
-            {
-                return ExplorerCommandState.Hidden;
-            }
+            return selectedFiles.All(IsMSIFile) ? ExplorerCommandState.Enabled : ExplorerCommandState.Disabled;
         }
 
         /// <inheritdoc/>
@@ -57,18 +46,20 @@ namespace MSIExtract.ShellExtension
                 throw new ArgumentNullException(nameof(selectedFiles));
             }
 
-            if (!selectedFiles.Any())
-            {
-                // No files selected, nothing to do.
-                return;
-            }
-
-            string path = selectedFiles.First();
-            if (Path.GetExtension(path) == ".msi")
+            foreach (string msiPath in selectedFiles.Where(IsMSIFile))
             {
                 string exePath = Path.Combine(Package.Current.InstalledLocation.Path, "MSIExtract", "MSIExtract.exe");
-                System.Diagnostics.Process.Start(exePath, path);
+
+                var processInfo = new ProcessStartInfo();
+                processInfo.FileName = exePath;
+                processInfo.Arguments = msiPath;
+                processInfo.WindowStyle = ProcessWindowStyle.Normal;
+
+                var process = Process.Start(processInfo);
+                process.Dispose();
             }
         }
+
+        private static bool IsMSIFile(string path) => Path.GetExtension(path) == ".msi";
     }
 }
