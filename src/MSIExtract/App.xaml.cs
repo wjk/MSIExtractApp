@@ -12,6 +12,7 @@ using KPreisser.UI;
 using MSIExtract.Views;
 using PresentationTheme.Aero;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Activation;
 
 namespace MSIExtract
 {
@@ -46,7 +47,46 @@ namespace MSIExtract
             ThemeManager.Install();
             AeroTheme.SetAsCurrentTheme();
 
-            this.MainWindow = new MainWindow();
+            IActivatedEventArgs? activationArgs = AppInstance.GetActivatedEventArgs();
+            if (activationArgs != null)
+            {
+                switch (activationArgs.Kind)
+                {
+                    case ActivationKind.Launch:
+                        this.MainWindow = new MainWindow();
+                        break;
+
+                    case ActivationKind.File:
+                        var fileArgs = (FileActivatedEventArgs)activationArgs;
+
+                        if (fileArgs.Files.Count > 0)
+                        {
+                            this.MainWindow = new MainWindow(fileArgs.Files[0].Path);
+                        }
+                        else
+                        {
+                            this.MainWindow = new MainWindow();
+                        }
+
+                        break;
+
+                    default:
+                        this.MainWindow = new MainWindow();
+                        break;
+                }
+            }
+            else
+            {
+                if (e != null && e.Args.Length > 0)
+                {
+                    this.MainWindow = new MainWindow(e.Args[0]);
+                }
+                else
+                {
+                    this.MainWindow = new MainWindow();
+                }
+            }
+
             this.MainWindow.Show();
         }
 

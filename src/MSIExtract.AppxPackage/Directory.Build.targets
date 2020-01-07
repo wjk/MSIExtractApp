@@ -1,0 +1,45 @@
+<Project>
+  <ItemGroup>
+    <ExtraContent Include="..\..\bin\MSIExtract.ShellExtension\$(Platform)\$(Configuration)\netcoreapp3.1\*.dll">
+      <TargetDirectory>MSIExtract.ShellExtension\</TargetDirectory>
+    </ExtraContent>
+    <ExtraContent Include="..\..\bin\MSIExtract.ShellExtension\$(Platform)\$(Configuration)\netcoreapp3.1\MSIExtract.ShellExtension.*.json">
+      <TargetDirectory>MSIExtract.ShellExtension\</TargetDirectory>
+    </ExtraContent>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Platform)' == 'x64'">
+    <ExtraContent Include="C:\Program Files\dotnet\host\**">
+      <TargetDirectory>VFS\ProgramFilesX64\dotnet\host\%(RecursiveDir)</TargetDirectory>
+    </ExtraContent>
+    <ExtraContent Include="C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.0\**">
+      <TargetDirectory>VFS\ProgramFilesX64\dotnet\shared\Microsoft.NETCore.App\3.1.0\%(RecursiveDir)</TargetDirectory>
+    </ExtraContent>
+    <ExtraContent Include="C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.0\**">
+      <TargetDirectory>VFS\ProgramFilesX64\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.0\%(RecursiveDir)</TargetDirectory>
+    </ExtraContent>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Platform)' == 'x86'">
+    <ExtraContent Include="C:\Program Files (x86)\dotnet\host\**">
+      <TargetDirectory>VFS\ProgramFilesX86\dotnet\host\%(RecursiveDir)</TargetDirectory>
+    </ExtraContent>
+    <ExtraContent Include="C:\Program Files (x86)\dotnet\shared\Microsoft.NETCore.App\3.1.0\**">
+      <TargetDirectory>VFS\ProgramFilesX86\dotnet\shared\Microsoft.NETCore.App\%(RecursiveDir)</TargetDirectory>
+    </ExtraContent>
+    <ExtraContent Include="C:\Program Files (x86)\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.0\**">
+      <TargetDirectory>VFS\ProgramFilesX86\dotnet\shared\Microsoft.WindowsDesktop.App\%(RecursiveDir)</TargetDirectory>
+    </ExtraContent>
+  </ItemGroup>
+
+  <Target Name="AddExtraContent" AfterTargets="BeforeBuild">
+    <Error Text="ExtraContent item has no TargetDirectory" Condition="'%(ExtraContent.TargetDirectory)' == ''" />
+
+    <ItemGroup>
+      <Content Include="@(ExtraContent)">
+        <Link>%(ExtraContent.TargetDirectory)%(FileName)%(Extension)</Link>
+        <CopyToOutputDirectory>true</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+  </Target>
+</Project>
