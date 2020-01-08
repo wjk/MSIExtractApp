@@ -143,7 +143,8 @@ namespace MSIExtract.Views
                 Title = "About MSI Viewer",
                 Instruction = GetTaskDialogInstruction(),
                 Text = "Copyright © 2019 William Kent. Licensed under the MIT License.\r\n\r\n" +
-                "<a href=\"github\">View on GitHub</a>",
+                "<a href=\"github\">View on GitHub</a>\r\n" +
+                "<a href=\"tpn\">Third-Party Notices</a>",
                 EnableHyperlinks = true,
             };
             page.StandardButtons.Add(TaskDialogResult.OK);
@@ -155,6 +156,10 @@ namespace MSIExtract.Views
                     // Apparently, System.Diagnostics.Process.Start does not support URLs on .NET Core.
                     IntPtr hWnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
                     Interop.NativeMethods.ShellExecute(hWnd, "open", "https://github.com/wjk/MSIExtractApp", null, null);
+                }
+                else if (e.Hyperlink == "tpn")
+                {
+                    Interop.NativeMethods.ShellExecute(IntPtr.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/master/legal/ThirdPartyNotices.md", null, null);
                 }
             };
 
