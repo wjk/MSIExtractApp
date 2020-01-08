@@ -161,5 +161,10 @@ namespace MSIExtract.Views
             TaskDialog dialog = new TaskDialog(page);
             dialog.Show(this);
         }
+
+        private void PrivacyMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Interop.NativeMethods.ShellExecute(IntPtr.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/master/legal/PrivacyPolicy.md", null, null);
+        }
     }
 }

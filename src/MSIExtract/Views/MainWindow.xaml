@@ -57,7 +57,7 @@
             </MenuItem>
 
             <MenuItem Header="_Help">
-                <MenuItem Header="_Privacy Policy" />
+                <MenuItem Header="_Privacy Policy" Click="PrivacyMenuItem_Click" />
                 <MenuItem Header="_About MSI Viewer" Click="AboutMenuItem_Click" />
             </MenuItem>
         </Menu>
