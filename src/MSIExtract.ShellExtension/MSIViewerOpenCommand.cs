@@ -29,7 +29,7 @@ namespace MSIExtract.ShellExtension
                 throw new ArgumentNullException(nameof(selectedFiles));
             }
 
-            return selectedFiles.All(IsMSIFile) ? ExplorerCommandState.Enabled : ExplorerCommandState.Disabled;
+            return selectedFiles.Any(IsMSIFile) ? ExplorerCommandState.Enabled : ExplorerCommandState.Hidden;
         }
 
         /// <inheritdoc/>
