@@ -142,6 +142,7 @@ namespace MSIExtract.Views
                 AllowCancel = true,
                 Title = "About MSI Viewer",
                 Instruction = GetTaskDialogInstruction(),
+                Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Information),
                 Text = "Copyright © 2019-2020 William Kent. Licensed under the MIT License.\r\n\r\n" +
                 "<a href=\"github\">View on GitHub</a>\r\n" +
                 "<a href=\"tpn\">Third-Party Notices</a>",
