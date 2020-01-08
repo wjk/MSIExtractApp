@@ -15,7 +15,7 @@
     <Company>William Kent</Company>
     <Authors>William Kent</Authors>
     <Copyright>© William Kent. All rights reserved.</Copyright>
-    <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>false</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
