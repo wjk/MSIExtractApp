@@ -4,11 +4,4 @@
     <BaseIntermediateOutputPath>..\..\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
     <AppxPackageDir>..\..\bin\AppxPackages</AppxPackageDir>
   </PropertyGroup>
-
-  <ItemDefinitionGroup>
-    <ProjectReference>
-      <SetPlatform Condition="'$(Platform)' == 'x86'">RuntimeIdentifier=win-x86</SetPlatform>
-      <SetPlatform Condition="'$(Platform)' == 'x64'">RuntimeIdentifier=win-x64</SetPlatform>
-    </ProjectReference>
-  </ItemDefinitionGroup>
 </Project>
