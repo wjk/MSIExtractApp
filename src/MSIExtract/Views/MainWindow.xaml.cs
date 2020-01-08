@@ -142,8 +142,10 @@ namespace MSIExtract.Views
                 AllowCancel = true,
                 Title = "About MSI Viewer",
                 Instruction = GetTaskDialogInstruction(),
-                Text = "Copyright © 2019 William Kent. Licensed under the MIT License.\r\n\r\n" +
-                "<a href=\"github\">View on GitHub</a>",
+                Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Information),
+                Text = "Copyright © 2019-2020 William Kent. Licensed under the MIT License.\r\n\r\n" +
+                "<a href=\"github\">View on GitHub</a>\r\n" +
+                "<a href=\"tpn\">Third-Party Notices</a>",
                 EnableHyperlinks = true,
             };
             page.StandardButtons.Add(TaskDialogResult.OK);
@@ -156,10 +158,19 @@ namespace MSIExtract.Views
                     IntPtr hWnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
                     Interop.NativeMethods.ShellExecute(hWnd, "open", "https://github.com/wjk/MSIExtractApp", null, null);
                 }
+                else if (e.Hyperlink == "tpn")
+                {
+                    Interop.NativeMethods.ShellExecute(IntPtr.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/master/legal/ThirdPartyNotices.md", null, null);
+                }
             };
 
             TaskDialog dialog = new TaskDialog(page);
             dialog.Show(this);
+        }
+
+        private void PrivacyMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Interop.NativeMethods.ShellExecute(IntPtr.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/master/legal/PrivacyPolicy.md", null, null);
         }
     }
 }
