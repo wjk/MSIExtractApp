@@ -106,6 +106,7 @@
     </ProjectReference>
     <ProjectReference Include="..\MSIExtract.ShellExtension\MSIExtract.ShellExtension.csproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
+      <PublishProfile>Properties\PublishProfiles\$(Configuration)_$(Platform).pubxml</PublishProfile>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
