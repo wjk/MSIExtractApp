@@ -1,7 +1,0 @@
-<Project>
-  <PropertyGroup>
-    <RepoRootPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\'))</RepoRootPath>
-    <OutDir>$(RepoRootPath)bin\$(MSBuildProjectName)\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(RepoRootPath)obj\$(MSBuildProjectName)\$(Platform)\$(Configuration)\</IntDir>
-  </PropertyGroup>
-</Project>
