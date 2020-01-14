@@ -1,0 +1,8 @@
+<Project>
+  <PropertyGroup>
+    <RepoRootPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)\'))</RepoRootPath>
+    <BaseIntermediateOutputPath>$(RepoRootPath)obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <BaseOutputPath>$(RepoRootPath)bin\$(MSBuildProjectName)\</BaseOutputPath>
+    <PackageOutputPath>$(RepoRootPath)bin\Packages\$(Configuration)\</PackageOutputPath>
+  </PropertyGroup>
+</Project>
