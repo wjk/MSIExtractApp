@@ -115,10 +115,6 @@ namespace MSIExtract.Interop
         [DllImport("shell32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
         public static extern IntPtr ShellExecute(IntPtr hWnd, string operation, string file, string? parameters, string? directory, int nShowCmd = 10);
 
-        [DllImport("shell32.dll", CharSet = CharSet.Unicode)]
-        [return: MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1, ArraySubType = UnmanagedType.LPWStr)]
-        public static extern string[] CommandLineToArgvW(string commandLine, out int argc);
-
         internal struct SIZE
         {
             public int cx;
