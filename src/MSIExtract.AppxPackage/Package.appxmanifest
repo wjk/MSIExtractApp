@@ -41,6 +41,9 @@
             <desktop4:ItemType Type=".msi">
               <desktop4:Verb Id="OpenInMSIViewer" Clsid="754de965-4071-4a89-9620-cf6fe858dca2" />
             </desktop4:ItemType>
+            <desktop4:ItemType Type=".msm">
+              <desktop4:Verb Id="OpenInMSIViewer" Clsid="754de965-4071-4a89-9620-cf6fe858dca2" />
+            </desktop4:ItemType>
           </desktop4:FileExplorerContextMenus>
         </desktop4:Extension>
 
