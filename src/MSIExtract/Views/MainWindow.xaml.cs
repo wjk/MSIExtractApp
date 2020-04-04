@@ -111,20 +111,8 @@ namespace MSIExtract.Views
             static string GetTaskDialogInstruction()
             {
                 string appTitle = "MSI Viewer";
+                string versionString = ThisAssembly.AssemblyVersion;
 
-                Assembly? entryAssembly = Assembly.GetEntryAssembly();
-                if (entryAssembly == null)
-                {
-                    return appTitle;
-                }
-
-                Version? version = entryAssembly.GetName().Version;
-                if (version == null)
-                {
-                    return appTitle;
-                }
-
-                string versionString = version.ToString();
                 if (versionString.EndsWith(".0.0", StringComparison.InvariantCulture))
                 {
                     versionString = versionString.Substring(0, versionString.Length - 4);
@@ -143,7 +131,7 @@ namespace MSIExtract.Views
                 Title = "About MSI Viewer",
                 Instruction = GetTaskDialogInstruction(),
                 Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Information),
-                Text = "Copyright © 2019-2020 William Kent. Licensed under the MIT License.\r\n\r\n" +
+                Text = $"Build {ThisAssembly.AssemblyInformationalVersion}\r\n\r\nCopyright © 2019-2020 William Kent. Licensed under the MIT License.\r\n\r\n" +
                 "<a href=\"github\">View on GitHub</a>\r\n" +
                 "<a href=\"tpn\">Third-Party Notices</a>",
                 EnableHyperlinks = true,
