@@ -9,26 +9,26 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Platform)' == 'x64'">
-    <ExtraContent Include="C:\Program Files\dotnet\host\**">
-      <TargetDirectory>VFS\ProgramFilesX64\dotnet\host\%(RecursiveDir)</TargetDirectory>
+    <ExtraContent Include="C:\Program Files\dotnet\host\fxr\3.1.3\**">
+      <TargetDirectory>VFS\ProgramFilesX64\dotnet\host\fxr\3.1.3\%(RecursiveDir)</TargetDirectory>
     </ExtraContent>
-    <ExtraContent Include="C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.0\**">
-      <TargetDirectory>VFS\ProgramFilesX64\dotnet\shared\Microsoft.NETCore.App\3.1.0\%(RecursiveDir)</TargetDirectory>
+    <ExtraContent Include="C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.3\**">
+      <TargetDirectory>VFS\ProgramFilesX64\dotnet\shared\Microsoft.NETCore.App\3.1.3\%(RecursiveDir)</TargetDirectory>
     </ExtraContent>
-    <ExtraContent Include="C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.0\**">
-      <TargetDirectory>VFS\ProgramFilesX64\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.0\%(RecursiveDir)</TargetDirectory>
+    <ExtraContent Include="C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.3\**">
+      <TargetDirectory>VFS\ProgramFilesX64\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.3\%(RecursiveDir)</TargetDirectory>
     </ExtraContent>
   </ItemGroup>
 
   <ItemGroup Condition="'$(Platform)' == 'x86'">
-    <ExtraContent Include="C:\Program Files (x86)\dotnet\host\**">
-      <TargetDirectory>VFS\ProgramFilesX86\dotnet\host\%(RecursiveDir)</TargetDirectory>
+    <ExtraContent Include="C:\Program Files (x86)\dotnet\host\fxr\3.1.3\**">
+      <TargetDirectory>VFS\ProgramFilesX86\dotnet\host\fxr\3.1.3\%(RecursiveDir)</TargetDirectory>
     </ExtraContent>
-    <ExtraContent Include="C:\Program Files (x86)\dotnet\shared\Microsoft.NETCore.App\3.1.0\**">
-      <TargetDirectory>VFS\ProgramFilesX86\dotnet\shared\Microsoft.NETCore.App\%(RecursiveDir)</TargetDirectory>
+    <ExtraContent Include="C:\Program Files (x86)\dotnet\shared\Microsoft.NETCore.App\3.1.3\**">
+      <TargetDirectory>VFS\ProgramFilesX86\dotnet\shared\Microsoft.NETCore.App\3.1.3\%(RecursiveDir)</TargetDirectory>
     </ExtraContent>
-    <ExtraContent Include="C:\Program Files (x86)\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.0\**">
-      <TargetDirectory>VFS\ProgramFilesX86\dotnet\shared\Microsoft.WindowsDesktop.App\%(RecursiveDir)</TargetDirectory>
+    <ExtraContent Include="C:\Program Files (x86)\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.3\**">
+      <TargetDirectory>VFS\ProgramFilesX86\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.3\%(RecursiveDir)</TargetDirectory>
     </ExtraContent>
   </ItemGroup>
 
