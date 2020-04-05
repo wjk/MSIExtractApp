@@ -5,4 +5,12 @@
     <!-- Ensure we preserve each coverlet output file per target framework: https://github.com/tonerdo/coverlet/issues/177 -->
     <CoverletOutput>$(OutputPath)/</CoverletOutput>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(_TargetAssemblyProjectName)' != ''">
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(_TargetAssemblyProjectName)' != ''">
+    <Compile Include="$(IntermediateOutputPath)$(_TargetAssemblyProjectName).Version.cs" />
+  </ItemGroup>
 </Project>
