@@ -1,7 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-  <Import Project="$(BaseIntermediateOutputPath)$(_TargetAssemblyProjectName)$(MSBuildProjectExtension).nuget.g.props"
-          Condition=" '$(_TargetAssemblyProjectName)' != '' and '$(ImportProjectExtensionProps)' != 'false' and exists('$(BaseIntermediateOutputPath)$(_TargetAssemblyProjectName)$(MSBuildProjectExtension).nuget.g.props')" />
-  
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -37,7 +34,4 @@
     <None Remove="Setup.ico" />
     <Resource Include="Setup.ico" />
   </ItemGroup>
-
-  <Import Project="$(BaseIntermediateOutputPath)$(_TargetAssemblyProjectName)$(MSBuildProjectExtension).nuget.g.targets"
-        Condition=" '$(_TargetAssemblyProjectName)' != '' and '$(ImportProjectExtensionProps)' != 'false' and exists('$(BaseIntermediateOutputPath)$(_TargetAssemblyProjectName)$(MSBuildProjectExtension).nuget.g.targets')" />
 </Project>
