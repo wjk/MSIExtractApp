@@ -131,9 +131,10 @@ namespace MSIExtract.Views
                 Title = "About MSI Viewer",
                 Instruction = GetTaskDialogInstruction(),
                 Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Information),
-                Text = $"Build {ThisAssembly.AssemblyInformationalVersion}\r\n\r\nCopyright © 2019-2020 William Kent. Licensed under the MIT License.\r\n\r\n" +
+                Text = "Copyright © 2019-2020 William Kent. Licensed under the MIT License.\r\n\r\n" +
                 "<a href=\"github\">View on GitHub</a>\r\n" +
-                "<a href=\"tpn\">Third-Party Notices</a>",
+                "<a href=\"tpn\">Third-Party Notices</a>\r\n\r\n" +
+                $"Build {ThisAssembly.AssemblyInformationalVersion}",
                 EnableHyperlinks = true,
             };
             page.StandardButtons.Add(TaskDialogResult.OK);
