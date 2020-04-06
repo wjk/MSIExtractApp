@@ -7,7 +7,7 @@
          xmlns:desktop5="http://schemas.microsoft.com/appx/manifest/desktop/windows10/5"
          xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
          IgnorableNamespaces="uap rescap desktop4 desktop5 com">
-  <Identity Name="40885WilliamKent2015.MSIViewer" Publisher="CN=382B267D-6047-4C7A-8414-C3EC3B88FF82" Version="1.0.0.0" />
+  <Identity Name="40885WilliamKent2015.MSIViewer" Publisher="CN=382B267D-6047-4C7A-8414-C3EC3B88FF82" Version="1.1.0.0" />
 
   <Properties>
     <DisplayName>MSI Viewer</DisplayName>
