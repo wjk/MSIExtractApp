@@ -6,15 +6,3 @@ updates:
           interval: daily
           time: "00:00"
           timezone: America/Detroit
-    - package-ecosystem: nuget
-      directory: src/MSIExtract
-      schedule:
-          interval: daily
-          time: "00:00"
-          timezone: America/Detroit
-    - package-ecosystem: nuget
-      directory: src/MSIExtract.ShellExtension
-      schedule:
-          interval: daily
-          time: "00:00"
-          timezone: America/Detroit
