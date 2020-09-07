@@ -1,0 +1,14 @@
+template: |
+    ## What’s New in MSI Viewer $RESOLVED_VERSION
+
+    $CHANGES
+
+categories:
+    - title: '🚀 Features'
+      labels: ['feature']
+    - title: '🐛 Bug Fixes'
+      labels: ['bugfix']
+    - title: '🧰 Maintenance & Documentation'
+      labels: ['maintenance', 'dependencies', 'documentation']
+
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
