@@ -32,7 +32,7 @@
     </ExtraContent>
   </ItemGroup>
 
-  <Target Name="AddExtraContent" AfterTargets="BeforeBuild">
+  <Target Name="AddExtraContent" AfterTargets="BeforeBuild" Condition="'@(ExtraContent)' != ''">
     <Error Text="ExtraContent item has no TargetDirectory" Condition="'%(ExtraContent.TargetDirectory)' == ''" />
 
     <ItemGroup>
