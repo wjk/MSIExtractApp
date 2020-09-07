@@ -3,7 +3,10 @@ param(
     [string]$OutputPath,
 
     [Parameter(Mandatory)]
-    [string]$Password
+    [string]$Password,
+
+    [Parameter(Mandatory)]
+    [string]$ThumbprintFile
 )
 
 # N.B. This must be kept in sync with the Package/Publisher/@Identity
@@ -18,3 +21,4 @@ $cert = New-SelfSignedCertificate -Type Custom -Subject $signer_name -KeyUsage D
 
 $pwd = ConvertTo-SecureString $Password -AsPlainText
 Export-PfxCertificate -Cert $cert -Password $pwd -FilePath $OutputPath
+Set-Content $ThumbprintFile $cert.Thumbprint
