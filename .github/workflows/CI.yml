@@ -14,7 +14,7 @@ jobs:
     - uses: actions/setup-dotnet@v1
       name: Install .NET Core
       with:
-        dotnet-version: 3.1.200
+        dotnet-version: 3.1.300
     - uses: microsoft/setup-msbuild@v1.0.0
       name: Configure Visual Studio
     - name: Restore
