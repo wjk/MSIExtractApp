@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.SDK">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RuntimeIdentifiers>win-x64;win-x86</RuntimeIdentifiers>
     <NoWarn>CA1714</NoWarn>
     <Platforms>x64;x86</Platforms>
     <EnableComHosting>true</EnableComHosting>
