@@ -1,0 +1,86 @@
+name: Continuous Delivery (Test)
+
+on:
+    push:
+        branches: ['release/*']
+
+jobs:
+    build:
+        runs-on: windows-latest
+
+        steps:
+            - name: Clone
+              uses: actions/checkout@v1
+
+            - name: Install .NET
+              uses: actions/setup-dotnet@v1
+              with:
+                  # NOTE: Do not change this version without also updating MSIExtract.AppxPackage/Directory.Build.targets
+                  dotnet-version: 3.1.300
+
+            - name: Configure Visual Studio
+              uses: microsoft/setup-msbuild@v1.0.0
+
+            - name: Update Versions
+              id: update_version
+              run: |
+                $ref = "${{ github.ref }}"
+                if ($ref.StartsWith("refs/tags/")) {
+                  $ref = $ref.Replace("refs/tags/", "")
+                }
+
+                $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){1,2})(-.+)?$', '$1$2')
+                $json = Get-Content .\version.json | ConvertFrom-Json
+                $json.version = $version
+                $json | ConvertTo-Json | Set-Content .\version.json
+
+                $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){1,2})(-.+)?$', '$1')
+                if ($version -ne '') {
+                  [xml]$manifest = Get-Content '.\src\MSIExtract.AppxPackage\Package.appxmanifest'
+                  $manifest.Package.Identity.Version = "$($version).0"
+                  $manifest.Save('.\src\MSIExtract.AppxPackage\Package.appxmanifest')
+                }
+
+                echo "::set-output name=version::$version"
+
+            - name: Create signing certificate
+              working-directory: .
+              run: |
+                & tools\make-certificate.ps1 -OutputPath src\MSIExtract.AppxPackage\cert.pfx `
+                  -Password 1234 -ThumbprintFile .\src\MSIExtract.AppxPackage\thumbprint.txt
+
+            - name: Build
+              working-directory: ./src/MSIExtract.AppxPackage
+              run: |
+                mkdir .\bin\AppxPackages | Out-Null
+                $thumbprint = Get-Content .\thumbprint.txt
+                & MSBuild.exe /nologo /restore /bl /m /p:Configuration=Release /p:Platform=x64 `
+                  /p:BuildAppxUploadPackageForUap=true `
+                  /p:AppxBundle=Always `
+                  /p:AppxPackageSigningEnabled=true `
+                  /p:PackageCertificateThumbprint=$thumbprint `
+                  /p:PackageCertificateKeyFile=.\cert.pfx `
+                  /p:PackageCertificatePassword=1234 `
+                  /t:Publish
+
+            - name: Prepare Assets for Upload
+              run: |
+                cd .\bin\AppxPackages
+                $uploads = (ls *.appxupload)
+                mv $uploads[0].FullName MSIXExtractApp_${{ steps.update_version.outputs.version }}.appxupload
+                $dirs = (ls *_Test)
+                $bundles = (ls $dirs[0] -Include *.msixbundle)
+                mv $bundles[0].FullName MSIXExtractApp_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
+
+            - name: Upload Store Assets
+              uses: actions/upload-artifact@v1
+              with:
+                  name: "MSI Viewer ${{ steps.update_version.outputs.version }} Store.appxupload"
+                  asset_path: bin/AppxPackages/MSIXExtractApp_${{ steps.update_version.outputs.version }}.appxupload
+                  asset_type: application/zip
+
+            - name: Upload Sideload Assets
+              uses: actions/upload-artifact@v1
+              with:
+                  name: "MSI Viewer ${{ steps.update_version.outputs.version }} Sideload.msixbundle"
+                  path: bin/AppxPackages/MSIXExtractApp_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
