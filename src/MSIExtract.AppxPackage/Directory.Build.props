@@ -4,4 +4,6 @@
     <BaseIntermediateOutputPath>..\..\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
     <AppxPackageDir>..\..\bin\AppxPackages</AppxPackageDir>
   </PropertyGroup>
+
+  <Import Project="Signing.props" Condition="Exists('Signing.props')" />
 </Project>
