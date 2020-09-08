@@ -32,6 +32,24 @@ jobs:
             - name: Configure Visual Studio
               uses: microsoft/setup-msbuild@v1.0.0
 
+            - name: Update Versions
+              run: |
+                $ref = "${{ github.ref }}"
+                if ($ref.StartsWith("refs/heads/")) {
+                  $ref = $ref.Replace("refs/heads/", "")
+                }
+
+                $json = Get-Content .\version.json | ConvertFrom-Json
+                $json.version = $ref
+                $json | ConvertTo-Json | Set-Content .\version.json
+
+                $version = [regex]::Replace($ref, '^(v\d+(?:\.\d+){1,2})(?:-.+)$', '$1')
+                if ($version -ne '') {
+                  [xml]$manifest = Get-Content '.\src\MSIExtract.AppxPackage\Package.appxmanifest'
+                  $manifest.Package.Identity.Version = "$($version).0"
+                  $manifest.Save('.\src\MSIExtract.AppxPackage\Package.appxmanifest')
+                }
+
             - name: Create signing certificate
               working-directory: .
               run: |
