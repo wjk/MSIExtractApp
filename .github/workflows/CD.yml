@@ -11,8 +11,6 @@ jobs:
             - name: Create Release Notes
               id: create_release_notes
               uses: release-drafter/release-drafter@v5
-              with:
-                  publish: true
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -33,10 +31,11 @@ jobs:
               uses: microsoft/setup-msbuild@v1.0.0
 
             - name: Update Versions
+              id: update_version
               run: |
                 $ref = "${{ github.ref }}"
-                if ($ref.StartsWith("refs/heads/")) {
-                  $ref = $ref.Replace("refs/heads/", "")
+                if ($ref.StartsWith("refs/tags/")) {
+                  $ref = $ref.Replace("refs/tags/", "")
                 }
 
                 $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){1,2})(-.+)?$', '$1$2')
@@ -50,6 +49,8 @@ jobs:
                   $manifest.Package.Identity.Version = "$($version).0"
                   $manifest.Save('.\src\MSIExtract.AppxPackage\Package.appxmanifest')
                 }
+
+                echo "::set-output name=version::$version"
 
             - name: Create signing certificate
               working-directory: .
@@ -75,10 +76,10 @@ jobs:
               run: |
                 cd .\bin\AppxPackages
                 $uploads = (ls *.appxupload)
-                mv $uploads[0].FullName MSIXExtractApp_${{ github.ref }}.appxupload
+                mv $uploads[0].FullName MSIXExtractApp_${{ steps.update_version.outputs.version }}.appxupload
                 $dirs = (ls *_Test)
                 $bundles = (ls $dirs[0] -Include *.msixbundle)
-                mv $bundles[0].FullName MSIXExtractApp_${{ github.ref }}_Sideload.msixbundle
+                mv $bundles[0].FullName MSIXExtractApp_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
 
             - name: Upload Store Assets
               uses: actions/upload-release-asset@v1
@@ -86,8 +87,8 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release_notes.outputs.upload_url }}
-                  asset_path: bin/AppxPackages/MSIXExtractApp_${{ github.ref }}.appxupload
-                  asset_name: "MSI Viewer ${{ github.ref }} (Store Submission)"
+                  asset_path: bin/AppxPackages/MSIXExtractApp_${{ steps.update_version.outputs.version }}.appxupload
+                  asset_name: "MSI Viewer ${{ steps.update_version.outputs.version }} Store.appxupload"
                   asset_type: application/zip
 
             - name: Upload Sideload Assets
@@ -96,6 +97,6 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release_notes.outputs.upload_url }}
-                  asset_path: bin/AppxPackages/MSIXExtractApp_${{ github.ref }}_Sideload.msixbundle
-                  asset_name: "MSI Viewer ${{ github.ref }} (Sideload)"
+                  asset_path: bin/AppxPackages/MSIXExtractApp_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
+                  asset_name: "MSI Viewer ${{ steps.update_version.outputs.version }} Sideload.msixbundle"
                   asset_type: application/zip
