@@ -1,5 +1,5 @@
 template: |
-    ## What’s New in MSI Viewer $RESOLVED_VERSION
+    # What’s New in MSI Viewer $RESOLVED_VERSION
 
     $CHANGES
 
@@ -8,7 +8,18 @@ categories:
       labels: ['feature']
     - title: '🐛 Bug Fixes'
       labels: ['bugfix']
-    - title: '🧰 Maintenance & Documentation'
-      labels: ['maintenance', 'dependencies', 'documentation']
+    - title: '📘 Documentation'
+      labels: ['documentation']
+    - title: '🧰 Maintenance & Dependencies'
+      labels: ['maintenance', 'dependencies']
 
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+
+version-resolver:
+    major:
+        labels: ['bump-major-version']
+    minor:
+        labels: ['bump-minor-version']
+    patch:
+        labels: ['bump-patch-version']
+    default: patch
