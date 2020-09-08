@@ -39,11 +39,12 @@ jobs:
                   $ref = $ref.Replace("refs/heads/", "")
                 }
 
+                $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){1,2})(-.+)?$', '$1$2')
                 $json = Get-Content .\version.json | ConvertFrom-Json
-                $json.version = $ref
+                $json.version = $version
                 $json | ConvertTo-Json | Set-Content .\version.json
 
-                $version = [regex]::Replace($ref, '^(v\d+(?:\.\d+){1,2})(?:-.+)$', '$1')
+                $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){1,2})(-.+)?$', '$1')
                 if ($version -ne '') {
                   [xml]$manifest = Get-Content '.\src\MSIExtract.AppxPackage\Package.appxmanifest'
                   $manifest.Package.Identity.Version = "$($version).0"
