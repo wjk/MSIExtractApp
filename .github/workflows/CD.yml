@@ -58,7 +58,8 @@ jobs:
                 $uploads = (ls *.appxupload)
                 mv $uploads[0].FullName MSIXExtractApp_${{ github.ref }}.appxupload
                 $dirs = (ls *_Test)
-                & "C:\Program Files\7-zip\7z.exe" a -r MSIXExtractApp_${{ github.ref }}_Sideload.zip $dirs[0].FullName
+                $bundles = (ls $dirs[0] -Include *.msixbundle)
+                mv $bundles[0].FullName MSIXExtractApp_${{ github.ref }}_Sideload.msixbundle
 
             - name: Upload Store Assets
               uses: actions/upload-release-asset@v1
@@ -76,6 +77,6 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release_notes.outputs.upload_url }}
-                  asset_path: bin/AppxPackages/MSIXExtractApp_${{ github.ref }}_Sideload.zip
-                  asset_name: MSIExtractApp_${{ github.ref }}_Sideload.zip
+                  asset_path: bin/AppxPackages/MSIXExtractApp_${{ github.ref }}_Sideload.msixbundle
+                  asset_name: "MSI Viewer ${{ github.ref }} (Sideload)"
                   asset_type: application/zip
