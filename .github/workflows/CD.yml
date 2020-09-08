@@ -35,8 +35,8 @@ jobs:
             - name: Update Versions
               run: |
                 $ref = "${{ github.ref }}"
-                if ($ref.StartsWith("refs/heads/")) {
-                  $ref = $ref.Replace("refs/heads/", "")
+                if ($ref.StartsWith("refs/tags/")) {
+                  $ref = $ref.Replace("refs/tags/", "")
                 }
 
                 $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){1,2})(-.+)?$', '$1$2')
