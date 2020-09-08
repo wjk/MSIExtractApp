@@ -55,8 +55,8 @@ jobs:
             - name: Prepare Assets for Upload
               run: |
                 cd .\bin\AppxPackages
-                $uploads = (ls *.msixupload)
-                mv $uploads[0].FullName MSIXExtractApp_${{ github.ref }}.msixupload
+                $uploads = (ls *.appxupload)
+                mv $uploads[0].FullName MSIXExtractApp_${{ github.ref }}.appxupload
                 $dirs = (ls *_Test)
                 & "C:\Program Files\7-zip\7z.exe" a -r MSIXExtractApp_${{ github.ref }}_Sideload.zip $dirs[0].FullName
 
@@ -66,8 +66,8 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release_notes.outputs.upload_url }}
-                  asset_path: bin/AppxPackages/MSIXExtractApp_${{ github.ref }}.msixupload
-                  asset_name: MSIExtractApp_${{ github.ref }}.msixupload
+                  asset_path: bin/AppxPackages/MSIXExtractApp_${{ github.ref }}.appxupload
+                  asset_name: "MSI Viewer ${{ github.ref }} (Store Submission)"
                   asset_type: application/zip
 
             - name: Upload Sideload Assets
