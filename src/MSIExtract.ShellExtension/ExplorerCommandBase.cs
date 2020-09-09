@@ -74,7 +74,7 @@ namespace MSIExtract.ShellExtension
         /// </param>
         public abstract void Invoke(IEnumerable<string> selectedFiles);
 
-        private IEnumerable<string> ConvertShellItemArray(IShellItemArray itemArray)
+        private static IEnumerable<string> ConvertShellItemArray(IShellItemArray itemArray)
         {
             itemArray.GetCount(out var count);
             string[] paths = new string[count];
@@ -93,7 +93,7 @@ namespace MSIExtract.ShellExtension
 #pragma warning disable SA1202 // Elements should be ordered by access (wart)
         void IExplorerCommand.GetTitle(IShellItemArray itemArray, out string? title)
         {
-            title = this.GetTitle(this.ConvertShellItemArray(itemArray));
+            title = this.GetTitle(ConvertShellItemArray(itemArray));
         }
 
         void IExplorerCommand.GetIcon(IShellItemArray itemArray, out string? resourceString)
@@ -104,7 +104,7 @@ namespace MSIExtract.ShellExtension
 
         void IExplorerCommand.GetToolTip(IShellItemArray itemArray, out string? tooltip)
         {
-            tooltip = this.GetToolTip(this.ConvertShellItemArray(itemArray));
+            tooltip = this.GetToolTip(ConvertShellItemArray(itemArray));
         }
 
         void IExplorerCommand.GetCanonicalName(out Guid guid)
@@ -114,12 +114,12 @@ namespace MSIExtract.ShellExtension
 
         void IExplorerCommand.GetState(IShellItemArray itemArray, bool okToBeShow, out ExplorerCommandState commandState)
         {
-            commandState = this.GetState(this.ConvertShellItemArray(itemArray));
+            commandState = this.GetState(ConvertShellItemArray(itemArray));
         }
 
         void IExplorerCommand.Invoke(IShellItemArray itemArray, object bindCtx)
         {
-            this.Invoke(this.ConvertShellItemArray(itemArray));
+            this.Invoke(ConvertShellItemArray(itemArray));
         }
 
         void IExplorerCommand.GetFlags(out int flags)
