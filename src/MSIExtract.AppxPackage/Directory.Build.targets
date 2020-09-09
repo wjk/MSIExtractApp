@@ -8,31 +8,47 @@
     </ExtraContent>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(Platform)' == 'x64'">
-    <ExtraContent Include="C:\Program Files\dotnet\host\fxr\3.1.3\**">
-      <TargetDirectory>VFS\ProgramFilesX64\dotnet\host\fxr\3.1.3\%(RecursiveDir)</TargetDirectory>
-    </ExtraContent>
-    <ExtraContent Include="C:\Program Files\dotnet\shared\Microsoft.NETCore.App\3.1.3\**">
-      <TargetDirectory>VFS\ProgramFilesX64\dotnet\shared\Microsoft.NETCore.App\3.1.3\%(RecursiveDir)</TargetDirectory>
-    </ExtraContent>
-    <ExtraContent Include="C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.3\**">
-      <TargetDirectory>VFS\ProgramFilesX64\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.3\%(RecursiveDir)</TargetDirectory>
-    </ExtraContent>
-  </ItemGroup>
+  <Target Name="DownloadNETRuntime" AfterTargets="BeforeBuild" Condition="'$(Configuration)' == 'Release'">
+    <PropertyGroup>
+      <BundledNETVersion>3.1.8</BundledNETVersion>
 
-  <ItemGroup Condition="'$(Platform)' == 'x86'">
-    <ExtraContent Include="C:\Program Files (x86)\dotnet\host\fxr\3.1.3\**">
-      <TargetDirectory>VFS\ProgramFilesX86\dotnet\host\fxr\3.1.3\%(RecursiveDir)</TargetDirectory>
-    </ExtraContent>
-    <ExtraContent Include="C:\Program Files (x86)\dotnet\shared\Microsoft.NETCore.App\3.1.3\**">
-      <TargetDirectory>VFS\ProgramFilesX86\dotnet\shared\Microsoft.NETCore.App\3.1.3\%(RecursiveDir)</TargetDirectory>
-    </ExtraContent>
-    <ExtraContent Include="C:\Program Files (x86)\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.3\**">
-      <TargetDirectory>VFS\ProgramFilesX86\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.3\%(RecursiveDir)</TargetDirectory>
-    </ExtraContent>
-  </ItemGroup>
+      <BundledNETArch Condition="'$(Platform)' == 'x86'">x86</BundledNETArch>
+      <BundledNETArch Condition="'$(Platform)' == 'x64'">x64</BundledNETArch>
+      <BundledNETArch Condition="'$(Platform)' == 'ARM64'">arm64</BundledNETArch>
 
-  <Target Name="AddExtraContent" AfterTargets="BeforeBuild" Condition="'@(ExtraContent)' != ''">
+      <BundledNETDirectory>$(RepoRootPath)obj\dotnet-runtimes\$(BundledNETVersion)-$(BundledNETArch)</BundledNETDirectory>
+    </PropertyGroup>
+
+    <MakeDir Directories="$(BundledNETDirectory)" />
+    <Exec Command="powershell -ExecutionPolicy Bypass -File $(RepoRootPath)tools\install-dotnet.ps1 -Version $(BundledNETVersion) -InstallDir . -Runtime dotnet -NoPath -Architecture $(BundledNETArch)" WorkingDirectory="$(BundledNETDirectory)" />
+    <Exec Command="powershell -ExecutionPolicy Bypass -File $(RepoRootPath)tools\install-dotnet.ps1 -Version $(BundledNETVersion) -InstallDir . -Runtime windowsdesktop -NoPath -Architecture $(BundledNETArch)" WorkingDirectory="$(BundledNETDirectory)" />
+
+    <PropertyGroup>
+      <_VFSDir Condition="'$(BundledNETArch)' == 'x64' or '$(BundledNETArch)' == 'arm64'">ProgramFilesX64</_VFSDir>
+      <_VFSDir Condition="'$(BundledNETArch)' == 'x86'">ProgramFilesX86</_VFSDir>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ExtraContent Include="$(BundledNETDirectory)\host\fxr\$(BundledNETVersion)\hostfxr.dll">
+        <TargetDirectory>VFS\$(_VFSDir)\dotnet\host\fxr\$(BundledNETVersion)\</TargetDirectory>
+      </ExtraContent>
+      <ExtraContent Include="$(BundledNETDirectory)\shared\Microsoft.NETCore.App\$(BundledNETVersion)\*">
+        <TargetDirectory>VFS\$(_VFSDir)\dotnet\shared\Microsoft.NETCore.App\$(BundledNETVersion)\</TargetDirectory>
+      </ExtraContent>
+      <ExtraContent Include="$(BundledNETDirectory)\shared\Microsoft.WindowsDesktop.App\$(BundledNETVersion)\*">
+        <TargetDirectory>VFS\$(_VFSDir)\dotnet\shared\Microsoft.WindowsDesktop.App\$(BundledNETVersion)\</TargetDirectory>
+      </ExtraContent>
+
+      <_LocName Include="cs;de;es;fr;it;ja;ko;pl;pt-BR;ru;tr;zh-Hans;zh-Hant" />
+    </ItemGroup>
+
+    <CreateItem Include="@(_LocName -> '$(BundledNETDirectory)\shared\Microsoft.WindowsDesktop.App\$(BundledNETVersion)\%(Identity)\*.dll')"
+                AdditionalMetadata="TargetDirectory=VFS\$(_VFSDir)\dotnet\shared\Microsoft.WindowsDesktop.App\$(BundledNETVersion)\%(Identity)\">
+      <Output TaskParameter="Include" ItemName="ExtraContent"/>
+    </CreateItem>
+  </Target>
+
+  <Target Name="AddExtraContent" AfterTargets="BeforeBuild" DependsOnTargets="DownloadNETRuntime" Condition="'@(ExtraContent)' != ''">
     <Error Text="ExtraContent item has no TargetDirectory" Condition="'%(ExtraContent.TargetDirectory)' == ''" />
 
     <ItemGroup>
