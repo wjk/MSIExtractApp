@@ -55,25 +55,31 @@ jobs:
             - name: Build
               working-directory: ./src/MSIExtract.AppxPackage
               run: |
-                mkdir .\bin\AppxPackages | Out-Null
-                $thumbprint = Get-Content .\thumbprint.txt
                 & MSBuild.exe /nologo /restore /bl /m /p:Configuration=Release /p:Platform=x64 `
                   /p:BuildAppxUploadPackageForUap=true `
                   /p:AppxBundle=Always `
                   /p:AppxPackageSigningEnabled=true `
-                  /p:PackageCertificateThumbprint=$thumbprint `
+                  /p:PackageCertificateThumbprint=492019107FC952A6183CE97F474F9FACB147E7BC `
                   /p:PackageCertificateKeyFile=.\cert.pfx `
                   /p:PackageCertificatePassword=1234 `
                   /t:Publish
 
             - name: Prepare Assets for Upload
+              working-directory: ./bin/AppxPackages
               run: |
-                cd .\bin\AppxPackages
-                $uploads = (ls *.appxupload)
-                mv $uploads[0].FullName MSIXExtractApp_${{ steps.update_version.outputs.version }}.appxupload
-                $dirs = (ls *_Test)
-                $bundles = (ls $dirs[0] -Include *.msixbundle)
-                mv $bundles[0].FullName MSIXExtractApp_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
+                $uploads = (dir *.msixupload)
+                if ($uploads.Length -ne 0) {
+                  mv $uploads[0].FullName MSIViewer_${{ steps.update_version.outputs.version }}.msixupload -Verbose
+                } else {
+                  Write-Error "Could not find any msixupload files"
+                }
+
+                $bundles = (dir *_Test | dir -Include *.msixbundle)
+                if ($bundles.Length -ne 0) {
+                  mv $bundles[0].FullName MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle -Verbose
+                } else {
+                  Write-Error "Could not find any msixbundle files"
+                }
 
             - name: Upload Store Assets
               uses: actions/upload-release-asset@v1
@@ -81,8 +87,8 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release_notes.outputs.upload_url }}
-                  asset_path: bin/AppxPackages/MSIXExtractApp_${{ steps.update_version.outputs.version }}.appxupload
-                  asset_name: "MSI Viewer ${{ steps.update_version.outputs.version }} Store.appxupload"
+                  asset_path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
+                  asset_name: "MSI Viewer ${{ steps.update_version.outputs.version }} Store.msixupload"
                   asset_type: application/zip
 
             - name: Upload Sideload Assets
@@ -91,6 +97,6 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release_notes.outputs.upload_url }}
-                  asset_path: bin/AppxPackages/MSIXExtractApp_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
+                  asset_path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
                   asset_name: "MSI Viewer ${{ steps.update_version.outputs.version }} Sideload.msixbundle"
                   asset_type: application/zip
