@@ -6,10 +6,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using System.Windows.Controls;
+using KPreisser.UI;
 using MRULib;
 using MRULib.MRU.Interfaces;
 using MRULib.MRU.Models.Persist;
 using MSIExtract.Msi;
+using MSIExtract.Views;
 
 namespace MSIExtract
 {
@@ -50,6 +53,7 @@ namespace MSIExtract
         /// <summary>
         /// Gets or sets the absolute path to the MSI file being read.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Catch-all to avoid crashing program")]
         public string? MsiPath
         {
             get
@@ -59,13 +63,21 @@ namespace MSIExtract
 
             set
             {
-                msiPath = value;
-
-                if (msiPath != null)
+                if (value != null)
                 {
-                    MsiFile[] msiFiles = MsiFile.CreateMsiFilesFromMSI(new LessIO.Path(msiPath));
-                    Files = new ObservableCollection<MsiFile>(msiFiles);
+                    MsiFile[] msiFiles;
 
+                    try
+                    {
+                        msiFiles = MsiFile.CreateMsiFilesFromMSI(new LessIO.Path(value));
+                    }
+                    catch
+                    {
+                        MainWindow.ShowInvalidFileErrorCommand.Execute(value, null);
+                        return;
+                    }
+
+                    Files = new ObservableCollection<MsiFile>(msiFiles);
                     MRUModel.UpdateEntry(msiPath);
                     SaveMRU();
                 }
@@ -73,6 +85,8 @@ namespace MSIExtract
                 {
                     Files = new ObservableCollection<MsiFile>();
                 }
+
+                msiPath = value;
 
                 OnPropertyChanged(nameof(MsiPath));
                 OnPropertyChanged(nameof(Files));

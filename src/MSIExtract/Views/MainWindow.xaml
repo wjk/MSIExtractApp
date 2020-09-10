@@ -13,6 +13,7 @@
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" Executed="CloseWindowCommand_Executed" />
         <CommandBinding Command="{x:Static Views:MainWindow.ClearRecentFileListCommand}" Executed="ClearRecentFileListCommand_Executed" />
         <CommandBinding Command="{x:Static Views:MainWindow.OpenRecentFileCommand}" Executed="OpenRecentFileCommand_Executed" />
+        <CommandBinding Command="{x:Static Views:MainWindow.ShowInvalidFileErrorCommand}" Executed="ShowInvalidFileCommandBinding_Executed" />
     </Window.CommandBindings>
 
     <Window.Resources>
