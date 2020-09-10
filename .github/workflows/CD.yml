@@ -52,12 +52,6 @@ jobs:
 
                 echo "::set-output name=version::$version"
 
-            - name: Create signing certificate
-              working-directory: .
-              run: |
-                & tools\make-certificate.ps1 -OutputPath src\MSIExtract.AppxPackage\cert.pfx `
-                  -Password 1234 -ThumbprintFile .\src\MSIExtract.AppxPackage\thumbprint.txt
-
             - name: Build
               working-directory: ./src/MSIExtract.AppxPackage
               run: |

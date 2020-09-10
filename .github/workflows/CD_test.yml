@@ -43,22 +43,14 @@ jobs:
 
                 echo "::set-output name=version::$version"
 
-            - name: Create signing certificate
-              working-directory: .
-              run: |
-                & tools\make-certificate.ps1 -OutputPath src\MSIExtract.AppxPackage\cert.pfx `
-                  -Password 1234 -ThumbprintFile .\src\MSIExtract.AppxPackage\thumbprint.txt
-
             - name: Build
               working-directory: ./src/MSIExtract.AppxPackage
               run: |
-                mkdir .\bin\AppxPackages | Out-Null
-                $thumbprint = Get-Content .\thumbprint.txt
                 & MSBuild.exe /nologo /restore /bl /m /p:Configuration=Release /p:Platform=x64 `
                   /p:BuildAppxUploadPackageForUap=true `
                   /p:AppxBundle=Always `
                   /p:AppxPackageSigningEnabled=true `
-                  /p:PackageCertificateThumbprint=$thumbprint `
+                  /p:PackageCertificateThumbprint=492019107FC952A6183CE97F474F9FACB147E7BC `
                   /p:PackageCertificateKeyFile=.\cert.pfx `
                   /p:PackageCertificatePassword=1234 `
                   /t:Publish
