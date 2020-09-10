@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using KPreisser.UI;
 using MSIExtract.Controls;
+using Windows.Data.Pdf;
 
 namespace MSIExtract.Views
 {
@@ -26,6 +27,11 @@ namespace MSIExtract.Views
     /// </summary>
     public partial class MainWindow
     {
+        /// <summary>
+        /// Identifier for a command that displays an error message stating the MSI/MSM file is invalid.
+        /// </summary>
+        public static readonly RoutedCommand ShowInvalidFileErrorCommand = Commands.CreateCommand("ShowInvalidFileError", typeof(MainWindow));
+
         /// <summary>
         /// Identifier for the "Clear Recent Files" command.
         /// </summary>
@@ -160,6 +166,23 @@ namespace MSIExtract.Views
         private void PrivacyMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Interop.NativeMethods.ShellExecute(IntPtr.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/master/legal/PrivacyPolicy.md", null, null);
+        }
+
+        private void ShowInvalidFileCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            string fileName = System.IO.Path.GetFileName((string)e.Parameter);
+
+            TaskDialogPage page = new TaskDialogPage();
+            page.AllowCancel = true;
+            page.Title = "MSI Viewer";
+            page.Instruction = $"Could not open \"{fileName}\".";
+            page.Text = "This file may not be a valid MSI or MSM file.";
+            page.Icon = TaskDialogStandardIcon.Error;
+            page.StandardButtons.Add(TaskDialogResult.OK);
+
+            TaskDialog dialog = new TaskDialog(page);
+            dialog.StartupLocation = TaskDialogStartupLocation.CenterParent;
+            dialog.Show(this);
         }
     }
 }
