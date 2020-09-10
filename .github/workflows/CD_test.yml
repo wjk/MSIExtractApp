@@ -29,12 +29,12 @@ jobs:
                   $ref = $ref.Replace("refs/heads/release/", "")
                 }
 
-                $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){1,2})(-.+)?$', '$1$2')
+                $version = [regex]::Replace($ref, '^v?(\d+(?:\.\d+){1,2})(-.+)?$', '$1$2')
                 $json = Get-Content .\version.json | ConvertFrom-Json
                 $json.version = $version
                 $json | ConvertTo-Json | Set-Content .\version.json
 
-                $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){1,2})(-.+)?$', '$1')
+                $version = [regex]::Replace($ref, '^v?(\d+(?:\.\d+){1,2})(-.+)?$', '$1')
                 if ($version -ne '') {
                   [xml]$manifest = Get-Content '.\src\MSIExtract.AppxPackage\Package.appxmanifest'
                   $manifest.Package.Identity.Version = "$($version).0"
@@ -56,23 +56,31 @@ jobs:
                   /t:Publish
 
             - name: Prepare Assets for Upload
+              working-directory: ./bin/AppxPackages
               run: |
-                cd .\bin\AppxPackages
-                $uploads = (ls *.appxupload)
-                mv $uploads[0].FullName MSIXExtractApp_${{ steps.update_version.outputs.version }}.appxupload
-                $dirs = (ls *_Test)
-                $bundles = (ls $dirs[0] -Include *.msixbundle)
-                mv $bundles[0].FullName MSIXExtractApp_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
+                dir -Recurse -Include *.msixupload, *.msixbundle
+                $uploads = (dir *.msixupload)
+                if ($uploads.Length -ne 0) {
+                  mv $uploads[0].FullName MSIViewer_${{ steps.update_version.outputs.version }}.msixupload -Verbose
+                } else {
+                  Write-Error "Could not find any msixupload files"
+                }
+
+                $bundles = (dir *_Test | dir -Include *.msixbundle)
+                if ($bundles.Length -ne 0) {
+                  mv $bundles[0].FullName MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle -Verbose
+                } else {
+                  Write-Error "Could not find any msixbundle files"
+                }
 
             - name: Upload Store Assets
               uses: actions/upload-artifact@v1
               with:
-                  name: "MSI Viewer ${{ steps.update_version.outputs.version }} Store.appxupload"
-                  asset_path: bin/AppxPackages/MSIXExtractApp_${{ steps.update_version.outputs.version }}.appxupload
-                  asset_type: application/zip
+                  name: "MSI Viewer ${{ steps.update_version.outputs.version }} Store.msixupload"
+                  path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
 
             - name: Upload Sideload Assets
               uses: actions/upload-artifact@v1
               with:
                   name: "MSI Viewer ${{ steps.update_version.outputs.version }} Sideload.msixbundle"
-                  path: bin/AppxPackages/MSIXExtractApp_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
+                  path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle

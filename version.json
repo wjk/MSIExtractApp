@@ -3,7 +3,7 @@
   "version": "1.2-dev",
   "publicReleaseRefSpec": [
     "^refs/heads/master$",
-    "^refs/heads/v\\d+(?:\\.\\d+){1,2}(?:-[a-z0-9.-]+)?$",
+    "^refs/heads/release/v?\\d+(?:\\.\\d+){1,2}(?:-[a-z0-9.-]+)?$",
     "^refs/tags/v\\d+(?:\\.\\d+){1,2}(?:-[a-z0-9.-]+)?$"
   ]
 }
