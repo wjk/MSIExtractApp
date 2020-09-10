@@ -60,6 +60,6 @@ namespace MSIExtract.ShellExtension
             }
         }
 
-        private static bool IsMSIFile(string path) => Path.GetExtension(path) == ".msi";
+        private static bool IsMSIFile(string path) => Path.GetExtension(path) == ".msi" || Path.GetExtension(path) == ".msm";
     }
 }
