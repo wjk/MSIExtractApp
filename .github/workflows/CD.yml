@@ -11,11 +11,17 @@ jobs:
             - name: Create Release Notes
               id: create_release_notes
               uses: release-drafter/release-drafter@v5
+              with:
+                  publish_release: false
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        outputs:
+            release_upload_url: ${{ steps.create_release_notes.outputs.upload_url }}
 
     build:
         runs-on: windows-latest
+        needs:
+            - create_release_notes
 
         steps:
             - name: Clone
@@ -86,17 +92,17 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  upload_url: ${{ steps.create_release_notes.outputs.upload_url }}
+                  upload_url: ${{ needs.release_upload_url }}
                   asset_path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
                   asset_name: "MSI Viewer ${{ steps.update_version.outputs.version }} Store.msixupload"
-                  asset_type: application/zip
+                  asset_content_type: application/zip
 
             - name: Upload Sideload Assets
               uses: actions/upload-release-asset@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  upload_url: ${{ steps.create_release_notes.outputs.upload_url }}
+                  upload_url: ${{ needs.release_upload_url }}
                   asset_path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
                   asset_name: "MSI Viewer ${{ steps.update_version.outputs.version }} Sideload.msixbundle"
-                  asset_type: application/zip
+                  asset_content_type: application/zip
