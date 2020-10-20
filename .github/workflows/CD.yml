@@ -92,7 +92,7 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  upload_url: ${{ needs.release_upload_url }}
+                  upload_url: ${{ needs.create_release_notes.outputs.release_upload_url }}
                   asset_path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
                   asset_name: "MSI Viewer ${{ steps.update_version.outputs.version }} Store.msixupload"
                   asset_content_type: application/zip
@@ -102,7 +102,7 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  upload_url: ${{ needs.release_upload_url }}
+                  upload_url: ${{ needs.create_release_notes.outputs.release_upload_url }}
                   asset_path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
                   asset_name: "MSI Viewer ${{ steps.update_version.outputs.version }} Sideload.msixbundle"
                   asset_content_type: application/zip
