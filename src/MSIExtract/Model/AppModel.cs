@@ -63,13 +63,15 @@ namespace MSIExtract
 
             set
             {
-                if (value != null)
+                msiPath = value;
+
+                if (msiPath != null)
                 {
                     MsiFile[] msiFiles;
 
                     try
                     {
-                        msiFiles = MsiFile.CreateMsiFilesFromMSI(new LessIO.Path(value));
+                        msiFiles = MsiFile.CreateMsiFilesFromMSI(new LessIO.Path(msiPath));
                     }
                     catch
                     {
@@ -85,8 +87,6 @@ namespace MSIExtract
                 {
                     Files = new ObservableCollection<MsiFile>();
                 }
-
-                msiPath = value;
 
                 OnPropertyChanged(nameof(MsiPath));
                 OnPropertyChanged(nameof(Files));
