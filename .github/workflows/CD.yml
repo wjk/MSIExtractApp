@@ -14,7 +14,7 @@ jobs:
               with:
                   publish: false
               env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         outputs:
             release_upload_url: ${{ steps.create_release_notes.outputs.upload_url }}
 
