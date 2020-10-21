@@ -76,6 +76,7 @@ jobs:
                   /p:PackageCertificateThumbprint=492019107FC952A6183CE97F474F9FACB147E7BC `
                   /p:PackageCertificateKeyFile=.\cert.pfx `
                   /p:PackageCertificatePassword=1234 `
+                  /p:PublicRelease=true `
                   /t:Publish
 
             - name: Prepare Assets for Upload
