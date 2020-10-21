@@ -14,7 +14,7 @@ jobs:
               with:
                   publish: false
               env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         outputs:
             release_upload_url: ${{ steps.create_release_notes.outputs.upload_url }}
 
@@ -25,7 +25,9 @@ jobs:
 
         steps:
             - name: Clone
-              uses: actions/checkout@v1
+              uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
 
             - name: Install .NET
               uses: actions/setup-dotnet@v1
@@ -58,6 +60,12 @@ jobs:
 
                 echo "::set-output name=version::$version"
 
+            - name: Nerdbank.GitVersioning
+              uses: dotnet/nbgv@master
+              id: nbgv
+              with:
+                  setAllVars: true
+
             - name: Build
               working-directory: ./src/MSIExtract.AppxPackage
               run: |
@@ -68,6 +76,7 @@ jobs:
                   /p:PackageCertificateThumbprint=492019107FC952A6183CE97F474F9FACB147E7BC `
                   /p:PackageCertificateKeyFile=.\cert.pfx `
                   /p:PackageCertificatePassword=1234 `
+                  /p:PublicRelease=true `
                   /t:Publish
 
             - name: Prepare Assets for Upload
