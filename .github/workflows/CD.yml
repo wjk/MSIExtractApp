@@ -60,6 +60,12 @@ jobs:
 
                 echo "::set-output name=version::$version"
 
+            - name: Nerdbank.GitVersioning
+              uses: dotnet/nbgv@master
+              id: nbgv
+              with:
+                  setAllVars: true
+
             - name: Build
               working-directory: ./src/MSIExtract.AppxPackage
               run: |
