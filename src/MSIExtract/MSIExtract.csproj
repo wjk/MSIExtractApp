@@ -11,8 +11,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Setup.ico</ApplicationIcon>
     <NoWarn>CS8002;CA1303;SA1101;IDE0009;NU1701</NoWarn>
-
-    <UseCentennialDepsFileGeneration>false</UseCentennialDepsFileGeneration>
   </PropertyGroup>
 
   <ItemGroup>
