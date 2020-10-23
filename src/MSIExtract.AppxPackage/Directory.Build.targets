@@ -8,21 +8,27 @@
     </ExtraContent>
   </ItemGroup>
 
-  <Target Name="DownloadNETRuntime" AfterTargets="BeforeBuild" Condition="'$(Configuration)' == 'Release'">
-    <PropertyGroup>
-      <BundledNETVersion>3.1.8</BundledNETVersion>
+  <PropertyGroup>
+    <BundledNETVersion>3.1.8</BundledNETVersion>
 
-      <BundledNETArch Condition="'$(Platform)' == 'x86'">x86</BundledNETArch>
-      <BundledNETArch Condition="'$(Platform)' == 'x64'">x64</BundledNETArch>
-      <BundledNETArch Condition="'$(Platform)' == 'ARM64'">arm64</BundledNETArch>
+    <BundledNETArch Condition="'$(Platform)' == 'x86'">x86</BundledNETArch>
+    <BundledNETArch Condition="'$(Platform)' == 'x64'">x64</BundledNETArch>
+    <BundledNETArch Condition="'$(Platform)' == 'ARM64'">arm64</BundledNETArch>
 
-      <BundledNETDirectory>$(RepoRootPath)obj\dotnet-runtimes\$(BundledNETVersion)-$(BundledNETArch)</BundledNETDirectory>
-    </PropertyGroup>
+    <BundledNETDirectory>$(RepoRootPath)obj\dotnet-runtimes\$(BundledNETVersion)-$(BundledNETArch)</BundledNETDirectory>
+  </PropertyGroup>
+
+  <Target Name="DownloadNETRuntime" Inputs="$(IntermediateOutputPath)dotnet-version.stamp" Outputs="$(IntermediateOutputPath)dotnet-download.stamp">
+    <WriteLinesToFile File="$(IntermediateOutputPath)dotnet-version.stamp" Lines="$(BundledNETVersion)|$(BundledNETArch)" WriteOnlyWhenDifferent="true" />
 
     <MakeDir Directories="$(BundledNETDirectory)" />
     <Exec Command="powershell -ExecutionPolicy Bypass -File $(RepoRootPath)tools\install-dotnet.ps1 -Version $(BundledNETVersion) -InstallDir . -Runtime dotnet -NoPath -Architecture $(BundledNETArch)" WorkingDirectory="$(BundledNETDirectory)" />
     <Exec Command="powershell -ExecutionPolicy Bypass -File $(RepoRootPath)tools\install-dotnet.ps1 -Version $(BundledNETVersion) -InstallDir . -Runtime windowsdesktop -NoPath -Architecture $(BundledNETArch)" WorkingDirectory="$(BundledNETDirectory)" />
 
+    <WriteLinesToFile File="$(IntermediateOutputPath)dotnet-download.stamp" Lines="$(BundledNETVersion)|$(BundledNETArch)" WriteOnlyWhenDifferent="true" />
+  </Target>
+
+  <Target Name="CopyNETRuntime" AfterTargets="BeforeBuild" DependsOnTargets="DownloadNETRuntime" Condition="'$(Configuration)' == 'Release'">
     <PropertyGroup>
       <_VFSDir Condition="'$(BundledNETArch)' == 'x64' or '$(BundledNETArch)' == 'arm64'">ProgramFilesX64</_VFSDir>
       <_VFSDir Condition="'$(BundledNETArch)' == 'x86'">ProgramFilesX86</_VFSDir>
