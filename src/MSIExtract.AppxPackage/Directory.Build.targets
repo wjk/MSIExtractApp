@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <BundledNETVersion>5.0.100</BundledNETVersion>
+    <BundledNETVersion>5.0.0</BundledNETVersion>
 
     <BundledNETArch Condition="'$(Platform)' == 'x86'">x86</BundledNETArch>
     <BundledNETArch Condition="'$(Platform)' == 'x64'">x64</BundledNETArch>
