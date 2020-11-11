@@ -157,7 +157,7 @@ namespace LessIO.Strategies.Win32
         /// </summary>
         /// <param name="lpFileName"></param>
         /// <returns></returns>
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern uint GetFileAttributes(string lpFileName);
 
         // Invalid is from C:\Program Files (x86)\Windows Kits\8.1\Include\um\fileapi.h
@@ -165,10 +165,10 @@ namespace LessIO.Strategies.Win32
         internal static readonly int INVALID_FILE_ATTRIBUTES = -1;
 
 
-        [DllImport("kernel32.dll", EntryPoint = "RemoveDirectory", CharSet = CharSet.Auto, SetLastError = true, BestFitMapping = false)]
+        [DllImport("kernel32.dll", EntryPoint = "RemoveDirectory", CharSet = CharSet.Unicode, SetLastError = true, BestFitMapping = false)]
         internal static extern bool RemoveDirectory(string lpPathName);
 
-        [DllImport("kernel32.dll", EntryPoint = "DeleteFile", CharSet = CharSet.Auto, SetLastError = true, BestFitMapping = false)]
+        [DllImport("kernel32.dll", EntryPoint = "DeleteFile", CharSet = CharSet.Unicode, SetLastError = true, BestFitMapping = false)]
         internal static extern bool DeleteFile(string path);
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace LessIO.Strategies.Win32
         /// <summary>
         /// https://msdn.microsoft.com/en-us/library/windows/desktop/aa363851%28v=vs.85%29.aspx
         /// </summary>
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
         internal static extern bool CopyFile(string lpExistingFileName, string lpNewFileName, bool bFailIfExists);
 
 
@@ -205,7 +205,7 @@ namespace LessIO.Strategies.Win32
         /// <summary>
         /// https://msdn.microsoft.com/en-us/library/windows/desktop/ms679351%28v=vs.85%29.aspx
         /// </summary>
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
         internal static extern uint FormatMessage(uint dwFlags, IntPtr lpSource, uint dwMessageId, uint dwLanguageId, [Out] System.Text.StringBuilder lpBuffer, uint nSize, IntPtr Arguments);
     }
 }

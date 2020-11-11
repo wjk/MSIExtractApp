@@ -46,7 +46,9 @@ namespace MSIExtract.Msi
         /// <summary>
         /// Provides progress information during an extraction operatation.
         /// </summary>
-        public class ExtractionProgress : IAsyncResult
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2002:Do not lock on objects with weak identity", Justification = "Third-party code")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1001:Types that own disposable fields should be disposable", Justification = "Third-party code")]
+        public sealed class ExtractionProgress : IAsyncResult
         {
             private string _currentFileName;
             private ExtractionActivity _activity;
@@ -108,6 +110,7 @@ namespace MSIExtract.Msi
                     }
                 }
             }
+
 
 
             /// <summary>

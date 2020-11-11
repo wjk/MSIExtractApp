@@ -11,6 +11,7 @@ namespace WixToolset.Dtf.Compression.Cab
     using System.Runtime.InteropServices;
     using System.Diagnostics.CodeAnalysis;
 
+    [SuppressMessage("Reliability", "CA2002:Do not lock on objects with weak identity", Justification = "Third-party code")]
     internal class CabPacker : CabWorker
     {
         private const string TempStreamName = "%%TEMP%%";
@@ -147,9 +148,6 @@ namespace WixToolset.Dtf.Compression.Cab
             this.CheckError(false);
         }
 
-        [SuppressMessage("Microsoft.Security", "CA2106:SecureAsserts")]
-        [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
-        [SecurityPermission(SecurityAction.Assert, UnmanagedCode = true)]
         public void Pack(
             IPackStreamContext streamContext,
             IEnumerable<string> files,

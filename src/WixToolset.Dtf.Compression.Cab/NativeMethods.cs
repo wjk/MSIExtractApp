@@ -15,11 +15,12 @@ using System.Diagnostics.CodeAnalysis;
 /// </summary>
 internal static class NativeMethods
 {
-    /// <summary>
-    /// A direct import of constants, enums, structures, delegates, and functions from fci.h.
-    /// Refer to comments in fci.h for documentation.
-    /// </summary>
-    internal static class FCI
+        /// <summary>
+        /// A direct import of constants, enums, structures, delegates, and functions from fci.h.
+        /// Refer to comments in fci.h for documentation.
+        /// </summary>
+        [SuppressMessage("Design", "CA1060:Move pinvokes to native methods class", Justification = "Third-party code")]
+        internal static class FCI
     {
         internal const int MIN_DISK = 32768;
         internal const int MAX_DISK = Int32.MaxValue;
@@ -170,7 +171,6 @@ internal static class NativeMethods
             /// Releases the handle by calling FDIDestroy().
             /// </summary>
             /// <returns>True if the release succeeded.</returns>
-            [SecurityPermission(SecurityAction.Assert, UnmanagedCode = true)]
             protected override bool ReleaseHandle()
             {
                 return FCI.Destroy(this.handle);
@@ -178,11 +178,13 @@ internal static class NativeMethods
         }
     }
 
+
     /// <summary>
     /// A direct import of constants, enums, structures, delegates, and functions from fdi.h.
     /// Refer to comments in fdi.h for documentation.
     /// </summary>
-    internal static class FDI
+    [SuppressMessage("Design", "CA1060:Move pinvokes to native methods class", Justification = "Third-party code")]
+        internal static class FDI
     {
         internal const int MAX_DISK         = Int32.MaxValue;
         internal const int MAX_FILENAME     = 256;

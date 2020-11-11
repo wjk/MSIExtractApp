@@ -162,7 +162,7 @@ namespace MSIExtract.Views
             progressDialog.ShowDialog(window);
         }
 
-        private void ExtractCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void ExtractCommand_CanExecute(object? sender, CanExecuteRoutedEventArgs e)
         {
             if (DataContext != null)
             {

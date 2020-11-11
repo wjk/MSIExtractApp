@@ -29,7 +29,7 @@ using WixToolset.Dtf.WindowsInstaller;
 
 namespace MSIExtract.Msi
 {
-    public class ViewWrapper : IDisposable
+    public sealed class ViewWrapper : IDisposable
     {
         public ViewWrapper(View underlyingView)
         {
