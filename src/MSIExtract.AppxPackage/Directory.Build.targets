@@ -1,13 +1,4 @@
 <Project>
-  <ItemGroup>
-    <ExtraContent Include="..\..\bin\MSIExtract.ShellExtension\$(Platform)\$(Configuration)\net5.0\*.dll">
-      <TargetDirectory>MSIExtract.ShellExtension\</TargetDirectory>
-    </ExtraContent>
-    <ExtraContent Include="..\..\bin\MSIExtract.ShellExtension\$(Platform)\$(Configuration)\net5.0\MSIExtract.ShellExtension.*.json">
-      <TargetDirectory>MSIExtract.ShellExtension\</TargetDirectory>
-    </ExtraContent>
-  </ItemGroup>
-
   <PropertyGroup>
     <BundledNETVersion>5.0.0</BundledNETVersion>
 
