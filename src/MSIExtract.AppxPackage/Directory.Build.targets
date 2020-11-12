@@ -42,8 +42,6 @@
   </Target>
 
   <Target Name="AddExtraContent" AfterTargets="BeforeBuild" DependsOnTargets="DownloadNETRuntime">
-    <Error Text="ExtraContent item has no TargetDirectory" Condition="'%(ExtraContent.TargetDirectory)' == '' and '@(ExtraContent)' != ''" />
-
     <ItemGroup>
       <Content Include="@(ExtraContent)">
         <Link>%(ExtraContent.TargetDirectory)%(FileName)%(Extension)</Link>
