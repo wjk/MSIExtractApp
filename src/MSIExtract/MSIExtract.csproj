@@ -19,13 +19,6 @@
     <PackageReference Include="PresentationTheme.Aero" Version="0.6.2" />
     <ProjectReference Include="..\MSIExtract.Core\MSIExtract.Core.csproj" />
     <ProjectReference Include="..\TaskDialog\TaskDialog.csproj" />
-
-    <TrimmerRootAssembly Include="PresentationTheme.Aero.Win10" />
-    <TrimmerRootAssembly Include="PresentationTheme.Aero.Win8" />
-    <TrimmerRootAssembly Include="PresentationTheme.AeroLite.Win10" />
-    <TrimmerRootAssembly Include="PresentationTheme.AeroLite.Win8" />
-    <TrimmerRootAssembly Include="PresentationTheme.HighContrast.Win10" />
-    <TrimmerRootAssembly Include="PresentationTheme.HighContrast.Win8" />
   </ItemGroup>
 
   <ItemGroup>
