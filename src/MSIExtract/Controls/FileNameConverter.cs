@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Windows.Data;
-using MSIExtract.Interop;
+using Vanara.PInvoke;
 
 namespace MSIExtract.Controls
 {
@@ -61,18 +61,17 @@ namespace MSIExtract.Controls
                 throw new ArgumentException("Path must be rooted", nameof(value));
             }
 
-            NativeMethods.IShellItem2 item = NativeMethods.SHCreateItemFromParsingName(path, IntPtr.Zero, typeof(NativeMethods.IShellItem2).GUID);
+            Shell32.IShellItem2 item = Shell32.SHCreateItemFromParsingName<Shell32.IShellItem2>(path);
 
-            NativeMethods.SIGDN sigdn = DisplayMode switch
+            Shell32.SIGDN sigdn = DisplayMode switch
             {
-                FileNameDisplayMode.Default => NativeMethods.SIGDN.NORMALDISPLAY,
-                FileNameDisplayMode.FullPath => NativeMethods.SIGDN.FILESYSPATH,
-                FileNameDisplayMode.NameOnly => NativeMethods.SIGDN.PARENTRELATIVEPARSING,
+                FileNameDisplayMode.Default => Shell32.SIGDN.SIGDN_NORMALDISPLAY,
+                FileNameDisplayMode.FullPath => Shell32.SIGDN.SIGDN_FILESYSPATH,
+                FileNameDisplayMode.NameOnly => Shell32.SIGDN.SIGDN_PARENTRELATIVEPARSING,
                 _ => throw new InvalidOperationException($"Unexpected {nameof(FileNameDisplayMode)}")
             };
 
-            item.GetDisplayName(sigdn, out string name);
-            return name;
+            return item.GetDisplayName(sigdn);
         }
 
         /// <summary>
