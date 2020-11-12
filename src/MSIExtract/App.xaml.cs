@@ -47,7 +47,17 @@ namespace MSIExtract
             ThemeManager.Install();
             AeroTheme.SetAsCurrentTheme();
 
-            IActivatedEventArgs? activationArgs = AppInstance.GetActivatedEventArgs();
+            IActivatedEventArgs? activationArgs = null;
+
+            try
+            {
+                activationArgs = AppInstance.GetActivatedEventArgs();
+            }
+            catch (System.Runtime.InteropServices.COMException)
+            {
+                activationArgs = null;
+            }
+
             if (activationArgs != null)
             {
                 switch (activationArgs.Kind)
