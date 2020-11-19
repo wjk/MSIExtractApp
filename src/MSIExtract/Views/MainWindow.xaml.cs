@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -18,7 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using KPreisser.UI;
 using MSIExtract.Controls;
-using Windows.Data.Pdf;
+using Vanara.PInvoke;
 
 namespace MSIExtract.Views
 {
@@ -112,6 +113,7 @@ namespace MSIExtract.Views
             FilePicker.ShowChooseFileDialog();
         }
 
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:Parameters should be on same line or separate lines", Justification = "wart")]
         private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
         {
             static string GetTaskDialogInstruction()
@@ -149,13 +151,13 @@ namespace MSIExtract.Views
             {
                 if (e.Hyperlink == "github")
                 {
-                    // Apparently, System.Diagnostics.Process.Start does not support URLs on .NET Core.
-                    IntPtr hWnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
-                    Interop.NativeMethods.ShellExecute(hWnd, "open", "https://github.com/wjk/MSIExtractApp", null, null);
+                    Shell32.ShellExecute(IntPtr.Zero, "open", "https://github.com/wjk/MSIExtractApp",
+                       null, null, ShowWindowCommand.SW_SHOWDEFAULT);
                 }
                 else if (e.Hyperlink == "tpn")
                 {
-                    Interop.NativeMethods.ShellExecute(IntPtr.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/master/legal/ThirdPartyNotices.md", null, null);
+                    Shell32.ShellExecute(IntPtr.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/master/legal/ThirdPartyNotices.md",
+                        null, null, ShowWindowCommand.SW_SHOWDEFAULT);
                 }
             };
 
@@ -163,9 +165,11 @@ namespace MSIExtract.Views
             dialog.Show(this);
         }
 
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:Parameters should be on same line or separate lines", Justification = "wart")]
         private void PrivacyMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Interop.NativeMethods.ShellExecute(IntPtr.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/master/legal/PrivacyPolicy.md", null, null);
+            Shell32.ShellExecute(IntPtr.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/master/legal/PrivacyPolicy.md",
+                null, null, ShowWindowCommand.SW_SHOWDEFAULT);
         }
 
         private void ShowInvalidFileCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)

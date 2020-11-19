@@ -15,7 +15,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Microsoft.Win32;
-using MSIExtract.Interop;
 using Vanara.PInvoke;
 
 namespace MSIExtract.Controls
@@ -206,12 +205,13 @@ namespace MSIExtract.Controls
                 Shell32.IShellItem2 shellItem = Shell32.SHCreateItemFromParsingName<Shell32.IShellItem2>(newValue);
 
                 var window = Window.GetWindow(this);
-                uint scale = NativeMethods.GetDpiForWindow(new WindowInteropHelper(window).Handle) / 96;
+                uint scale = User32.GetDpiForWindow(new WindowInteropHelper(window).Handle) / 96;
                 var iconSize = new Vanara.PInvoke.SIZE((int)(iconPart.Width * scale), (int)(iconPart.Height * scale));
 
                 var imageFactory = (Shell32.IShellItemImageFactory)shellItem;
                 imageFactory.GetImage(iconSize, Shell32.SIIGBF.SIIGBF_RESIZETOFIT | Shell32.SIIGBF.SIIGBF_ICONONLY, out var bitmap);
                 iconPart.Source = Imaging.CreateBitmapSourceFromHBitmap(bitmap.DangerousGetHandle(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                bitmap.Dispose();
             }
             else
             {
