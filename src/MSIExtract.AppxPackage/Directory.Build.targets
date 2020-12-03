@@ -1,15 +1,6 @@
 <Project>
-  <ItemGroup>
-    <ExtraContent Include="..\..\bin\MSIExtract.ShellExtension\$(Platform)\$(Configuration)\netcoreapp3.1\*.dll">
-      <TargetDirectory>MSIExtract.ShellExtension\</TargetDirectory>
-    </ExtraContent>
-    <ExtraContent Include="..\..\bin\MSIExtract.ShellExtension\$(Platform)\$(Configuration)\netcoreapp3.1\MSIExtract.ShellExtension.*.json">
-      <TargetDirectory>MSIExtract.ShellExtension\</TargetDirectory>
-    </ExtraContent>
-  </ItemGroup>
-
   <PropertyGroup>
-    <BundledNETVersion>3.1.8</BundledNETVersion>
+    <BundledNETVersion>5.0.0</BundledNETVersion>
 
     <BundledNETArch Condition="'$(Platform)' == 'x86'">x86</BundledNETArch>
     <BundledNETArch Condition="'$(Platform)' == 'x64'">x64</BundledNETArch>
@@ -18,14 +9,10 @@
     <BundledNETDirectory>$(RepoRootPath)obj\dotnet-runtimes\$(BundledNETVersion)-$(BundledNETArch)</BundledNETDirectory>
   </PropertyGroup>
 
-  <Target Name="DownloadNETRuntime" Inputs="$(IntermediateOutputPath)dotnet-version.stamp" Outputs="$(IntermediateOutputPath)dotnet-download.stamp">
-    <WriteLinesToFile File="$(IntermediateOutputPath)dotnet-version.stamp" Lines="$(BundledNETVersion)|$(BundledNETArch)" WriteOnlyWhenDifferent="true" />
-
+  <Target Name="DownloadNETRuntime" Condition="'$(Configuration)' == 'Release'">
     <MakeDir Directories="$(BundledNETDirectory)" />
-    <Exec Command="powershell -ExecutionPolicy Bypass -File $(RepoRootPath)tools\install-dotnet.ps1 -Version $(BundledNETVersion) -InstallDir . -Runtime dotnet -NoPath -Architecture $(BundledNETArch)" WorkingDirectory="$(BundledNETDirectory)" />
-    <Exec Command="powershell -ExecutionPolicy Bypass -File $(RepoRootPath)tools\install-dotnet.ps1 -Version $(BundledNETVersion) -InstallDir . -Runtime windowsdesktop -NoPath -Architecture $(BundledNETArch)" WorkingDirectory="$(BundledNETDirectory)" />
-
-    <WriteLinesToFile File="$(IntermediateOutputPath)dotnet-download.stamp" Lines="$(BundledNETVersion)|$(BundledNETArch)" WriteOnlyWhenDifferent="true" />
+    <Exec Command="powershell -ExecutionPolicy Bypass -File $(RepoRootPath)tools\install-dotnet.ps1 -Channel $(BundledNETVersion) -InstallDir . -Runtime dotnet -NoPath -Architecture $(BundledNETArch)" WorkingDirectory="$(BundledNETDirectory)" />
+    <Exec Command="powershell -ExecutionPolicy Bypass -File $(RepoRootPath)tools\install-dotnet.ps1 -Channel $(BundledNETVersion) -InstallDir . -Runtime windowsdesktop -NoPath -Architecture $(BundledNETArch)" WorkingDirectory="$(BundledNETDirectory)" />
   </Target>
 
   <Target Name="CopyNETRuntime" AfterTargets="BeforeBuild" DependsOnTargets="DownloadNETRuntime" Condition="'$(Configuration)' == 'Release'">
@@ -54,9 +41,7 @@
     </CreateItem>
   </Target>
 
-  <Target Name="AddExtraContent" AfterTargets="BeforeBuild" DependsOnTargets="DownloadNETRuntime" Condition="'@(ExtraContent)' != ''">
-    <Error Text="ExtraContent item has no TargetDirectory" Condition="'%(ExtraContent.TargetDirectory)' == ''" />
-
+  <Target Name="AddExtraContent" AfterTargets="BeforeBuild" DependsOnTargets="DownloadNETRuntime">
     <ItemGroup>
       <Content Include="@(ExtraContent)">
         <Link>%(ExtraContent.TargetDirectory)%(FileName)%(Extension)</Link>

@@ -56,7 +56,7 @@ namespace MSIExtract.ShellExtension
                 processInfo.WindowStyle = ProcessWindowStyle.Normal;
 
                 var process = Process.Start(processInfo);
-                process.Dispose();
+                process?.Dispose();
             }
         }
 

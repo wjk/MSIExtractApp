@@ -281,7 +281,6 @@ namespace WixToolset.Dtf.Compression
         /// object data.</param>
         /// <param name="context">The StreamingContext that contains contextual
         /// information about the source or destination.</param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(
             SerializationInfo info, StreamingContext context)
         {

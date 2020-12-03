@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0-windows10.0.19041</TargetFramework>
     <RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
     <Platforms>x86;x64</Platforms>
     <UseWindowsForms>true</UseWindowsForms>
@@ -10,23 +10,16 @@
     <AssemblyTitle>MSI Viewer</AssemblyTitle>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Setup.ico</ApplicationIcon>
-    <NoWarn>CS8002;CA1303;SA1101;IDE0009;NU1701</NoWarn>
+    <NoWarn>CS8002;CA1303;CA1416;SA1101;IDE0009;NU1701</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Dirkster.MRULib" Version="1.3.0" />
-    <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="3.1.0" />
     <PackageReference Include="PresentationTheme.Aero" Version="0.6.2" />
+    <PackageReference Include="Vanara.PInvoke.Shell32" Version="3.2.20" />
     <ProjectReference Include="..\MSIExtract.Core\MSIExtract.Core.csproj" />
     <ProjectReference Include="..\TaskDialog\TaskDialog.csproj" />
-
-    <TrimmerRootAssembly Include="PresentationTheme.Aero.Win10" />
-    <TrimmerRootAssembly Include="PresentationTheme.Aero.Win8" />
-    <TrimmerRootAssembly Include="PresentationTheme.AeroLite.Win10" />
-    <TrimmerRootAssembly Include="PresentationTheme.AeroLite.Win8" />
-    <TrimmerRootAssembly Include="PresentationTheme.HighContrast.Win10" />
-    <TrimmerRootAssembly Include="PresentationTheme.HighContrast.Win8" />
   </ItemGroup>
 
   <ItemGroup>

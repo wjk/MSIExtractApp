@@ -15,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Microsoft.Win32;
-using MSIExtract.Interop;
+using Vanara.PInvoke;
 
 namespace MSIExtract.Controls
 {
@@ -202,23 +202,16 @@ namespace MSIExtract.Controls
                     throw new ArgumentException("FilePicker.Path must be absolute", nameof(newValue));
                 }
 
-                NativeMethods.IShellItem2 shellItem = NativeMethods.SHCreateItemFromParsingName(newValue, IntPtr.Zero, typeof(NativeMethods.IShellItem2).GUID);
+                Shell32.IShellItem2 shellItem = Shell32.SHCreateItemFromParsingName<Shell32.IShellItem2>(newValue);
 
                 var window = Window.GetWindow(this);
-                uint scale = NativeMethods.GetDpiForWindow(new WindowInteropHelper(window).Handle) / 96;
-                var iconSize = new NativeMethods.SIZE((int)(iconPart.Width * scale), (int)(iconPart.Height * scale));
+                uint scale = User32.GetDpiForWindow(new WindowInteropHelper(window).Handle) / 96;
+                var iconSize = new Vanara.PInvoke.SIZE((int)(iconPart.Width * scale), (int)(iconPart.Height * scale));
 
-                var imageFactory = (NativeMethods.IShellItemImageFactory)shellItem;
-                imageFactory.GetImage(iconSize, NativeMethods.SIIGBF.RESIZETOFIT | NativeMethods.SIIGBF.ICONONLY, out IntPtr hBitmap);
-
-                try
-                {
-                    iconPart.Source = Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                }
-                finally
-                {
-                    NativeMethods.DeleteObject(hBitmap);
-                }
+                var imageFactory = (Shell32.IShellItemImageFactory)shellItem;
+                imageFactory.GetImage(iconSize, Shell32.SIIGBF.SIIGBF_RESIZETOFIT | Shell32.SIIGBF.SIIGBF_ICONONLY, out var bitmap);
+                iconPart.Source = Imaging.CreateBitmapSourceFromHBitmap(bitmap.DangerousGetHandle(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                bitmap.Dispose();
             }
             else
             {
