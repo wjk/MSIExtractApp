@@ -103,7 +103,7 @@ jobs:
               with:
                   upload_url: ${{ needs.create_release_notes.outputs.release_upload_url }}
                   asset_path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
-                  asset_name: "MSI Viewer ${{ steps.update_version.outputs.version }} Store.msixupload"
+                  asset_name: "MSIViewer_${{ steps.update_version.outputs.version }}_Store.msixupload"
                   asset_content_type: application/zip
 
             - name: Upload Sideload Assets
@@ -113,5 +113,5 @@ jobs:
               with:
                   upload_url: ${{ needs.create_release_notes.outputs.release_upload_url }}
                   asset_path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
-                  asset_name: "MSI Viewer ${{ steps.update_version.outputs.version }} Sideload.msixbundle"
+                  asset_name: "MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle"
                   asset_content_type: application/zip
