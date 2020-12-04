@@ -1,5 +1,6 @@
 <Project>
   <PropertyGroup>
-    <PackageCertificateThumbprint>492019107FC952A6183CE97F474F9FACB147E7BC</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>4DFF1FA5A339F7C1F623177264249E99D4C81E45</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>cert.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
 </Project>
