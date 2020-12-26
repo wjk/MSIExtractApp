@@ -2,5 +2,6 @@
   <PropertyGroup>
     <PackageCertificateThumbprint>4DFF1FA5A339F7C1F623177264249E99D4C81E45</PackageCertificateThumbprint>
     <PackageCertificateKeyFile>cert.pfx</PackageCertificateKeyFile>
+    <PackageCertificatePassword>1234</PackageCertificatePassword>
   </PropertyGroup>
 </Project>
