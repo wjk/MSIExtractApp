@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using LessIO.Strategies;
 using LessIO.Strategies.Win32;
 using BadPath = System.IO.Path;
@@ -111,7 +112,7 @@ namespace LessIO
         public static void Copy(Path source, Path dest)
         {
             if (!Strategy.Exists(source))
-                throw new Exception(string.Format("The file \"{0}\" does not exist.", source));
+                throw new FileNotFoundException("The source file does not exist.", BadPath.GetFileName(source.FullPathString));
             Strategy.Copy(source, dest);
         }
 

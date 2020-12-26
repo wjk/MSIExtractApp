@@ -11,10 +11,12 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using KPreisser.UI;
 using MSIExtract.Controls;
 using MSIExtract.Msi;
 
@@ -150,11 +152,30 @@ namespace MSIExtract.Views
                         this.Dispatcher.Invoke(() => progressDialog.ReportProgress(percentProgress, null, message));
                     });
                 }
+                catch (System.IO.FileNotFoundException ex)
+                {
+#pragma warning disable SA1130 // Use lambda syntax (not valid syntax here for some reason)
+                    Dispatcher.BeginInvoke((Action)delegate
+#pragma warning restore SA1130 // Use lambda syntax
+                    {
+                        TaskDialogPage page = new TaskDialogPage();
+                        page.Instruction = "Cannot extract the specified files.";
+                        page.Text = $"The file \"{ex.FileName}\" was not found.";
+                        page.Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Error);
+                        page.StandardButtons.Add(TaskDialogResult.Close);
+                        page.AllowCancel = true;
+
+                        TaskDialog dialog = new TaskDialog();
+                        dialog.Page = page;
+                        dialog.Show(window);
+                    });
+
+                    return;
+                }
                 catch (Exception ex)
                 {
                     // Rethrow the exception on the main thread.
                     Dispatcher.Invoke(() => throw ex);
-                    throw;
                 }
             }
 
