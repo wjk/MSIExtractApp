@@ -5,9 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Text;
-using System.Windows.Controls;
-using KPreisser.UI;
+using System.Windows.Data;
 using MRULib;
 using MRULib.MRU.Interfaces;
 using MRULib.MRU.Models.Persist;
@@ -21,7 +19,9 @@ namespace MSIExtract
     /// </summary>
     public sealed class AppModel : INotifyPropertyChanged
     {
+        private readonly CollectionViewSource fileList;
         private string? msiPath;
+        private string? filterText;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppModel"/> class.
@@ -43,6 +43,9 @@ namespace MSIExtract
             {
                 MRUModel = MRU_Service.Create_List();
             }
+
+            fileList = new CollectionViewSource();
+            fileList.Filter += FileList_Filter;
         }
 
         /// <summary>
@@ -79,25 +82,46 @@ namespace MSIExtract
                         return;
                     }
 
-                    Files = new ObservableCollection<MsiFile>(msiFiles);
+                    fileList.Source = msiFiles;
                     MRUModel.UpdateEntry(msiPath);
                     SaveMRU();
                 }
                 else
                 {
-                    Files = new ObservableCollection<MsiFile>();
+                    fileList.Source = Array.Empty<MsiFile>();
                 }
 
                 OnPropertyChanged(nameof(MsiPath));
+                OnPropertyChanged(nameof(IsMsiLoaded));
                 OnPropertyChanged(nameof(Files));
                 OnPropertyChanged(nameof(MRUModel));
             }
         }
 
         /// <summary>
+        /// Gets a value indicating whether there is an MSI file loaded.
+        /// </summary>
+        public bool IsMsiLoaded { get => !string.IsNullOrEmpty(this.msiPath); }
+
+        /// <summary>
         /// Gets a collection of the files installed by the MSI.
         /// </summary>
-        public ObservableCollection<MsiFile> Files { get; private set; } = new ObservableCollection<MsiFile>();
+        public ICollectionView Files { get => fileList.View; }
+
+        /// <summary>
+        /// Gets or Sets the text that will be used to filter the filelist.
+        /// </summary>
+        public string FilterText
+        {
+            get => filterText ?? string.Empty;
+
+            set
+            {
+                this.filterText = value;
+                this.fileList.View.Refresh();
+                OnPropertyChanged(nameof(FilterText));
+            }
+        }
 
         /// <summary>
         /// Gets an <see cref="IMRUListViewModel"/> object that contains the list of recently opened MSI files.
@@ -144,6 +168,18 @@ namespace MSIExtract
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void FileList_Filter(object sender, FilterEventArgs e)
+        {
+            if (string.IsNullOrEmpty(FilterText))
+            {
+                e.Accepted = true;
+                return;
+            }
+
+            var flt = FilterText.ToUpper();
+            e.Accepted = e.Item is MsiFile file && (file.LongFileName.ToUpper().Contains(flt) || file.Directory.FullPath.ToUpper().Contains(flt));
         }
     }
 }

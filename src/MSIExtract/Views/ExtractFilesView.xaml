@@ -52,5 +52,18 @@
         <Button Content="Select _All" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 8 0" Padding="10 1" Command="{x:Static ApplicationCommands.SelectAll}" />
         <Button Content="_Deselect All" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 4 0" Padding="10 1" Command="{x:Static Views:ExtractFilesView.SelectNoneCommand}" />
         <Button Content="_Extract" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4 8 0 0" Padding="10 1" IsDefault="True" Command="{x:Static Views:ExtractFilesView.ExtractCommand}" />
+        <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" Name="FilterFileListView" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="4,8,0,0" TextWrapping="NoWrap" VerticalAlignment="Bottom" Width="320" IsEnabled="{Binding IsMsiLoaded}" />
+        <TextBlock IsHitTestVisible="False" Grid.Row="1" Grid.Column="2" Text="Enter Search Term Here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,8,0,0" Foreground="{x:Static SystemColors.GrayTextBrush}">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=FilterFileListView}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
     </Grid>
 </UserControl>
