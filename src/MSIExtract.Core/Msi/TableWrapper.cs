@@ -46,9 +46,15 @@ namespace MSIExtract.Msi
 
         public static TableRow[] GetRowsFromTable(Database msidb, string tableName)
         {
+            return GetRowsFromTable(msidb, tableName, out ColumnInfo[] _);
+        }
+
+        public static TableRow[] GetRowsFromTable(Database msidb, string tableName, out ColumnInfo[] columns)
+        {
             if (!msidb.Tables.Contains(tableName))
             {
                 Trace.WriteLine(string.Format("Table name does {0} not found.", tableName));
+                columns = null;
                 return new TableRow[0];
             }
 
@@ -57,7 +63,7 @@ namespace MSIExtract.Msi
             {
                 ArrayList /*<TableRow>*/ rows = new ArrayList(view.Records.Count);
 
-                ColumnInfo[] columns = view.Columns;
+                columns = view.Columns;
                 foreach (object[] values in view.Records)
                 {
                     HybridDictionary valueCollection = new HybridDictionary(values.Length);

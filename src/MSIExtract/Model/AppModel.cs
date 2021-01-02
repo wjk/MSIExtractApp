@@ -70,11 +70,11 @@ namespace MSIExtract
 
                 if (msiPath != null)
                 {
-                    MsiFile[] msiFiles;
+                    MsiDataContainer container;
 
                     try
                     {
-                        msiFiles = MsiFile.CreateMsiFilesFromMSI(new LessIO.Path(msiPath));
+                        container = MsiDataContainer.CreateFromPath(new LessIO.Path(msiPath));
                     }
                     catch
                     {
@@ -82,18 +82,22 @@ namespace MSIExtract
                         return;
                     }
 
-                    fileList.Source = msiFiles;
+                    fileList.Source = container.Files;
+                    Tables = new ObservableCollection<TableWithData>(container.Tables);
+
                     MRUModel.UpdateEntry(msiPath);
                     SaveMRU();
                 }
                 else
                 {
                     fileList.Source = Array.Empty<MsiFile>();
+                    Tables = new ObservableCollection<TableWithData>();
                 }
 
                 OnPropertyChanged(nameof(MsiPath));
                 OnPropertyChanged(nameof(IsMsiLoaded));
                 OnPropertyChanged(nameof(Files));
+                OnPropertyChanged(nameof(Tables));
                 OnPropertyChanged(nameof(MRUModel));
             }
         }
@@ -122,6 +126,11 @@ namespace MSIExtract
                 OnPropertyChanged(nameof(FilterText));
             }
         }
+
+        /// <summary>
+        /// Gets a collection of the table names from the MSI.
+        /// </summary>
+        public ObservableCollection<TableWithData> Tables { get; private set; } = new ObservableCollection<TableWithData>();
 
         /// <summary>
         /// Gets an <see cref="IMRUListViewModel"/> object that contains the list of recently opened MSI files.
