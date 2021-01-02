@@ -26,24 +26,6 @@ namespace MSIExtract
         {
             base.OnStartup(e);
 
-            if (!CheckPackageIdentity())
-            {
-                var page = new TaskDialogPage
-                {
-                    AllowCancel = true,
-                    Title = "MSI Viewer",
-                    Instruction = "MSI Viewer cannot be run outside of its Windows Store package.",
-                    Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Error),
-                };
-
-                page.StandardButtons.Add(TaskDialogResult.Close);
-                var td = new TaskDialog(page);
-                td.Show();
-
-                this.Shutdown();
-                return;
-            }
-
             ThemeManager.Install();
             AeroTheme.SetAsCurrentTheme();
 
