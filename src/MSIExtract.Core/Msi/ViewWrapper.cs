@@ -98,21 +98,21 @@ namespace MSIExtract.Msi
                                     values[i] = sourceRecord.GetInteger(i + 1);
                                 else if (_columns[i].IsStream)
                                 {
-                                    var tempBuffer = new byte[_columns[i].Size + 1];
-                                    var allData = new byte[_columns[i].Size + 1];
-                                    int totalBytesRead = 0;
-                                    int bytesReadThisCall;
-
-                                    using var stream = sourceRecord.GetStream(i);
-                                    do
+                                    using (var stream = sourceRecord.GetStream(i + 1))
                                     {
-                                        // It seems to read the Binary table with _columns[i].Size ==0 tempBuffer must be at least 1 in length or an ExecutionEngineException occurs.
-                                        bytesReadThisCall = stream.Read(tempBuffer, 0, tempBuffer.Length);
-                                        Buffer.BlockCopy(tempBuffer, 0, allData, totalBytesRead, bytesReadThisCall);
-                                        totalBytesRead += bytesReadThisCall;
-                                        Debug.Assert(bytesReadThisCall > 0);
-                                    } while (bytesReadThisCall > 0 && (totalBytesRead < _columns[i].Size));
-                                    values[i] = allData;
+                                        var tempBuffer = new byte[512];
+                                        var allData = new byte[stream.Length];
+                                        int totalBytesRead = 0;
+                                        int bytesReadThisCall;
+                                        do
+                                        {
+                                            bytesReadThisCall = stream.Read(tempBuffer, 0, tempBuffer.Length);
+                                            Buffer.BlockCopy(tempBuffer, 0, allData, totalBytesRead, bytesReadThisCall);
+                                            totalBytesRead += bytesReadThisCall;
+                                            Debug.Assert(bytesReadThisCall > 0);
+                                        } while (bytesReadThisCall > 0 && (totalBytesRead < allData.Length));
+                                        values[i] = allData;
+                                    }
                                 }
                                 else if (_columns[i].IsObject)
                                 {
