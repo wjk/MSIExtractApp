@@ -89,3 +89,5 @@ This license governs use of the accompanying software. If you use the software, 
 
 The source code for the WiX 4 components of this project are available
 in the project's repository at <https://github.com/wjk/MSIExtractApp>.
+
+The search result highlighting code is based on [this answer from StackOverflow](https://stackoverflow.com/a/60474831/4928207).
