@@ -7,6 +7,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theme/CommonControlStyles.xaml" />
                 <ResourceDictionary Source="Theme/FilePicker.xaml" />
+                <ResourceDictionary Source="Theme/HighlightTextStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <local:AppModel x:Key="DesignTimeAppModel" />

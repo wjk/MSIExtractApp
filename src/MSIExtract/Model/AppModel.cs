@@ -187,8 +187,15 @@ namespace MSIExtract
                 return;
             }
 
-            var flt = FilterText.ToUpper();
-            e.Accepted = e.Item is MsiFile file && (file.LongFileName.ToUpper().Contains(flt) || file.Directory.FullPath.ToUpper().Contains(flt));
+            if (e.Item is MsiFile file)
+            {
+                var filenameMatch = file.LongFileName.Contains(FilterText, StringComparison.OrdinalIgnoreCase);
+                e.Accepted = filenameMatch || file.Directory.FullPath.Contains(FilterText, StringComparison.OrdinalIgnoreCase);
+            }
+            else
+            {
+                e.Accepted = false;
+            }
         }
     }
 }

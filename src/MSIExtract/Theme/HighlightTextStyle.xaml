@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Controls="clr-namespace:MSIExtract.Controls">
+
+    <Style x:Key="HightlightColors" TargetType="Run">
+        <Setter Property="Background" Value="#FFFFFF12" />
+
+        <Style.Triggers>
+            <Trigger Property="Controls:SystemParameterProperties.HighContrast" Value="True">
+                <Setter Property="Background" Value="#C300FF" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

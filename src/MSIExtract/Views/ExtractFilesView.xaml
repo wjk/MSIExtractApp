@@ -23,11 +23,15 @@
 
                 <TextBlock Grid.Row="0" TextWrapping="Wrap">
                     <Run>File:</Run>
-                    <Run FontWeight="Bold" Text="{Binding Path=LongFileName, Mode=OneWay}" />
+                    <TextBlock FontWeight="Bold"
+                        Controls:HighlightTermBehavior.TermToBeHighlighted="{Binding Path=DataContext.FilterText, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Mode=OneWay}"
+                        Controls:HighlightTermBehavior.Text="{Binding Path=LongFileName, Mode=OneWay}" />
                 </TextBlock>
                 <TextBlock Grid.Row="1" TextWrapping="Wrap">
                     <Run>Directory:</Run>
-                    <Run Text="{Binding Path=Directory.FullPath, Mode=OneWay}" />
+                    <TextBlock
+                        Controls:HighlightTermBehavior.TermToBeHighlighted="{Binding Path=DataContext.FilterText, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Mode=OneWay}"
+                        Controls:HighlightTermBehavior.Text="{Binding Path=Directory.FullPath, Mode=OneWay}" />
                 </TextBlock>
             </Grid>
         </DataTemplate>
