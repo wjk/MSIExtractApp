@@ -103,7 +103,7 @@ namespace MSIExtract.Views
                 Text = text,
             };
 
-            void DoWork(object sender, DoWorkEventArgs e)
+            void DoWork(object? sender, DoWorkEventArgs e)
             {
                 if (string.IsNullOrEmpty(model.MsiPath))
                 {
