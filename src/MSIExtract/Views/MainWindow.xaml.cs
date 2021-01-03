@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -133,21 +134,23 @@ namespace MSIExtract.Views
                 return appTitle + " " + versionString;
             }
 
+            string baseText = "Copyright © 2019-2020 William Kent. Licensed under the MIT License.\r\n\r\n" +
+                "<a href=\"github\">View on GitHub</a>\r\n" +
+                "<a href=\"tpn\">Third-Party Notices</a>\r\n\r\n" +
+                $"Build {ThisAssembly.AssemblyInformationalVersion}\r\n\r\n";
+
             TaskDialogPage page = new TaskDialogPage
             {
                 AllowCancel = true,
                 Title = "About MSI Viewer",
                 Instruction = GetTaskDialogInstruction(),
                 Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Information),
-                Text = "Copyright © 2019-2020 William Kent. Licensed under the MIT License.\r\n\r\n" +
-                "<a href=\"github\">View on GitHub</a>\r\n" +
-                "<a href=\"tpn\">Third-Party Notices</a>\r\n\r\n" +
-                $"Build {ThisAssembly.AssemblyInformationalVersion}",
+                Text = baseText + "<a href=\"updatecheck\">Check for updates</a>",
                 EnableHyperlinks = true,
             };
             page.StandardButtons.Add(TaskDialogResult.OK);
 
-            page.HyperlinkClicked += (s, e) =>
+            page.HyperlinkClicked += async (s, e) =>
             {
                 if (e.Hyperlink == "github")
                 {
@@ -159,10 +162,56 @@ namespace MSIExtract.Views
                     Shell32.ShellExecute(IntPtr.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/master/legal/ThirdPartyNotices.md",
                         null, null, ShowWindowCommand.SW_SHOWDEFAULT);
                 }
+                else if (e.Hyperlink == "updatecheck")
+                {
+                    page.Text = baseText + "Checking...";
+                    var version = await GetLatestVersion("https://github.com/wjk/MSIExtractApp/releases/latest");
+                    var split = version.Split(new char[] { '/' });
+                    var versionTag = split.Last();
+                    page.Text = baseText + $"Latest version: <a href=\"{version}\">{versionTag}</a>";
+                }
+                else
+                {
+                    Shell32.ShellExecute(IntPtr.Zero, "open", e.Hyperlink, null, null, ShowWindowCommand.SW_SHOWDEFAULT);
+                }
             };
 
             TaskDialog dialog = new TaskDialog(page);
             dialog.Show(this);
+        }
+
+        // Based on https://stackoverflow.com/a/28424940/4928207
+        private async Task<string> GetLatestVersion(string url)
+        {
+            try
+            {
+                var req = (HttpWebRequest)HttpWebRequest.Create(url);
+                req.Method = "HEAD";
+                req.AllowAutoRedirect = false;
+                using var resp = (HttpWebResponse)await req.GetResponseAsync();
+                switch (resp.StatusCode)
+                {
+                    case HttpStatusCode.OK:
+                        return url;
+                    case HttpStatusCode.Redirect:
+                    case HttpStatusCode.MovedPermanently:
+                    case HttpStatusCode.RedirectKeepVerb:
+                    case HttpStatusCode.RedirectMethod:
+                        if (resp.Headers["Location"] == null)
+                        {
+                            return url;
+                        }
+
+                        return resp.Headers["Location"] ?? url;
+                    default:
+                        return url;
+                }
+            }
+            catch
+            {
+            }
+
+            return url;
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:Parameters should be on same line or separate lines", Justification = "wart")]
