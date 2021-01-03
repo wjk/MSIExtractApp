@@ -37,7 +37,7 @@
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
         <DataGrid Grid.Column="2" DataContext="{Binding ElementName=TableNamesListBox,Path=SelectedItem}" ItemsSource="{Binding Path=Rows}"
-                  AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" CanUserResizeRows="False" CanUserReorderColumns="False" HeadersVisibility="Column" SelectionUnit="Cell" CanUserAddRows="False" CanUserDeleteRows="False" />
+                  AutoGenerateColumns="True" SelectionMode="Extended" IsReadOnly="True" CanUserResizeRows="False" CanUserReorderColumns="False" HeadersVisibility="Column" SelectionUnit="Cell" CanUserAddRows="False" CanUserDeleteRows="False" />
 
 
     </Grid>
