@@ -156,7 +156,7 @@ namespace MSIExtract.Views
                 }
                 else if (e.Hyperlink == "tpn")
                 {
-                    Shell32.ShellExecute(IntPtr.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/master/legal/ThirdPartyNotices.md",
+                    Shell32.ShellExecute(IntPtr.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/main/legal/ThirdPartyNotices.md",
                         null, null, ShowWindowCommand.SW_SHOWDEFAULT);
                 }
             };
@@ -168,7 +168,7 @@ namespace MSIExtract.Views
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:Parameters should be on same line or separate lines", Justification = "wart")]
         private void PrivacyMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Shell32.ShellExecute(IntPtr.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/master/legal/PrivacyPolicy.md",
+            Shell32.ShellExecute(IntPtr.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/main/legal/PrivacyPolicy.md",
                 null, null, ShowWindowCommand.SW_SHOWDEFAULT);
         }
 
