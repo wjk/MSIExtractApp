@@ -8,5 +8,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: TimonVS/pr-labeler-action@v3
+              with:
+                  commitish: main
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
