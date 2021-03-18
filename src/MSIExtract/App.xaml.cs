@@ -26,7 +26,6 @@ namespace MSIExtract
         {
             base.OnStartup(e);
 
-            ThemeManager.Install();
             AeroTheme.SetAsCurrentTheme();
 
             IActivatedEventArgs? activationArgs = null;
