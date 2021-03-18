@@ -2,7 +2,7 @@ name: Update Release Notes
 
 on:
     push:
-        branches: [master]
+        branches: [main]
 
 jobs:
     update_release_draft:
