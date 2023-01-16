@@ -1,5 +1,5 @@
 <Project>
-  <Import Project="..\..\RepoRoot.props" />
+  <Import Project="..\..\Directory.Build.props" />
 
   <PropertyGroup>
     <BaseOutputPath>..\..\bin\$(MSBuildProjectName)\</BaseOutputPath>
