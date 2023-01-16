@@ -41,7 +41,7 @@
     </CreateItem>
   </Target>
 
-  <Target Name="AddExtraContent" AfterTargets="BeforeBuild" DependsOnTargets="DownloadNETRuntime">
+  <Target Name="AddExtraContent" AfterTargets="BeforeBuild" DependsOnTargets="CopyNETRuntime">
     <ItemGroup>
       <Content Include="@(ExtraContent)">
         <Link>%(ExtraContent.TargetDirectory)%(FileName)%(Extension)</Link>
