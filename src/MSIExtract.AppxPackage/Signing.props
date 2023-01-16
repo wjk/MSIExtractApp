@@ -1,7 +1,9 @@
 <Project>
   <PropertyGroup>
-    <PackageCertificateThumbprint>4DFF1FA5A339F7C1F623177264249E99D4C81E45</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>8809B939340A50F0643C487DE4625B7338C572A3</PackageCertificateThumbprint>
     <PackageCertificateKeyFile>cert.pfx</PackageCertificateKeyFile>
     <PackageCertificatePassword>1234</PackageCertificatePassword>
+
+    <AppxPackageSigningTimestampServerUrl>http://timestamp.digicert.com</AppxPackageSigningTimestampServerUrl>
   </PropertyGroup>
 </Project>
