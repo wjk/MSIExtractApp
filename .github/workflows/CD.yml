@@ -32,8 +32,7 @@ jobs:
             - name: Install .NET
               uses: actions/setup-dotnet@v1
               with:
-                  # NOTE: Do not change this version without also updating MSIExtract.AppxPackage/Directory.Build.targets
-                  dotnet-version: 5.0.100
+                  dotnet-version: 7.0
 
             - name: Configure Visual Studio
               uses: microsoft/setup-msbuild@v1.0.2
