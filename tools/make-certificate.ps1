@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory)]
-    [string]$OutputPath,
+    [string]$OutputPath
 )
 
 # N.B. This must be kept in sync with the Package/Publisher/@Identity

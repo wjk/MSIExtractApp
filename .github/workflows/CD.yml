@@ -32,8 +32,7 @@ jobs:
             - name: Install .NET
               uses: actions/setup-dotnet@v1
               with:
-                  # NOTE: Do not change this version without also updating MSIExtract.AppxPackage/Directory.Build.targets
-                  dotnet-version: 5.0.100
+                  dotnet-version: "7.0"
 
             - name: Configure Visual Studio
               uses: microsoft/setup-msbuild@v1.0.2
@@ -73,7 +72,7 @@ jobs:
                   /p:BuildAppxUploadPackageForUap=true `
                   /p:AppxBundle=Always `
                   /p:AppxPackageSigningEnabled=true `
-                  /p:PackageCertificateThumbprint=4DFF1FA5A339F7C1F623177264249E99D4C81E45 `
+                  /p:PackageCertificateThumbprint=8809B939340A50F0643C487DE4625B7338C572A3 `
                   /p:PackageCertificateKeyFile=.\cert.pfx `
                   /p:PackageCertificatePassword=1234 `
                   /p:PublicRelease=true `

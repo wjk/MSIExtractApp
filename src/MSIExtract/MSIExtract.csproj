@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows10.0.17763</TargetFramework>
+    <TargetFramework>net7.0-windows10.0.17763</TargetFramework>
     <RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
     <Platforms>x86;x64</Platforms>
     <UseWindowsForms>true</UseWindowsForms>
@@ -10,7 +10,7 @@
     <AssemblyTitle>MSI Viewer</AssemblyTitle>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Setup.ico</ApplicationIcon>
-    <NoWarn>CS8002;CA1303;CA1416;SA1101;IDE0009;NU1701</NoWarn>
+    <NoWarn>CS8002;CA1303;CA1416;SA1101;IDE0009;NU1701;WFAC010</NoWarn>
 
     <IncludePackageReferencesDuringMarkupCompilation>false</IncludePackageReferencesDuringMarkupCompilation>
   </PropertyGroup>
