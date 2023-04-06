@@ -6,4 +6,12 @@
   <ItemGroup Condition="'$(_TargetAssemblyProjectName)' != ''">
     <Compile Include="$(IntermediateOutputPath)$(_TargetAssemblyProjectName).Version.cs" />
   </ItemGroup>
+
+  <!-- ============== Restore and publish ============== -->
+
+  <Target Name="AddReadyToRunToRestore" BeforeTargets="Restore">
+    <PropertyGroup>
+      <PublishReadyToRun>true</PublishReadyToRun>
+    </PropertyGroup>
+  </Target>
 </Project>
