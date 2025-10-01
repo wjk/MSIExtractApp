@@ -54,22 +54,6 @@ namespace WixToolset.Dtf.Compression.Cab
             : this(error, errorCode, message, null) { }
 
         /// <summary>
-        /// Initializes a new instance of the CabException class with serialized data.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
-        protected CabException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException("info");
-            }
-
-            this.error = info.GetInt32("cabError");
-            this.errorCode = info.GetInt32("cabErrorCode");
-        }
-
-        /// <summary>
         /// Gets the FCI or FDI cabinet engine error number.
         /// </summary>
         /// <value>A cabinet engine error number, or 0 if the exception was
@@ -107,23 +91,6 @@ namespace WixToolset.Dtf.Compression.Cab
                 }
                 return errorResources;
             }
-        }
-
-        /// <summary>
-        /// Sets the SerializationInfo with information about the exception.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException("info");
-            }
-
-            info.AddValue("cabError", this.error);
-            info.AddValue("cabErrorCode", this.errorCode);
-            base.GetObjectData(info, context);
         }
 
         internal static string GetErrorMessage(int error, int errorCode, bool extracting)

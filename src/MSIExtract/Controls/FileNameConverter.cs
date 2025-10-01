@@ -61,7 +61,8 @@ namespace MSIExtract.Controls
                 throw new ArgumentException("Path must be rooted", nameof(value));
             }
 
-            Shell32.IShellItem2 item = Shell32.SHCreateItemFromParsingName<Shell32.IShellItem2>(path);
+            Shell32.IShellItem2? item = Shell32.SHCreateItemFromParsingName<Shell32.IShellItem2>(path);
+            ArgumentNullException.ThrowIfNull(item);
 
             Shell32.SIGDN sigdn = DisplayMode switch
             {

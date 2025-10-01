@@ -56,29 +56,6 @@ namespace WixToolset.Dtf.Compression.Cab
         }
 
         /// <summary>
-        /// Initializes a new instance of the CabinetFileInfo class with serialized data.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
-        protected CabFileInfo(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-            this.cabFolder = info.GetInt32("cabFolder");
-        }
-
-        /// <summary>
-        /// Sets the SerializationInfo with information about the archive.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized object data.</param>
-        /// <param name="context">The StreamingContext that contains contextual information
-        /// about the source or destination.</param>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-            info.AddValue("cabFolder", this.cabFolder);
-        }
-
-        /// <summary>
         /// Gets or sets the cabinet that contains this file.
         /// </summary>
         /// <value>
