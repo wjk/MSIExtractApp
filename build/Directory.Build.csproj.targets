@@ -4,7 +4,7 @@
     <AvailableItemName Include="AppxManifest" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(UseWPF)' == 'true'">
+  <ItemGroup Condition="'$(UseWPF)' == 'true' and '$(UseWindowsForms)' == 'true'">
     <!-- If I let these stand, I get a crapton of double-definition errors. -->
     <Using Remove="System.Drawing" />
     <Using Remove="System.Windows.Forms" />
