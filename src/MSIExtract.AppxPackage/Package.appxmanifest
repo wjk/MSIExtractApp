@@ -48,9 +48,9 @@
 
         <com:Extension Category="windows.comServer">
           <com:ComServer>
-            <com:SurrogateServer AppId="59e303e1-2574-4fc9-8232-fdb1c0ac53fb" DisplayName="MSI Viewer">
-              <com:Class Id="754de965-4071-4a89-9620-cf6fe858dca2" Path="MSIExtract.ShellExtension\MSIExtract.ShellExtension.comhost.dll" ThreadingModel="Both" ProgId="Sunburst.MSIExtract.ShellCommand" />
-            </com:SurrogateServer>
+            <com:ExeServer Executable="MSIExtract\MSIExtract.exe" Arguments="/COMServer">
+              <com:Class Id="754de965-4071-4a89-9620-cf6fe858dca2" ProgId="Sunburst.MSIExtract.ShellCommand" />
+            </com:ExeServer>
 
             <com:ProgId Id="Sunburst.MSIExtract.ShellCommand" Clsid="754de965-4071-4a89-9620-cf6fe858dca2" />
           </com:ComServer>
