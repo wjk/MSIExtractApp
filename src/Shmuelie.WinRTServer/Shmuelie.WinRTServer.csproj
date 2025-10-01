@@ -9,6 +9,8 @@
     <AnalysisLevel>9.0-all</AnalysisLevel>
     <Platforms>x86;x64;ARM64</Platforms>
     <Nullable>enable</Nullable>
+
+    <IsThirdPartyProject>true</IsThirdPartyProject>
   </PropertyGroup>
 
   <ItemGroup>
