@@ -1,0 +1,44 @@
+<Project>  
+  <ItemGroup>
+    <AvailableItemName Include="Manifest" />
+    <AvailableItemName Include="AppxManifest" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(UseWPF)' == 'true'">
+    <!-- If I let these stand, I get a crapton of double-definition errors. -->
+    <Using Remove="System.Drawing" />
+    <Using Remove="System.Windows.Forms" />
+  </ItemGroup>
+
+  <!-- ============== Restore and publish ============== -->
+
+  <Target Name="AddReadyToRunToRestore" BeforeTargets="Restore">
+    <PropertyGroup>
+      <PublishReadyToRun>true</PublishReadyToRun>
+    </PropertyGroup>
+  </Target>
+
+  <!-- ============== NativeAOT ============== -->
+
+  <ItemGroup>
+    <AvailableItemName Include="RdXmlFile" />
+  </ItemGroup>
+
+  <!-- ============== CsWinRT ============== -->
+
+  <Target Name="CsWinRTGetReferenceWinMDFiles" BeforeTargets="CsWinRTGenerateProjection">
+    <PropertyGroup>
+      <_NativePlatform Condition="'$(Platform)' == 'x86' or '$(Platform)' == 'AnyCPU'">Win32</_NativePlatform>
+      <_NativePlatform Condition="'$(_NativePlatform)' == ''">$(Platform)</_NativePlatform>
+    </PropertyGroup>
+
+    <MSBuild Projects="@(_MSBuildProjectReferenceExistent)" Targets="Build" Condition="'%(_MSBuildProjectReferenceExistent.CsWinRTSource)' == 'true'"
+             Properties="Platform=$(_NativePlatform);Configuration=$(Configuration)">
+      <Output TaskParameter="TargetOutputs" ItemName="CsWinRTProjectOutputs" />
+    </MSBuild>
+
+    <ItemGroup>
+      <CSWinRTInputs Include="@(CsWinRTProjectOutputs)" Condition="'%(Extension)' == '.winmd'" />
+    </ItemGroup>
+  </Target>
+</Project>
