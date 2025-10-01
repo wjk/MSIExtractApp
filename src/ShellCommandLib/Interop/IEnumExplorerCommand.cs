@@ -3,16 +3,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.Marshalling;
 
 #pragma warning disable SA1600 // Elements should be documented (not worth it, not public API)
 
-namespace MSIExtract.ShellExtension.Interop
+namespace ShellCommandLib.Interop
 {
-    [ComImport]
+    [GeneratedComInterface]
     [Guid("a88826f8-186f-4987-aade-ea0cef8fbfe8")]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    internal interface IEnumExplorerCommand
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1601:Partial elements should be documented", Justification = "Not public API")]
+    public partial interface IEnumExplorerCommand
     {
         [PreserveSig]
         int Next(uint elementCount, [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 0)] out IExplorerCommand[] commands, out uint fetched);

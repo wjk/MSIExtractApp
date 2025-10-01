@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using MSIExtract.ShellExtension.Interop;
+using ShellCommandLib.Interop;
 
-namespace MSIExtract.ShellExtension
+namespace ShellCommandLib
 {
     /// <summary>
     /// This class is the base class of all C# Windows Shell commands.

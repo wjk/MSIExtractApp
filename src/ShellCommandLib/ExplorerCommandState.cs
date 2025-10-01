@@ -3,7 +3,7 @@
 
 using System;
 
-namespace MSIExtract.ShellExtension
+namespace ShellCommandLib
 {
     /// <summary>
     /// Describes the state of a subclass of <see cref="ExplorerCommandBase"/>.
