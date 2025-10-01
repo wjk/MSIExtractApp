@@ -76,7 +76,6 @@
     <None Include="Signing.props" />
     <None Include="Package.StoreAssociation.xml" />
     <None Include="Directory.Build.props" />
-    <None Include="Directory.Build.targets" />
     <Content Include="Images\SmallTile.scale-100.png" />
     <Content Include="Images\SmallTile.scale-125.png" />
     <Content Include="Images\SmallTile.scale-150.png" />
