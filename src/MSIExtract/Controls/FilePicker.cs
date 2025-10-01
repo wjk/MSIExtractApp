@@ -202,7 +202,8 @@ namespace MSIExtract.Controls
                     throw new ArgumentException("FilePicker.Path must be absolute", nameof(newValue));
                 }
 
-                Shell32.IShellItem2 shellItem = Shell32.SHCreateItemFromParsingName<Shell32.IShellItem2>(newValue);
+                Shell32.IShellItem2? shellItem = Shell32.SHCreateItemFromParsingName<Shell32.IShellItem2>(newValue);
+                ArgumentNullException.ThrowIfNull(shellItem);
 
                 var window = Window.GetWindow(this);
                 uint scale = User32.GetDpiForWindow(new WindowInteropHelper(window).Handle) / 96;

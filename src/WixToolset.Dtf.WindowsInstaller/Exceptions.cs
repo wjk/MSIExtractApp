@@ -63,21 +63,6 @@ namespace WixToolset.Dtf.WindowsInstaller
         }
 
         /// <summary>
-        /// Initializes a new instance of the InstallerException class with serialized data.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
-        protected InstallerException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException("info");
-            }
-
-            this.errorCode = info.GetInt32("msiErrorCode");
-        }
-
-        /// <summary>
         /// Gets the system error code that resulted in this exception, or 0 if not applicable.
         /// </summary>
         public int ErrorCode
@@ -107,22 +92,6 @@ namespace WixToolset.Dtf.WindowsInstaller
                 }
                 return msg;
             }
-        }
-
-        /// <summary>
-        /// Sets the SerializationInfo with information about the exception.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException("info");
-            }
-
-            info.AddValue("msiErrorCode", this.errorCode);
-            base.GetObjectData(info, context);
         }
 
         /// <summary>
@@ -322,16 +291,6 @@ namespace WixToolset.Dtf.WindowsInstaller
             : this(null, null)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the InstallCanceledException class with serialized data.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
-        protected InstallCanceledException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
     }
 
     /// <summary>
@@ -369,16 +328,6 @@ namespace WixToolset.Dtf.WindowsInstaller
             : this(null, null)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the BadQuerySyntaxException class with serialized data.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
-        protected BadQuerySyntaxException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
     }
 
     /// <summary>
@@ -396,7 +345,7 @@ namespace WixToolset.Dtf.WindowsInstaller
         /// innerException parameter is not a null reference (Nothing in Visual Basic), the current exception
         /// is raised in a catch block that handles the inner exception.</param>
         public InvalidHandleException(string msg, Exception innerException)
-            : base((int) NativeMethods.Error.INVALID_HANDLE, msg, innerException)
+            : base((int)NativeMethods.Error.INVALID_HANDLE, msg, innerException)
         {
         }
 
@@ -414,16 +363,6 @@ namespace WixToolset.Dtf.WindowsInstaller
         /// </summary>
         public InvalidHandleException()
             : this(null, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the InvalidHandleException class with serialized data.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
-        protected InvalidHandleException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
         {
         }
     }
@@ -493,22 +432,6 @@ namespace WixToolset.Dtf.WindowsInstaller
         }
 
         /// <summary>
-        /// Initializes a new instance of the MergeException class with serialized data.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
-        protected MergeException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException("info");
-            }
-
-            this.conflictTables = (string[]) info.GetValue("mergeConflictTables", typeof(string[]));
-            this.conflictCounts = (int[]) info.GetValue("mergeConflictCounts", typeof(int[]));
-        }
-
-        /// <summary>
         /// Gets the number of merge conflicts in each table, corresponding to the tables returned by
         /// <see cref="ConflictTables"/>.
         /// </summary>
@@ -552,23 +475,6 @@ namespace WixToolset.Dtf.WindowsInstaller
                 }
                 return msg.ToString();
             }
-        }
-
-        /// <summary>
-        /// Sets the SerializationInfo with information about the exception.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException("info");
-            }
-
-            info.AddValue("mergeConflictTables", this.conflictTables);
-            info.AddValue("mergeConflictCounts", this.conflictCounts);
-            base.GetObjectData(info, context);
         }
     }
 }

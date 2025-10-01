@@ -82,30 +82,6 @@ namespace WixToolset.Dtf.Compression
         }
 
         /// <summary>
-        /// Initializes a new instance of the ArchiveFileInfo class with
-        /// serialized data.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized
-        /// object data about the exception being thrown.</param>
-        /// <param name="context">The StreamingContext that contains contextual
-        /// information about the source or destination.</param>
-        protected ArchiveFileInfo(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-            this.archiveInfo = (ArchiveInfo) info.GetValue(
-                "archiveInfo", typeof(ArchiveInfo));
-            this.name = info.GetString("name");
-            this.path = info.GetString("path");
-            this.initialized = info.GetBoolean("initialized");
-            this.exists = info.GetBoolean("exists");
-            this.archiveNumber = info.GetInt32("archiveNumber");
-            this.attributes = (FileAttributes) info.GetValue(
-                "attributes", typeof(FileAttributes));
-            this.lastWriteTime = info.GetDateTime("lastWriteTime");
-            this.length = info.GetInt64("length");
-        }
-
-        /// <summary>
         /// Gets the name of the file.
         /// </summary>
         /// <value>The name of the file, not including any path.</value>
@@ -272,28 +248,6 @@ namespace WixToolset.Dtf.Compression
 
                 return this.lastWriteTime;
             }
-        }
-
-        /// <summary>
-        /// Sets the SerializationInfo with information about the archive.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized
-        /// object data.</param>
-        /// <param name="context">The StreamingContext that contains contextual
-        /// information about the source or destination.</param>
-        public override void GetObjectData(
-            SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-            info.AddValue("archiveInfo", this.archiveInfo);
-            info.AddValue("name", this.name);
-            info.AddValue("path", this.path);
-            info.AddValue("initialized", this.initialized);
-            info.AddValue("exists", this.exists);
-            info.AddValue("archiveNumber", this.archiveNumber);
-            info.AddValue("attributes", this.attributes);
-            info.AddValue("lastWriteTime", this.lastWriteTime);
-            info.AddValue("length", this.length);
         }
 
         /// <summary>

@@ -43,15 +43,5 @@ namespace WixToolset.Dtf.Compression
             : this(null, null)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the ArchiveException class with serialized data.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
-        protected ArchiveException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
     }
 }

@@ -203,7 +203,7 @@ namespace MSIExtract.OleStorage
         {
             byte[] cabHeaderBits = "MSCF".ToCharArray().Select(c => (byte)c).ToArray();
             var buffer = new byte[cabHeaderBits.Length];
-            bits.Read(buffer, 0, buffer.Length);
+            bits.ReadExactly(buffer);
             bits.Seek(0, SeekOrigin.Begin);
             return cabHeaderBits.SequenceEqual(buffer);
         }
