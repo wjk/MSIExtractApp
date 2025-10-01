@@ -80,19 +80,5 @@ namespace MSIExtract
 
             this.MainWindow.Show();
         }
-
-        private static bool CheckPackageIdentity()
-        {
-            try
-            {
-                const string expectedPFN = "40885WilliamKent2015.MSIViewer_vv14yhe95nw30";
-                return Package.Current.Id.FamilyName == expectedPFN;
-            }
-            catch (InvalidOperationException)
-            {
-                // Package.Current will throw if not called from within an AppX package.
-                return false;
-            }
-        }
     }
 }
