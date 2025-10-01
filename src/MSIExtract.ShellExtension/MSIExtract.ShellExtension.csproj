@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.SDK">
   <PropertyGroup>
-    <TargetFramework>net7.0-windows10.0.17763</TargetFramework>
+    <TargetFramework>net9.0-windows10.0.17763</TargetFramework>
     <RuntimeIdentifiers>win-x64;win-x86</RuntimeIdentifiers>
     <NoWarn>CA1714</NoWarn>
-    <Platforms>x64;x86</Platforms>
+    <Platforms>x64;x86;ARM64</Platforms>
     <EnableComHosting>true</EnableComHosting>
   </PropertyGroup>
 </Project>
