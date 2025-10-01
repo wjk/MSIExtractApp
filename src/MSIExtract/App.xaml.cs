@@ -118,7 +118,13 @@ namespace MSIExtract
 
         private void ComServer_Empty(object? sender, EventArgs e)
         {
-            Dispatcher.Invoke(Shutdown);
+            Dispatcher.Invoke(() =>
+            {
+#if DEBUG
+                MessageBox.Show("Shutting down COM server!");
+#endif
+                Shutdown();
+            });
         }
     }
 }
