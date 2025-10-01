@@ -1,0 +1,4 @@
+<Project>
+  <Import Project="RepoRoot.props" />
+  <Import Project="$(RepoRootPath)build\Directory.Build$(MSBuildProjectExtension).props" />
+</Project>

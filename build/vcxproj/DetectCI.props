@@ -1,0 +1,59 @@
+<Project>
+
+  <!-- Azure Pipelines / DevOpsServer -->
+  <PropertyGroup Condition="'$(TF_BUILD)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+  
+  <!-- GitHub Actions -->
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+  
+  <!-- AppVeyor -->
+  <PropertyGroup Condition="'$(APPVEYOR)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+  
+  <!-- Set by many build agents -->
+  <PropertyGroup Condition="'$(CI)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+  
+  <!-- Travis CI -->
+  <PropertyGroup Condition="'$(TRAVIS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+  
+  <!-- Circle CI -->
+  <PropertyGroup Condition="'$(CIRCLECI)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+  
+  <!-- AWS CodeBuild -->
+  <PropertyGroup Condition="'$(CODEBUILD_BUILD_ID)' != '' and '$(AWS_REGION)' != '' ">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <!-- Jenkins
+  https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables
+  -->  
+  <PropertyGroup Condition="'$(BUILD_ID)' != '' and '$(BUILD_URL)' != '' ">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <!-- Google Cloud Build
+  https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values
+  -->
+  <PropertyGroup Condition="'$(BUILD_ID)' != '' and '$(PROJECT_ID)' != '' ">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <!-- TeamCity
+  https://www.jetbrains.com/help/teamcity/predefined-build-parameters.html#Server+Build+Properties
+  -->
+  <PropertyGroup Condition="'$(TEAMCITY_VERSION)' != '' ">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+</Project>
