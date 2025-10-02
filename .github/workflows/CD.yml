@@ -10,20 +10,6 @@ permissions:
   contents: write
 
 jobs:
-    create_release_notes:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Create Release Notes
-              id: create_release_notes
-              uses: release-drafter/release-drafter@v5
-              with:
-                  publish: false
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        outputs:
-            release_name: ${{ steps.create_release_notes.name }}
-            release_tag_name: ${{ steps.create_release_notes.tag_name }}
-
     build:
         runs-on: windows-latest
         needs:
@@ -114,8 +100,8 @@ jobs:
               uses: stephenway/action-gh-release@ef35f3531735d05ee289420f24b6aa256c112082
               with:
                 draft: true
-                name: ${{ needs.create_release_notes.outputs.release_name }}
-                tag_name: ${{ needs.create_release_notes.outputs.release_tag_name }}
+                name: 'MSI Viewer ${{ github.ref_name }}'
+                tag_name: ${{ github.ref_name }}
                 files: |
                   bin/MSIExtract.spdx.json
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
