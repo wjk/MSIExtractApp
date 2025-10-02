@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Setup.ico" />
     <Resource Include="Setup.ico" />
   </ItemGroup>
 
