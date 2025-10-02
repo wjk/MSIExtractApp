@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.Marshalling;
 
-#pragma warning disable SA1600 // Elements should be documented (not worth it, not public API)
+#pragma warning disable SA1600 // Elements should be documented (not worth it, interop)
 #pragma warning disable SA1602 // Enumeration items should be documented (ditto)
 
 namespace ShellCommandLib.Interop
@@ -26,7 +26,7 @@ namespace ShellCommandLib.Interop
 
     [GeneratedComInterface]
     [Guid("43826D1E-E718-42EE-BC55-A1E261C37BFE")]
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1601:Partial elements should be documented", Justification = "Not public API")]
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1601:Partial elements should be documented", Justification = "Interop")]
     public partial interface IShellItem
     {
         [return: MarshalAs(UnmanagedType.Interface)]
