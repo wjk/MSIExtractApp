@@ -131,7 +131,7 @@ namespace ShellCommandLib
 
             (string filePath, int resourceId)? tuple = this.GetIcon(selectedFiles);
 
-            if (tuple != null)
+            if (tuple != null && tuple.HasValue)
             {
                 (string filePath, int resourceId) = tuple.Value;
                 resourceString = $"{filePath},-{resourceId}";
