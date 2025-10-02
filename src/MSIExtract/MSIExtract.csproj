@@ -46,5 +46,11 @@
     <AppxAsset Include="Assets\*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- If I let these stand, I get a crapton of double-definition errors. -->
+    <Using Remove="System.Drawing" />
+    <Using Remove="System.Windows.Forms" />
+  </ItemGroup>
+
   <Import Project="msix\msix.targets" />
 </Project>
