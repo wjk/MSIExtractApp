@@ -4,6 +4,10 @@ on:
     push:
         tags: ['v*']
 
+permissions:
+  id-token: write
+  attestations: write
+
 jobs:
     create_release_notes:
         runs-on: ubuntu-latest
@@ -115,3 +119,15 @@ jobs:
                   bin/MSIExtract.spdx.json
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
+
+            - name: Attest Store Assets
+              uses: actions/attest-sbom@v3
+              with:
+                subject-path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
+                sbom-path: bin/MSIExtract.spdx.json
+
+            - name: Attest Sideload Assets
+              uses: actions/attest-sbom@v3
+              with:
+                subject-path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
+                sbom-path: bin/MSIExtract.spdx.json
