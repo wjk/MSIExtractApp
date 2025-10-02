@@ -100,7 +100,6 @@ jobs:
                 name: 'MSI Viewer ${{ github.ref_name }}'
                 tag_name: ${{ github.ref_name }}
                 files: |
-                  bin/MSIExtract.spdx.json
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
 
