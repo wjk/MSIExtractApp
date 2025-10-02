@@ -47,7 +47,7 @@ namespace MSIExtract.ShellExtension
 
                 var processInfo = new ProcessStartInfo();
                 processInfo.FileName = exePath;
-                processInfo.Arguments = msiPath;
+                processInfo.Arguments = $"\"{msiPath}\"";
                 processInfo.WindowStyle = ProcessWindowStyle.Normal;
 
                 var process = Process.Start(processInfo);
