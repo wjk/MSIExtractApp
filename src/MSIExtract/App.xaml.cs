@@ -100,10 +100,11 @@ namespace MSIExtract
                     StrategyBasedComWrappers wrappers = new StrategyBasedComWrappers();
 
                     server.RegisterClass<MSIViewerOpenCommand, ShellCommandLib.Interop.IExplorerCommand>(wrappers);
-                    server.Empty += ComServer_Empty;
                     server.Start();
                     await server.WaitForRunDown();
                 }
+
+                Dispatcher.Invoke(Shutdown);
             }
 
             void ThreadEntry(object? parameter)
@@ -114,17 +115,6 @@ namespace MSIExtract
             Thread thread = new Thread(ThreadEntry);
             thread.SetApartmentState(ApartmentState.MTA);
             thread.Start();
-        }
-
-        private void ComServer_Empty(object? sender, EventArgs e)
-        {
-            Dispatcher.Invoke(() =>
-            {
-#if DEBUG
-                MessageBox.Show("Shutting down COM server!");
-#endif
-                Shutdown();
-            });
         }
     }
 }
