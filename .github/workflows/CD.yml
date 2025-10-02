@@ -57,7 +57,7 @@ jobs:
                   $manifest.Save('.\src\MSIExtract.AppxPackage\Package.appxmanifest')
                 }
 
-                echo "version=$version" >> $GITHUB_OUTPUT
+                echo "version=$version" >> $env:GITHUB_OUTPUT
 
             - name: Nerdbank.GitVersioning
               uses: dotnet/nbgv@master
