@@ -16,7 +16,8 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         outputs:
-            release_upload_url: ${{ steps.create_release_notes.outputs.upload_url }}
+            release_name: ${{ steps.create_release_notes.name }}
+            release_tag_name: ${{ steps.create_release_notes.tag_name }}
 
     build:
         runs-on: windows-latest
@@ -57,7 +58,7 @@ jobs:
                   $manifest.Save('.\src\MSIExtract.AppxPackage\Package.appxmanifest')
                 }
 
-                echo "version=$version" >> $GITHUB_OUTPUT
+                echo "version=$version" >> $env:GITHUB_OUTPUT
 
             - name: Nerdbank.GitVersioning
               uses: dotnet/nbgv@master
@@ -95,22 +96,15 @@ jobs:
                   Write-Error "Could not find any msixbundle files"
                 }
 
-            - name: Upload Store Assets
-              uses: actions/upload-release-asset@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Create Release
+              # This exact commit of this fork is used because it fixes a bug that would
+              # cause the workflow to fail if a draft of the release already exists (which
+              # it always will because we use release-drafter).
+              uses: stephenway/action-gh-release@ef35f3531735d05ee289420f24b6aa256c112082
               with:
-                  upload_url: ${{ needs.create_release_notes.outputs.release_upload_url }}
-                  asset_path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
-                  asset_name: "MSIViewer_${{ steps.update_version.outputs.version }}_Store.msixupload"
-                  asset_content_type: application/zip
-
-            - name: Upload Sideload Assets
-              uses: actions/upload-release-asset@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              with:
-                  upload_url: ${{ needs.create_release_notes.outputs.release_upload_url }}
-                  asset_path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
-                  asset_name: "MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle"
-                  asset_content_type: application/zip
+                draft: true
+                name: ${{ needs.create_release_notes.outputs.release_name }}
+                tag_name: ${{ needs.create_release_notes.outputs.release_tag_name }}
+                files: |
+                  bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
+                  bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
