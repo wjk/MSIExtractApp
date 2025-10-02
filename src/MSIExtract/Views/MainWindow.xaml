@@ -18,7 +18,7 @@
 
     <Window.Resources>
         <Controls:MRUMenuItemEnabledConverter x:Key="MRUMenuItemEnabledConverter" />
-        <Controls:TruncateFilePathConverter x:Key="TruncateFilePathConverter" />
+        <Controls:FileNameConverter x:Key="FileNameConverter" DisplayMode="NameOnly" />
 
         <CollectionViewSource x:Key="MRUCollectionViewSource" Source="{Binding MRUModel.Entries}" IsLiveSortingRequested="True">
             <CollectionViewSource.SortDescriptions>
@@ -47,7 +47,7 @@
 
                     <MenuItem.ItemContainerStyle>
                         <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
-                            <Setter Property="Header" Value="{Binding Path=Value.PathFileName, Mode=OneWay, Converter={StaticResource TruncateFilePathConverter}}" />
+                            <Setter Property="Header" Value="{Binding Path=Value.PathFileName, Mode=OneWay, Converter={StaticResource FileNameConverter}}" />
                             <Setter Property="Command" Value="{x:Static Views:MainWindow.OpenRecentFileCommand}" />
                             <Setter Property="CommandParameter" Value="{Binding Path=Value, Mode=OneWay}" />
                         </Style>
