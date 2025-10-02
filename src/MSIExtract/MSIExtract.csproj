@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows10.0.17763</TargetFramework>
+    <TargetFramework>net9.0-windows10.0.22000</TargetFramework>
     <RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
     <Platforms>x86;x64;ARM64</Platforms>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
 
@@ -21,6 +22,8 @@
     <PackageReference Include="PresentationTheme.Aero" Version="0.6.4" />
     <PackageReference Include="Vanara.PInvoke.Shell32" Version="4.0.1" />
     <ProjectReference Include="..\MSIExtract.Core\MSIExtract.Core.csproj" />
+    <ProjectReference Include="..\ShellCommandLib\ShellCommandLib.csproj" />
+    <ProjectReference Include="..\Shmuelie.WinRTServer\Shmuelie.WinRTServer.csproj" />
     <ProjectReference Include="..\TaskDialog\TaskDialog.csproj" />
   </ItemGroup>
 

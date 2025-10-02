@@ -6,11 +6,15 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Runtime.InteropServices.Marshalling;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using KPreisser.UI;
+using MSIExtract.ShellExtension;
 using MSIExtract.Views;
 using PresentationTheme.Aero;
+using Shmuelie.WinRTServer;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 
@@ -25,6 +29,12 @@ namespace MSIExtract
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            if (e.Args.Contains("/COMServer", StringComparer.OrdinalIgnoreCase))
+            {
+                RunCOMServer();
+                return;
+            }
 
             AeroTheme.SetAsCurrentTheme();
 
@@ -81,18 +91,30 @@ namespace MSIExtract
             this.MainWindow.Show();
         }
 
-        private static bool CheckPackageIdentity()
+        private void RunCOMServer()
         {
-            try
+            async Task RunCOMServerTask()
             {
-                const string expectedPFN = "40885WilliamKent2015.MSIViewer_vv14yhe95nw30";
-                return Package.Current.Id.FamilyName == expectedPFN;
+                await using (ComServer server = new ComServer())
+                {
+                    StrategyBasedComWrappers wrappers = new StrategyBasedComWrappers();
+
+                    server.RegisterClass<MSIViewerOpenCommand, ShellCommandLib.Interop.IExplorerCommand>(wrappers);
+                    server.Start();
+                    await server.WaitForRunDown();
+                }
+
+                Dispatcher.Invoke(Shutdown);
             }
-            catch (InvalidOperationException)
+
+            void ThreadEntry(object? parameter)
             {
-                // Package.Current will throw if not called from within an AppX package.
-                return false;
+                RunCOMServerTask().GetAwaiter().GetResult();
             }
+
+            Thread thread = new Thread(ThreadEntry);
+            thread.SetApartmentState(ApartmentState.MTA);
+            thread.Start();
         }
     }
 }

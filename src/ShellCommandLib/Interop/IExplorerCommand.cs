@@ -3,17 +3,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.Marshalling;
 using System.Text;
 
-#pragma warning disable SA1600 // Elements should be documented (not worth it, not public API)
+#pragma warning disable SA1600 // Elements should be documented (not worth it, interop)
 
-namespace MSIExtract.ShellExtension.Interop
+namespace ShellCommandLib.Interop
 {
-    [ComImport]
+    [GeneratedComInterface]
     [Guid("a08ce4d0-fa25-44ab-b57c-c7b1c323e0b9")]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    internal interface IExplorerCommand
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1601:Partial elements should be documented", Justification = "Interop")]
+    public partial interface IExplorerCommand
     {
         void GetTitle(IShellItemArray itemArray, [MarshalAs(UnmanagedType.LPWStr)] out string? title);
 

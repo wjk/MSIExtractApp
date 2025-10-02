@@ -72,7 +72,7 @@ jobs:
                   /p:BuildAppxUploadPackageForUap=true `
                   /p:AppxBundle=Always `
                   /p:AppxPackageSigningEnabled=true `
-                  /p:PackageCertificateThumbprint=8809B939340A50F0643C487DE4625B7338C572A3 `
+                  /p:PackageCertificateThumbprint=67232A07FF8347D3839848D007238C9A61A599FE `
                   /p:PackageCertificateKeyFile=.\cert.pfx `
                   /p:PackageCertificatePassword=1234 `
                   /p:PublicRelease=true `

@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using MSIExtract.ShellExtension.Interop;
+using ShellCommandLib.Interop;
 
-namespace MSIExtract.ShellExtension
+namespace ShellCommandLib
 {
     /// <summary>
     /// This class is the base class of all C# Windows Shell commands.
@@ -93,7 +93,14 @@ namespace MSIExtract.ShellExtension
 #pragma warning disable SA1202 // Elements should be ordered by access (wart)
         void IExplorerCommand.GetTitle(IShellItemArray itemArray, out string? title)
         {
-            title = this.GetTitle(ConvertShellItemArray(itemArray));
+            if (itemArray != null)
+            {
+                title = this.GetTitle(ConvertShellItemArray(itemArray));
+            }
+            else
+            {
+                title = this.GetTitle(Enumerable.Empty<string>());
+            }
         }
 
         void IExplorerCommand.GetIcon(IShellItemArray itemArray, out string? resourceString)

@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows10.0.22000</TargetFramework>
+    <Platforms>x86;x64;ARM64</Platforms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.CSWin32" Version="0.3.205" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interop\" />
+  </ItemGroup>
+
+</Project>

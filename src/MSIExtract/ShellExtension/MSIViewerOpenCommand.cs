@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.Marshalling;
+using ShellCommandLib;
 using Windows.ApplicationModel;
 
 namespace MSIExtract.ShellExtension
@@ -14,9 +16,9 @@ namespace MSIExtract.ShellExtension
     /// <summary>
     /// Implements the "Open in MSI Viewer" Windows Shell command.
     /// </summary>
-    [ComVisible(true)]
+    [GeneratedComClass]
     [Guid("754de965-4071-4a89-9620-cf6fe858dca2")]
-    public sealed class MSIViewerOpenCommand : ExplorerCommandBase
+    public sealed partial class MSIViewerOpenCommand : ExplorerCommandBase
     {
         /// <inheritdoc/>
         public override ExplorerCommandFlag Flags => ExplorerCommandFlag.Default;
@@ -24,11 +26,7 @@ namespace MSIExtract.ShellExtension
         /// <inheritdoc/>
         public override ExplorerCommandState GetState(IEnumerable<string> selectedFiles)
         {
-            if (selectedFiles == null)
-            {
-                throw new ArgumentNullException(nameof(selectedFiles));
-            }
-
+            ArgumentNullException.ThrowIfNull(selectedFiles);
             return selectedFiles.Any(IsMSIFile) ? ExplorerCommandState.Enabled : ExplorerCommandState.Hidden;
         }
 
@@ -41,10 +39,7 @@ namespace MSIExtract.ShellExtension
         /// <inheritdoc/>
         public override void Invoke(IEnumerable<string> selectedFiles)
         {
-            if (selectedFiles == null)
-            {
-                throw new ArgumentNullException(nameof(selectedFiles));
-            }
+            ArgumentNullException.ThrowIfNull(selectedFiles);
 
             foreach (string msiPath in selectedFiles.Where(IsMSIFile))
             {
@@ -52,7 +47,7 @@ namespace MSIExtract.ShellExtension
 
                 var processInfo = new ProcessStartInfo();
                 processInfo.FileName = exePath;
-                processInfo.Arguments = msiPath;
+                processInfo.Arguments = $"\"{msiPath}\"";
                 processInfo.WindowStyle = ProcessWindowStyle.Normal;
 
                 var process = Process.Start(processInfo);

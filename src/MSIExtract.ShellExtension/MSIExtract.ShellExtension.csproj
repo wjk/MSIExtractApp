@@ -4,6 +4,10 @@
     <RuntimeIdentifiers>win-x64;win-x86</RuntimeIdentifiers>
     <NoWarn>CA1714</NoWarn>
     <Platforms>x64;x86;ARM64</Platforms>
-    <EnableComHosting>true</EnableComHosting>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShellCommandLib\ShellCommandLib.csproj" />
+  </ItemGroup>
 </Project>

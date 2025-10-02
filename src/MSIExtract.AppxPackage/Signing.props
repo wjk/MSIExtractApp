@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <PackageCertificateThumbprint>8809B939340A50F0643C487DE4625B7338C572A3</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>67232A07FF8347D3839848D007238C9A61A599FE</PackageCertificateThumbprint>
     <PackageCertificateKeyFile>cert.pfx</PackageCertificateKeyFile>
     <PackageCertificatePassword>1234</PackageCertificatePassword>
 

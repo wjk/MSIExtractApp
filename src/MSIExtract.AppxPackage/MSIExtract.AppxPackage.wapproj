@@ -36,7 +36,7 @@
   <PropertyGroup>
     <ProjectGuid>9877f6b5-a889-49a8-90b0-a1e09a6995f1</ProjectGuid>
     <TargetPlatformVersion>10.0.26100.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.22000.0</TargetPlatformMinVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <EntryPointProjectUniqueName>..\MSIExtract\MSIExtract.csproj</EntryPointProjectUniqueName>
@@ -44,7 +44,7 @@
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
-    <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x86|x64|arm64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <OutputPath>$(BaseOutputPath)$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Platform)\$(Configuration)\</IntermediateOutputPath>
@@ -76,7 +76,6 @@
     <None Include="Signing.props" />
     <None Include="Package.StoreAssociation.xml" />
     <None Include="Directory.Build.props" />
-    <None Include="Directory.Build.targets" />
     <Content Include="Images\SmallTile.scale-100.png" />
     <Content Include="Images\SmallTile.scale-125.png" />
     <Content Include="Images\SmallTile.scale-150.png" />
@@ -115,10 +114,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MSIExtract\MSIExtract.csproj">
-      <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
-      <PublishProfile>Properties\PublishProfiles\$(Configuration)_$(Platform).pubxml</PublishProfile>
-    </ProjectReference>
-    <ProjectReference Include="..\MSIExtract.ShellExtension\MSIExtract.ShellExtension.csproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
       <PublishProfile>Properties\PublishProfiles\$(Configuration)_$(Platform).pubxml</PublishProfile>
     </ProjectReference>
