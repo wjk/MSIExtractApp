@@ -74,6 +74,19 @@ namespace ShellCommandLib
         /// </param>
         public abstract void Invoke(IEnumerable<string> selectedFiles);
 
+        /// <summary>
+        /// Gets the icon to be displayed next to the shell command in the menu.
+        /// </summary>
+        /// <param name="selectedFiles">
+        /// The full (rooted) paths to the selected files.
+        /// </param>
+        /// <returns>
+        /// A tuple of the path to an EXE or DLL file containing the icon, and
+        /// the resource ID of the icon (in the file's *.rc segment), or <see langword="null" />
+        /// if no icon should be displayed.
+        /// </returns>
+        public virtual (string filePath, int resourceId)? GetIcon(IEnumerable<string> selectedFiles) => null;
+
         private static IEnumerable<string> ConvertShellItemArray(IShellItemArray itemArray)
         {
             itemArray.GetCount(out var count);
@@ -105,8 +118,28 @@ namespace ShellCommandLib
 
         void IExplorerCommand.GetIcon(IShellItemArray itemArray, out string? resourceString)
         {
-            // Deliberately not implemented, as Win32 icon resource strings are not supported well by .NET.
-            throw new NotImplementedException();
+            IEnumerable<string> selectedFiles;
+
+            if (itemArray != null)
+            {
+                selectedFiles = ConvertShellItemArray(itemArray);
+            }
+            else
+            {
+                selectedFiles = Array.Empty<string>();
+            }
+
+            (string filePath, int resourceId)? tuple = this.GetIcon(selectedFiles);
+
+            if (tuple != null)
+            {
+                (string filePath, int resourceId) = tuple.Value;
+                resourceString = $"{filePath},-{resourceId}";
+            }
+            else
+            {
+                resourceString = null;
+            }
         }
 
         void IExplorerCommand.GetToolTip(IShellItemArray itemArray, out string? tooltip)

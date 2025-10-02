@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices.Marshalling;
 using System.Threading;
@@ -111,6 +112,9 @@ namespace MSIExtract
             {
                 RunCOMServerTask().GetAwaiter().GetResult();
             }
+
+            // int pid = Process.GetCurrentProcess().Id;
+            // MessageBox.Show($"Pausing to give time to attach to process {pid}.");
 
             Thread thread = new Thread(ThreadEntry);
             thread.SetApartmentState(ApartmentState.MTA);
