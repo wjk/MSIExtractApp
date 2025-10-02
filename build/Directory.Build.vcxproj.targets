@@ -1,0 +1,26 @@
+<Project>
+  <Target Name="CppWinRTGenerateManifest" DependsOnTargets="CppWinRTMakeComponentProjection" AfterTargets="BuildGenerateSources"
+          Inputs="@(CppWinRTMdMergeInputs)" Outputs="@(CppWinRTMdMergeInputs -> '$(IntDir)%(FileName).winmd.manifest')"
+          Condition="'@(CppWinRTMdMergeInputs)' != ''">
+    <Exec Command="mt.exe -nologo &quot;-winmd:%(CppWinRTMdMergeInputs.FullPath)&quot; -dll:$(TargetName)$(TargetExt) -out:%(CppWinRTMdMergeInputs.FileName).winmd.manifest"
+          WorkingDirectory="$(IntDir)" />
+
+    <ItemGroup>
+      <Manifest Include="@(CppWinRTMdMergeInputs -> '$(IntDir)%(FileName).winmd.manifest')" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="CheckPackageRestore" BeforeTargets="_PrepareForBuild">
+    <Error Text="NuGet PackageReferences have not been restored. Please run msbuild /t:Restore in this project's directory."
+           Condition="'@(PackageReference)' != '' and !Exists('$(MSBuildProjectExtensionsPath)project.assets.json')" />
+  </Target>
+
+  <PropertyGroup>
+    <ResolveNuGetPackages>false</ResolveNuGetPackages>
+    <TargetFrameworkMoniker>native,Version=0.0</TargetFrameworkMoniker>
+    <NuGetTargetMoniker>native,Version=0.0</NuGetTargetMoniker>
+  </PropertyGroup>
+
+  <Import Project="vcxproj\DeterministicBuild.targets" />
+  <Import Project="$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.targets" Condition="Exists('$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.targets')" />
+</Project>

@@ -34,6 +34,24 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShellCommandLib", "ShellCom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shmuelie.WinRTServer", "Shmuelie.WinRTServer\Shmuelie.WinRTServer.csproj", "{9907FC79-79E2-3707-20F7-FDC9988AC9BC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		..\build\Directory.Build.csproj.props = ..\build\Directory.Build.csproj.props
+		..\build\Directory.Build.csproj.targets = ..\build\Directory.Build.csproj.targets
+		..\build\Directory.Build.vcxproj.props = ..\build\Directory.Build.vcxproj.props
+		..\build\Directory.Build.vcxproj.targets = ..\build\Directory.Build.vcxproj.targets
+		..\build\Directory.Build.wapproj.props = ..\build\Directory.Build.wapproj.props
+		..\build\Directory.Build.wapproj.targets = ..\build\Directory.Build.wapproj.targets
+		..\build\StyleCop.ruleset = ..\build\StyleCop.ruleset
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vcxproj", "vcxproj", "{A6D2B598-C9BB-49C7-B126-E22DBE8A2801}"
+	ProjectSection(SolutionItems) = preProject
+		..\build\vcxproj\DetectCI.props = ..\build\vcxproj\DetectCI.props
+		..\build\vcxproj\DeterministicBuild.props = ..\build\vcxproj\DeterministicBuild.props
+		..\build\vcxproj\DeterministicBuild.targets = ..\build\vcxproj\DeterministicBuild.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM64 = Debug|ARM64
@@ -173,6 +191,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A6D2B598-C9BB-49C7-B126-E22DBE8A2801} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E3944F6A-384B-4B0F-B93F-3BD513DC57BD}
