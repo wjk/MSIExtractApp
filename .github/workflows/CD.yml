@@ -96,7 +96,7 @@ jobs:
                   Write-Error "Could not find any msixbundle files"
                 }
 
-            - name: Create Release
+            - name: Upload Release Assets
               # This exact commit of this fork is used because it fixes a bug that would
               # cause the workflow to fail if a draft of the release already exists (which
               # it always will because we use release-drafter).
