@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0-windows10.0.22000</TargetFramework>
-    <RuntimeIdentifiers>win-x64;win-x86</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
     <IsThirdPartyProject>true</IsThirdPartyProject>
     <NoWarn>CS1591</NoWarn>
     <Platforms>AnyCPU;ARM64</Platforms>

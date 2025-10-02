@@ -57,7 +57,7 @@ jobs:
                   $manifest.Save('.\src\MSIExtract.AppxPackage\Package.appxmanifest')
                 }
 
-                echo "::set-output name=version::$version"
+                echo "version=$version" >> $GITHUB_OUTPUT
 
             - name: Nerdbank.GitVersioning
               uses: dotnet/nbgv@master
