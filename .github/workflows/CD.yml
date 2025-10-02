@@ -12,9 +12,6 @@ permissions:
 jobs:
     build:
         runs-on: windows-latest
-        needs:
-            - create_release_notes
-
         steps:
             - name: Clone
               uses: actions/checkout@v2
