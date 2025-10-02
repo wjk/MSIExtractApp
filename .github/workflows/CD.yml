@@ -96,6 +96,12 @@ jobs:
                   Write-Error "Could not find any msixbundle files"
                 }
 
+            - name: Generate SBOM
+              uses: anchore/sbom-action@v0
+              with:
+                path: bin/MSIExtract/ARM64/Release
+                output-file: bin/MSIExtract.spdx.json
+
             - name: Upload Release Assets
               # This exact commit of this fork is used because it fixes a bug that would
               # cause the workflow to fail if a draft of the release already exists (which
@@ -106,5 +112,6 @@ jobs:
                 name: ${{ needs.create_release_notes.outputs.release_name }}
                 tag_name: ${{ needs.create_release_notes.outputs.release_tag_name }}
                 files: |
+                  bin/MSIExtract.spdx.json
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
