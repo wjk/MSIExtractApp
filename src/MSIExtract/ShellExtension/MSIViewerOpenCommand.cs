@@ -26,11 +26,7 @@ namespace MSIExtract.ShellExtension
         /// <inheritdoc/>
         public override ExplorerCommandState GetState(IEnumerable<string> selectedFiles)
         {
-            if (selectedFiles == null)
-            {
-                throw new ArgumentNullException(nameof(selectedFiles));
-            }
-
+            ArgumentNullException.ThrowIfNull(selectedFiles);
             return selectedFiles.Any(IsMSIFile) ? ExplorerCommandState.Enabled : ExplorerCommandState.Hidden;
         }
 
@@ -43,10 +39,7 @@ namespace MSIExtract.ShellExtension
         /// <inheritdoc/>
         public override void Invoke(IEnumerable<string> selectedFiles)
         {
-            if (selectedFiles == null)
-            {
-                throw new ArgumentNullException(nameof(selectedFiles));
-            }
+            ArgumentNullException.ThrowIfNull(selectedFiles);
 
             foreach (string msiPath in selectedFiles.Where(IsMSIFile))
             {
