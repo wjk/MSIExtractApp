@@ -45,11 +45,6 @@ namespace MSIExtract.Controls
         /// </returns>
         public object? Convert(object? value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (targetType != typeof(string))
-            {
-                throw new InvalidOperationException("Cannot convert to any type except System.String");
-            }
-
             if (value == null)
             {
                 return FallbackValue;
