@@ -33,6 +33,7 @@
     <WapProjPath Condition="'$(WapProjPath)'==''">$(MSBuildExtensionsPath)\Microsoft\DesktopBridge\</WapProjPath>
   </PropertyGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
+  <Import Project="Signing.props" />
   <PropertyGroup>
     <ProjectGuid>9877f6b5-a889-49a8-90b0-a1e09a6995f1</ProjectGuid>
     <TargetPlatformVersion>10.0.26100.0</TargetPlatformVersion>
@@ -75,7 +76,6 @@
   <ItemGroup>
     <None Include="Signing.props" />
     <None Include="Package.StoreAssociation.xml" />
-    <None Include="Directory.Build.props" />
     <Content Include="Images\SmallTile.scale-100.png" />
     <Content Include="Images\SmallTile.scale-125.png" />
     <Content Include="Images\SmallTile.scale-150.png" />
