@@ -93,7 +93,14 @@ namespace ShellCommandLib
 #pragma warning disable SA1202 // Elements should be ordered by access (wart)
         void IExplorerCommand.GetTitle(IShellItemArray itemArray, out string? title)
         {
-            title = this.GetTitle(ConvertShellItemArray(itemArray));
+            if (itemArray != null)
+            {
+                title = this.GetTitle(ConvertShellItemArray(itemArray));
+            }
+            else
+            {
+                title = this.GetTitle(Enumerable.Empty<string>());
+            }
         }
 
         void IExplorerCommand.GetIcon(IShellItemArray itemArray, out string? resourceString)
