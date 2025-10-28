@@ -8,12 +8,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.CSWin32" Version="0.3.275" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Interop\" />
-  </ItemGroup>
-
 </Project>
