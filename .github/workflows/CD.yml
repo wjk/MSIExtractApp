@@ -36,34 +36,29 @@ jobs:
 
                 echo "version_no_v=$($ref.Substring(1))" >> $env:GITHUB_OUTPUT
 
-                $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){0,2})(-.+)?$', '$1$2')
-                if ($version -eq $ref) {
+                $regex = [regex]'^v(\d+(?:\.\d+){0,2})(-.+)?$'
+                $match = $regex.Match($ref)
+                if (-not $match.Success) {
                   Write-Error 'Malformed version number!'
                   exit 1
                 }
+
+                $version = $match.Groups[1]
+                $suffix = $match.Groups[2]
+
+                echo "version=$version" >> $env:GITHUB_OUTPUT
 
                 if ($version.Split('.').Length -lt 2) {
                   $version = $version + ".0"
                 }
 
                 $json = Get-Content .\version.json | ConvertFrom-Json
-                $json.version = $version
+                $json.version = $version + $suffix
                 $json | ConvertTo-Json | Set-Content .\version.json
 
-                $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){0,2})(-.+)?$', '$1')
-                if ($version -eq $ref) {
-                  Write-Error 'Malformed version number!'
-                  exit 1
-                }
-
-                if ($version.Split('.').Length -lt 2) {
-                  $version = $version + ".0"
-                }
                 if ($version.Split('.').Length -lt 3) {
                   $version = $version + ".0"
                 }
-
-                echo "version=$version" >> $env:GITHUB_OUTPUT
 
                 [xml]$manifest = Get-Content '.\src\MSIExtract.AppxPackage\Package.appxmanifest'
                 $manifest.Package.Identity.Version = "$($version).0"
