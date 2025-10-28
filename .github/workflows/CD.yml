@@ -34,19 +34,44 @@ jobs:
                   $ref = $ref.Replace("refs/tags/", "")
                 }
 
-                $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){1,2})(-.+)?$', '$1$2')
+                if ($ref.StartsWith('v')) {
+                  echo "version_no_v=$($ref.Substring(1))" >> $env:GITHUB_OUTPUT
+                } else {
+                  echo "version_no_v=$ref" >> $env:GITHUB_OUTPUT
+                }
+
+                $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){0,2})(-.+)?$', '$1$2')
+                if ($version -eq $ref) {
+                  Write-Error 'Malformed version number!'
+                  exit 1
+                }
+
+                if ($version.Split('.').Length -lt 2) {
+                  $version = $version + ".0"
+                }
+
                 $json = Get-Content .\version.json | ConvertFrom-Json
                 $json.version = $version
                 $json | ConvertTo-Json | Set-Content .\version.json
 
-                $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){1,2})(-.+)?$', '$1')
-                if ($version -ne '') {
-                  [xml]$manifest = Get-Content '.\src\MSIExtract.AppxPackage\Package.appxmanifest'
-                  $manifest.Package.Identity.Version = "$($version).0"
-                  $manifest.Save('.\src\MSIExtract.AppxPackage\Package.appxmanifest')
+                $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){0,2})(-.+)?$', '$1')
+                if ($version -eq $ref) {
+                  Write-Error 'Malformed version number!'
+                  exit 1
+                }
+
+                if ($version.Split('.').Length -lt 2) {
+                  $version = $version + ".0"
+                }
+                if ($version.Split('.').Length -lt 3) {
+                  $version = $version + ".0"
                 }
 
                 echo "version=$version" >> $env:GITHUB_OUTPUT
+
+                [xml]$manifest = Get-Content '.\src\MSIExtract.AppxPackage\Package.appxmanifest'
+                $manifest.Package.Identity.Version = "$($version).0"
+                $manifest.Save('.\src\MSIExtract.AppxPackage\Package.appxmanifest')
 
             - name: Nerdbank.GitVersioning
               uses: dotnet/nbgv@master
@@ -97,7 +122,7 @@ jobs:
               uses: stephenway/action-gh-release@ef35f3531735d05ee289420f24b6aa256c112082
               with:
                 draft: true
-                name: 'MSI Viewer ${{ github.ref_name }}'
+                name: 'MSI Viewer ${{ steps.update_version.outputs.version_no_v }}'
                 tag_name: ${{ github.ref_name }}
                 files: |
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
