@@ -64,6 +64,7 @@ namespace MSIExtract.Views
             e.CanExecute = FileListView.Items.Count > 0;
         }
 
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1130:Use lambda syntax", Justification = "Not valid syntax for some reason")]
         private void ExtractCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (FileListView.SelectedItems.Count == 0)
@@ -155,9 +156,7 @@ namespace MSIExtract.Views
                 }
                 catch (System.IO.FileNotFoundException ex)
                 {
-#pragma warning disable SA1130 // Use lambda syntax (not valid syntax here for some reason)
                     Dispatcher.BeginInvoke((Action)delegate
-#pragma warning restore SA1130 // Use lambda syntax
                     {
                         TaskDialogPage page = new TaskDialogPage();
                         page.Instruction = "Cannot extract the specified files.";
@@ -175,8 +174,19 @@ namespace MSIExtract.Views
                 }
                 catch (Exception ex)
                 {
-                    // Rethrow the exception on the main thread.
-                    Dispatcher.Invoke(() => throw ex);
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        TaskDialogPage page = new TaskDialogPage();
+                        page.Instruction = "An error occurred during extraction.";
+                        page.Text = $"{ex.GetType().Name}: {ex.Message} (HRESULT 0x{ex.HResult:X8})";
+                        page.Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Error);
+                        page.StandardButtons.Add(TaskDialogResult.Close);
+                        page.AllowCancel = true;
+
+                        TaskDialog dialog = new TaskDialog();
+                        dialog.Page = page;
+                        dialog.Show(window);
+                    });
                 }
             }
 
