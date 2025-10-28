@@ -1,0 +1,3 @@
+<Project>
+  <Import Project="$(RepoRootPath)build\Directory.Build$(MSBuildProjectExtension).targets" />
+</Project>

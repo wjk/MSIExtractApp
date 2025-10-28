@@ -1,0 +1,43 @@
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <NoWarn>SA0001;$(NoWarn)</NoWarn>
+
+    <Company>William Kent</Company>
+    <Authors>William Kent</Authors>
+    <Copyright>Copyright © $([System.DateTime]::Now.Year) William Kent. All rights reserved.</Copyright>
+
+    <EnableNETAnalyzers Condition="'$(EnableNETAnalyzers)' == ''">true</EnableNETAnalyzers>
+    <EnableDefaultNoneItems>false</EnableDefaultNoneItems>
+    <ImplicitUsings>True</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.8.118" />
+  </ItemGroup>
+
+  <!-- ============== Code Analysis ============== -->
+
+  <PropertyGroup Condition="'$(EnableNETAnalyzers)' == 'true'">
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)StyleCop.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(EnableNETAnalyzers)' == 'true'">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(EnableNETAnalyzers)' == 'true' and '$(UseWPF)' == 'true'">
+    <PackageReference Include="WPFAnalyzers" Version="2.4.5" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!-- ============== Reproducible Builds ============== -->
+
+  <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.39" />
+  </ItemGroup>
+  <Import Project="Sdk.props" Sdk="DotNet.ReproducibleBuilds.Isolated" Version="1.2.39" />
+</Project>

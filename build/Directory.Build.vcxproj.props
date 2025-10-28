@@ -1,0 +1,26 @@
+<Project>
+  <PropertyGroup>
+    <OutDir>$(BaseOutputPath)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(BaseIntermediateOutputPath)$(Platform)\$(Configuration)\</IntDir>
+    <OutDirWasSpecified>true</OutDirWasSpecified>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectCapability Include="PackageReferences" />
+  </ItemGroup>
+
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+  </ItemDefinitionGroup>
+
+  <Import Project="vcxproj\DetectCI.props" />
+  <Import Project="vcxproj\DeterministicBuild.props" />
+  <Import Project="$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.props" Condition="Exists('$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.props')" />
+
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.8.118" />
+  </ItemGroup>
+</Project>

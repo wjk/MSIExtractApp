@@ -56,7 +56,7 @@ public sealed class WinRtServer : IAsyncDisposable
     /// <summary>
     /// Timer that checks if all created instances have been collected.
     /// </summary>
-    private readonly Timer lifetimeCheckTimer;
+    private readonly System.Timers.Timer lifetimeCheckTimer;
 
     /// <summary>
     /// Tracks the creation of the first instance after server is started.

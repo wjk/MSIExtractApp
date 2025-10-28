@@ -1,33 +1,24 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\RepoRoot.props" />
+  <Import Project="..\Directory.Build.props" />
   
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Nullable>enable</Nullable>
 
+  <PropertyGroup>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)\strongname.snk</AssemblyOriginatorKeyFile>
 
+    <Product>MSI Viewer</Product>
     <Company>William Kent</Company>
     <Authors>William Kent</Authors>
-    <Copyright>Copyright © 2019-2020 William Kent. All rights reserved.</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>false</EmbedUntrackedSources>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.6.133" PrivateAssets="all" />
+  <ItemGroup Condition="'$(IsThirdPartyProject)' != 'true'">
+    <!-- Override the shared stylecop.json with ours as they are different. -->
+    <AdditionalFiles Remove="$(MSBuildThisFileDirectory)..\build\stylecop.json" />
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" Link="stylecop.json" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(IsThirdPartyProject)' != 'true'">
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" Link="stylecop.json" />
+  <ItemGroup Condition="'$(IsThirdPartyProject)' == 'true'">
+    <PackageReference Remove="StyleCop.Analyzers" />
+    <AdditionalFiles Remove="$(MSBuildThisFileDirectory)..\build\stylecop.json" />
   </ItemGroup>
 </Project>
