@@ -34,6 +34,12 @@ jobs:
                   $ref = $ref.Replace("refs/tags/", "")
                 }
 
+                if ($ref.StartsWith('v')) {
+                  echo "version_no_v=$($ref.Substring(1))" >> $env:GITHUB_OUTPUT
+                } else {
+                  echo "version_no_v=$ref" >> $env:GITHUB_OUTPUT
+                }
+
                 $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){1,2})(-.+)?$', '$1$2')
                 $json = Get-Content .\version.json | ConvertFrom-Json
                 $json.version = $version
@@ -97,7 +103,7 @@ jobs:
               uses: stephenway/action-gh-release@ef35f3531735d05ee289420f24b6aa256c112082
               with:
                 draft: true
-                name: 'MSI Viewer ${{ github.ref_name }}'
+                name: 'MSI Viewer ${{ steps.update_version.outputs.version_no_v }}'
                 tag_name: ${{ github.ref_name }}
                 files: |
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
