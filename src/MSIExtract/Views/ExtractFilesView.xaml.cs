@@ -113,7 +113,7 @@ namespace MSIExtract.Views
 
                 try
                 {
-                    Wixtracts.ExtractFiles(new LessIO.Path(model.MsiPath), browserDialog.SelectedPath, filesToExtract, (arg) =>
+                    Wixtracts.ExtractFiles(new LessIO.Path(model.MsiPath), browserDialog.SafeFolderName, filesToExtract, (arg) =>
                     {
                         var progress = (Wixtracts.ExtractionProgress)arg;
                         if (progressDialog.CancellationPending)
