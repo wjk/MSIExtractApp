@@ -44,34 +44,6 @@ namespace MSIExtract.Controls
             return dialog.ShowDialog(owner) == System.Windows.Forms.DialogResult.OK;
         }
 
-        /// <summary>
-        /// Shows a <see cref="TaskDialog"/> modal to a WPF <see cref="Window"/>.
-        /// </summary>
-        /// <param name="taskDialog">
-        /// The <see cref="TaskDialog"/> to show.
-        /// </param>
-        /// <param name="window">
-        /// The <see cref="Window"/> to use as the modal parent.
-        /// </param>
-        /// <returns>
-        /// The <see cref="TaskDialogButton"/> that the user clicked.
-        /// </returns>
-        public static TaskDialogButton Show(this TaskDialog taskDialog, Window window)
-        {
-            if (taskDialog == null)
-            {
-                throw new ArgumentNullException(nameof(taskDialog));
-            }
-
-            if (window == null)
-            {
-                throw new ArgumentNullException(nameof(window));
-            }
-
-            IntPtr hWnd = new WindowInteropHelper(window).Handle;
-            return taskDialog.Show(hWnd);
-        }
-
         private class Win32Window : IWin32Window
         {
             public Win32Window(IntPtr handle)
