@@ -34,11 +34,7 @@ jobs:
                   $ref = $ref.Replace("refs/tags/", "")
                 }
 
-                if ($ref.StartsWith('v')) {
-                  echo "version_no_v=$($ref.Substring(1))" >> $env:GITHUB_OUTPUT
-                } else {
-                  echo "version_no_v=$ref" >> $env:GITHUB_OUTPUT
-                }
+                echo "version_no_v=$($ref.Substring(1))" >> $env:GITHUB_OUTPUT
 
                 $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){0,2})(-.+)?$', '$1$2')
                 if ($version -eq $ref) {
