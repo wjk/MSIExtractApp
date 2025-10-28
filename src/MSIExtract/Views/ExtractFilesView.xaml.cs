@@ -77,6 +77,7 @@ namespace MSIExtract.Views
             OpenFolderDialog browserDialog = new OpenFolderDialog
             {
                 Multiselect = false,
+                ClientGuid = Guid.Parse("924d6b70-cd7a-48be-8346-d546cc83dfe0"),
                 Title = "Select folder to extract to",
             };
 
