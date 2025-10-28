@@ -147,6 +147,7 @@ namespace MSIExtract.Controls
             var dialog = new OpenFileDialog
             {
                 AddExtension = true,
+                ClientGuid = Guid.Parse("fe9c4d64-6f2d-4bee-8220-ece48200404f"),
                 Filter = OpenDialogFilter,
                 InitialDirectory = directory,
                 Title = "Choose File",

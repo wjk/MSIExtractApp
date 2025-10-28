@@ -483,6 +483,34 @@ namespace KPreisser.UI
         {
             return Show(owner.Handle, text, instruction, title, buttons, icon);
         }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="owner">The owner window, or <see langword="null"/> to show a modeless dialog.</param>
+        /// <param name="text"></param>
+        /// <param name="instruction"></param>
+        /// <param name="title"></param>
+        /// <param name="buttons"></param>
+        /// <param name="icon"></param>
+        /// <returns></returns>
+        public static TaskDialogResult Show(
+            System.Windows.Window owner,
+            string text,
+            string instruction = null,
+            string title = null,
+            TaskDialogButtons buttons = TaskDialogButtons.OK,
+            TaskDialogStandardIcon icon = TaskDialogStandardIcon.None)
+        {
+            IntPtr hWnd = IntPtr.Zero;
+            if (owner != null)
+            {
+                var helper = new System.Windows.Interop.WindowInteropHelper(owner);
+                hWnd = helper.Handle;
+            }
+
+            return Show(hWnd, text, instruction, title, buttons, icon);
+        }
 #endif
 
         /// <summary>
@@ -573,6 +601,27 @@ namespace KPreisser.UI
         public TaskDialogButton Show(System.Windows.Forms.IWin32Window owner)
         {
             return Show(owner.Handle);
+        }
+
+        /// <summary>
+        /// Shows the task dialog.
+        /// </summary>
+        /// <param name="owner">
+        /// The owner window, or <see langword="null" /> to show a modeless dialog.
+        /// </param>
+        /// <returns>
+        /// The button of the task dialog that the user clicked.
+        /// </returns>
+        public TaskDialogButton Show(System.Windows.Window owner)
+        {
+            IntPtr hWnd = IntPtr.Zero;
+            if (owner != null)
+            {
+                var helper = new System.Windows.Interop.WindowInteropHelper(owner);
+                hWnd = helper.Handle;
+            }
+
+            return Show(hWnd);
         }
 #endif
 

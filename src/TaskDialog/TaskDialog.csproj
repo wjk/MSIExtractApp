@@ -10,8 +10,10 @@
     <Nullable>disable</Nullable>
 
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <UseWindowsForms>true</UseWindowsForms>
     <IsThirdPartyProject>true</IsThirdPartyProject>
     <Platforms>AnyCPU;ARM64</Platforms>
+
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
 </Project>
