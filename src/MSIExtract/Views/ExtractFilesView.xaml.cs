@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using KPreisser.UI;
+using Microsoft.Win32;
 using MSIExtract.Controls;
 using MSIExtract.Msi;
 
@@ -72,15 +73,15 @@ namespace MSIExtract.Views
             }
 
             AppModel model = (AppModel)DataContext;
-            using var browserDialog = new FolderBrowserDialog
+            OpenFolderDialog browserDialog = new OpenFolderDialog
             {
-                ShowNewFolderButton = true,
-                UseDescriptionForTitle = true,
-                Description = "Select folder to extract to",
+                Multiselect = false,
+                Title = "Select folder to extract to",
             };
 
             Window window = Window.GetWindow(this);
-            if (!browserDialog.ShowDialog(window))
+            bool? dialogResult = browserDialog.ShowDialog(window);
+            if (!dialogResult.HasValue || !dialogResult.Value)
             {
                 return;
             }
