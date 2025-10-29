@@ -80,12 +80,11 @@ public class AcrylicWindow : Window
 
         unsafe
         {
-            DWM_SYSTEMBACKDROP_TYPE* pValue = &backdropType;
             PInvoke.DwmSetWindowAttribute(
                 new HWND(helper.Handle),
                 DWMWINDOWATTRIBUTE.DWMWA_SYSTEMBACKDROP_TYPE,
-                pValue,
-                Convert.ToUInt32(Marshal.SizeOf<DWM_SYSTEMBACKDROP_TYPE>()));
+                &backdropType,
+                sizeof(DWM_SYSTEMBACKDROP_TYPE));
         }
     }
 
@@ -103,13 +102,11 @@ public class AcrylicWindow : Window
         unsafe
         {
             BOOL value = window.EnableFrameDarkMode;
-            BOOL* pValue = &value;
-
             PInvoke.DwmSetWindowAttribute(
                 new HWND(helper.Handle),
                 DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE,
-                pValue,
-                Convert.ToUInt32(Marshal.SizeOf<BOOL>()));
+                &value,
+                Convert.ToUInt32(sizeof(BOOL)));
         }
     }
 }
