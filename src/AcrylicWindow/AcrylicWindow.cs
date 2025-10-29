@@ -58,6 +58,12 @@ public class AcrylicWindow : Window
             throw new InvalidOperationException("Unexpected WPF property name");
         }
 
+        if (Environment.OSVersion.Version.Build < 22621)
+        {
+            // Windows version not new enough to support this feature, bail.
+            return;
+        }
+
         AcrylicWindow window = (AcrylicWindow)target;
         WindowInteropHelper helper = new WindowInteropHelper(window);
         helper.EnsureHandle();
@@ -85,6 +91,12 @@ public class AcrylicWindow : Window
         if (e.Property.Name != nameof(EnableFrameDarkMode))
         {
             throw new InvalidOperationException("Unexpected WPF property name");
+        }
+
+        if (Environment.OSVersion.Version.Build < 22000)
+        {
+            // Windows version not new enough to support this feature, bail.
+            return;
         }
 
         AcrylicWindow window = (AcrylicWindow)target;
