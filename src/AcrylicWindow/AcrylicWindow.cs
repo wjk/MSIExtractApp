@@ -62,21 +62,13 @@ public class AcrylicWindow : Window
         WindowInteropHelper helper = new WindowInteropHelper(window);
         helper.EnsureHandle();
 
-        DWM_SYSTEMBACKDROP_TYPE backdropType;
-        switch (window.FrameBackground)
+        DWM_SYSTEMBACKDROP_TYPE backdropType = (WindowFrameBackground)e.NewValue switch
         {
-            case WindowFrameBackground.Solid:
-                backdropType = DWM_SYSTEMBACKDROP_TYPE.DWMSBT_AUTO;
-                break;
-
-            case WindowFrameBackground.MainWindow:
-                backdropType = DWM_SYSTEMBACKDROP_TYPE.DWMSBT_MAINWINDOW;
-                break;
-
-            case WindowFrameBackground.SupportingWindow:
-                backdropType = DWM_SYSTEMBACKDROP_TYPE.DWMSBT_TRANSIENTWINDOW;
-                break;
-        }
+            WindowFrameBackground.Solid => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_NONE,
+            WindowFrameBackground.MainWindow => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_MAINWINDOW,
+            WindowFrameBackground.SupportingWindow => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_TRANSIENTWINDOW,
+            _ => throw new ArgumentException("Unexpected type", "e.NewValue")
+        };
 
         unsafe
         {
@@ -101,7 +93,7 @@ public class AcrylicWindow : Window
 
         unsafe
         {
-            BOOL value = window.EnableFrameDarkMode;
+            BOOL value = (bool)e.NewValue;
             PInvoke.DwmSetWindowAttribute(
                 new HWND(helper.Handle),
                 DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE,
