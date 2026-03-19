@@ -154,6 +154,16 @@ namespace MSIExtract.Views
 
                         this.Dispatcher.Invoke(() => progressDialog.ReportProgress(percentProgress, null, message));
                     });
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        TaskDialogPage page = new TaskDialogPage();
+                        page.Instruction = "Extraction is complete.";
+                        page.StandardButtons.Add(TaskDialogResult.OK);
+                        page.AllowCancel = true;
+
+                        TaskDialog.Show(window, page);
+                    });
                 }
                 catch (System.IO.FileNotFoundException ex)
                 {
@@ -166,14 +176,10 @@ namespace MSIExtract.Views
                         page.StandardButtons.Add(TaskDialogResult.Close);
                         page.AllowCancel = true;
 
-                        TaskDialog dialog = new TaskDialog();
-                        dialog.Page = page;
-                        dialog.Show(window);
+                        TaskDialog.Show(window, page);
                     });
-
-                    return;
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (ex is not OperationCanceledException)
                 {
                     Dispatcher.BeginInvoke((Action)delegate
                     {
@@ -184,9 +190,7 @@ namespace MSIExtract.Views
                         page.StandardButtons.Add(TaskDialogResult.Close);
                         page.AllowCancel = true;
 
-                        TaskDialog dialog = new TaskDialog();
-                        dialog.Page = page;
-                        dialog.Show(window);
+                        TaskDialog.Show(window, page);
                     });
                 }
             }

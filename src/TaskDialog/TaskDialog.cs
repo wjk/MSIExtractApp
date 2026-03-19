@@ -21,7 +21,7 @@ namespace KPreisser.UI
     /// <remarks>
     /// For more information, see:
     /// https://docs.microsoft.com/en-us/windows/desktop/Controls/task-dialogs-overview
-    /// 
+    ///
     /// Note: To use a task dialog, the application needs to be compiled with a manifest
     /// that contains a dependency to Microsoft.Windows.Common-Controls (6.0.0.0),
     /// and the thread needs to use the single-threaded apartment (STA) model.
@@ -44,16 +44,16 @@ namespace KPreisser.UI
         /// seems to be sent twice to the callback when you "click" a button by
         /// pressing its access key (mnemonic) and the dialog is still open when
         /// continuing the message loop.
-        /// 
+        ///
         /// This work-around should not have negative effects, such as erroneously
         /// ignoring a valid button clicked notification when the user presses the
         /// button multiple times while the GUI thread is hangs - this seems
         /// to work correctly, as our posted message will be processed before
         /// further (valid) <see cref="TaskDialogNotification.TDN_BUTTON_CLICKED"/>
         /// notifications are processed.
-        /// 
+        ///
         /// See: https://gist.github.com/kpreisser/335fde8934da1e0c150fe71ee5ead433
-        /// 
+        ///
         /// Note: We use a WM_APP message with a high value (WM_USER is not
         /// appropriate as it is private to the control class), in order to avoid
         /// conflicts with WM_APP messages which other parts of the application
@@ -66,7 +66,7 @@ namespace KPreisser.UI
         /// <summary>
         /// The delegate for the callback handler (that calls
         /// <see cref="HandleTaskDialogCallback"/>) from which the native function
-        /// pointer <see cref="s_callbackProcDelegatePtr"/> is created. 
+        /// pointer <see cref="s_callbackProcDelegatePtr"/> is created.
         /// </summary>
         /// <remarks>
         /// We must store this delegate (and prevent it from being garbage-collected)
@@ -115,7 +115,7 @@ namespace KPreisser.UI
         /// <see cref="Closed"/> event can be called later.
         /// </summary>
         /// <remarks>
-        /// This is used to prevent raising the 
+        /// This is used to prevent raising the
         /// <see cref="Closed"/> event without raising the
         /// <see cref="Opened"/> event first (e.g. if the dialog cannot be shown
         /// due to an invalid icon).
@@ -129,7 +129,7 @@ namespace KPreisser.UI
         /// <see cref="TaskDialogPage.Destroyed"/> can be called later.
         /// </summary>
         /// <remarks>
-        /// This is used to prevent raising the 
+        /// This is used to prevent raising the
         /// <see cref="TaskDialogPage.Destroyed"/> event without raising the
         /// <see cref="TaskDialogPage.Created"/> event first (e.g. if navigation
         /// fails).
@@ -146,10 +146,10 @@ namespace KPreisser.UI
         /// raised the handler as dialog result. Otherwise, this can lead to memory access
         /// problems like <see cref="AccessViolationException"/>s, especially if the
         /// previous dialog page had radio buttons (but the new ones do not).
-        /// 
+        ///
         /// See the comment in <see cref="HandleTaskDialogCallback"/> for more
         /// information.
-        /// 
+        ///
         /// When the dialog navigates, it sets the <c>navigationIndex</c> to the current
         /// <c>stackCount</c> value, so that the ButtonClicked handler can determine
         /// if the dialog has been navigated after it was called.
@@ -170,8 +170,8 @@ namespace KPreisser.UI
         /// <see cref="TaskDialogNotification.TDN_BUTTON_CLICKED"/> handler returns
         /// <see cref="TaskDialogNativeMethods.S_OK"/> to cache the button instance,
         /// so that <see cref="Show(IntPtr)"/> can then return it.
-        /// 
-        /// Additionally, this is used to check if there was already a 
+        ///
+        /// Additionally, this is used to check if there was already a
         /// <see cref="TaskDialogNotification.TDN_BUTTON_CLICKED"/> handler that
         /// returned <see cref="TaskDialogNativeMethods.S_OK"/>, so that further
         /// handles will return <see cref="TaskDialogNativeMethods.S_FALSE"/> to
@@ -209,7 +209,7 @@ namespace KPreisser.UI
         /// You can use this event to allocate resources associated with the
         /// task dialog window handle, as it is the first event where
         /// <see cref="Handle"/> is available.
-        /// 
+        ///
         /// Note: The dialog will not show until this handler returns (even if the
         /// handler would run the message loop).
         /// </remarks>
@@ -228,14 +228,14 @@ namespace KPreisser.UI
         /// <see cref="CancelEventArgs.Cancel"/> to <c>true</c>. Otherwise, the
         /// dialog window will close, and the <see cref="Closed"/> event will be
         /// raised afterwards.
-        /// 
+        ///
         /// Note: The <see cref="Closed"/> event might not be called immediately
         /// after the <see cref="Closing"/> event (even though the dialog window
-        /// has already closed). This can happen for example when showing multiple 
+        /// has already closed). This can happen for example when showing multiple
         /// (modeless) dialogs at the same time and then closing the one that
         /// was shown first – in that case, the <see cref="Closed"/> event for
         /// that dialog will be called only after the second dialog is also closed.
-        /// 
+        ///
         /// Note: This event might not always be called, e.g. if navigation of the
         /// dialog fails; however, the <see cref="Closed"/> event will always be
         /// called.
@@ -268,7 +268,7 @@ namespace KPreisser.UI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TaskDialog()
             : base()
@@ -282,7 +282,7 @@ namespace KPreisser.UI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TaskDialog(TaskDialogPage page)
             : this()
@@ -316,13 +316,13 @@ namespace KPreisser.UI
         /// event will occur for the current page, and after the dialog
         /// completed navigation, the <see cref="TaskDialogPage.Created"/> event
         /// of the new page will occur.
-        /// 
+        ///
         /// Please note that you cannot manipulate the task dialog or its controls
         /// immediately after navigating it (except for calling <see cref="Close"/>
         /// or navigating the dialog again).
         /// You will need to wait for the <see cref="TaskDialogPage.Created"/>
         /// event to occur before you can manipulate the dialog or its controls.
-        /// 
+        ///
         /// Note that when navigating the dialog, the new page will be bound
         /// immediately, but the previous page will not be unbound until the
         /// <see cref="TaskDialogPage.Created"/> event of the new page is raised,
@@ -357,7 +357,7 @@ namespace KPreisser.UI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TaskDialogStartupLocation StartupLocation
         {
@@ -386,7 +386,7 @@ namespace KPreisser.UI
         /// window being activated, or the taskbar button for the window flashing
         /// orange). However, if the application already has focus, the task dialog
         /// window will be activated anyway.
-        /// 
+        ///
         /// Note: This property only has an effect on Windows 8 and higher.
         /// </remarks>
         public bool DoNotSetForeground
@@ -444,7 +444,7 @@ namespace KPreisser.UI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="text"></param>
         /// <param name="instruction"></param>
@@ -464,7 +464,7 @@ namespace KPreisser.UI
 
 #if !NET_STANDARD
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="owner">The owner window, or <c>null</c> to show a modeless dialog.</param>
         /// <param name="text"></param>
@@ -514,7 +514,7 @@ namespace KPreisser.UI
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="hwndOwner">
         /// The handle of the owner window, or <see cref="IntPtr.Zero"/> to show a
@@ -544,6 +544,15 @@ namespace KPreisser.UI
             });
 
             return ((TaskDialogStandardButton)dialog.Show(hwndOwner)).Result;
+        }
+
+        public static TaskDialogButton Show(
+            System.Windows.Window owner,
+            TaskDialogPage page,
+            TaskDialogStartupLocation startupLocation = TaskDialogStartupLocation.CenterParent)
+        {
+            var dialog = new TaskDialog(page);
+            return dialog.Show(owner);
         }
 
         private static void FreeConfig(IntPtr ptrToFree)
@@ -756,10 +765,10 @@ namespace KPreisser.UI
                     // We need to ensure the callback delegate is not garbage-collected
                     // as long as TaskDialogIndirect doesn't return, by calling
                     // GC.KeepAlive().
-                    // 
+                    //
                     // This is not an exaggeration, as the comment for GC.KeepAlive()
                     // says the following:
-                    // The JIT is very aggressive about keeping an 
+                    // The JIT is very aggressive about keeping an
                     // object's lifetime to as small a window as possible, to the point
                     // where a 'this' pointer isn't considered live in an instance method
                     // unless you read a value from the instance.
@@ -779,7 +788,7 @@ namespace KPreisser.UI
         //// Messages that can be sent to the dialog while it is being shown.
 
         /// <summary>
-        /// Closes the shown task dialog with a 
+        /// Closes the shown task dialog with a
         /// <see cref="TaskDialogResult.Cancel"/> result.
         /// </summary>
         /// <remarks>
@@ -1025,7 +1034,7 @@ namespace KPreisser.UI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="e"></param>
         protected void OnOpened(EventArgs e)
@@ -1034,7 +1043,7 @@ namespace KPreisser.UI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="e"></param>
         protected void OnShown(EventArgs e)
@@ -1043,7 +1052,7 @@ namespace KPreisser.UI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="e"></param>
         protected void OnClosing(TaskDialogClosingEventArgs e)
@@ -1052,7 +1061,7 @@ namespace KPreisser.UI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="e"></param>
         protected void OnClosed(EventArgs e)
@@ -1167,7 +1176,7 @@ namespace KPreisser.UI
                         // Clear the dialog handle, because according to the docs, we
                         // must not continue to send any notifications to the dialog
                         // after the callback function has returned from being called
-                        // with the 'Destroyed' notification.                    
+                        // with the 'Destroyed' notification.
                         _hwndDialog = IntPtr.Zero;
                     }
                     break;
@@ -1185,7 +1194,7 @@ namespace KPreisser.UI
                     // notifications, and we post a message to the task dialog
                     // that, when we process it, causes us to reset the flag.
                     // This is used to work-around the access key bug in the
-                    // native task dialog - see the remarks of the 
+                    // native task dialog - see the remarks of the
                     // "ContinueButtonClickHandlingMessage" for more information.
                     if (_ignoreButtonClickedNotifications)
                         return TaskDialogNativeMethods.S_FALSE;
