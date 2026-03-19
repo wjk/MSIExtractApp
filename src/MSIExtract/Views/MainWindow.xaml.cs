@@ -161,8 +161,7 @@ namespace MSIExtract.Views
                 }
             };
 
-            TaskDialog dialog = new TaskDialog(page);
-            dialog.Show(this);
+            TaskDialog.Show(this, page);
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:Parameters should be on same line or separate lines", Justification = "wart")]
@@ -184,9 +183,7 @@ namespace MSIExtract.Views
             page.Icon = TaskDialogStandardIcon.Error;
             page.StandardButtons.Add(TaskDialogResult.OK);
 
-            TaskDialog dialog = new TaskDialog(page);
-            dialog.StartupLocation = TaskDialogStartupLocation.CenterParent;
-            dialog.Show(this);
+            TaskDialog.Show(this, page);
         }
     }
 }

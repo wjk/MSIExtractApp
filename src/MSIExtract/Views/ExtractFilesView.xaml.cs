@@ -166,9 +166,7 @@ namespace MSIExtract.Views
                         page.StandardButtons.Add(TaskDialogResult.Close);
                         page.AllowCancel = true;
 
-                        TaskDialog dialog = new TaskDialog();
-                        dialog.Page = page;
-                        dialog.Show(window);
+                        TaskDialog.Show(window, page);
                     });
 
                     return;
@@ -184,9 +182,7 @@ namespace MSIExtract.Views
                         page.StandardButtons.Add(TaskDialogResult.Close);
                         page.AllowCancel = true;
 
-                        TaskDialog dialog = new TaskDialog();
-                        dialog.Page = page;
-                        dialog.Show(window);
+                        TaskDialog.Show(window, page);
                     });
                 }
             }
