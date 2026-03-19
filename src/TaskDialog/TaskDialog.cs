@@ -546,6 +546,15 @@ namespace KPreisser.UI
             return ((TaskDialogStandardButton)dialog.Show(hwndOwner)).Result;
         }
 
+        public static TaskDialogButton Show(
+            System.Windows.Window owner,
+            TaskDialogPage page,
+            TaskDialogStartupLocation startupLocation = TaskDialogStartupLocation.CenterParent)
+        {
+            var dialog = new TaskDialog(page);
+            return dialog.Show(owner);
+        }
+
         private static void FreeConfig(IntPtr ptrToFree)
         {
             Marshal.FreeHGlobal(ptrToFree);
