@@ -178,8 +178,6 @@ namespace MSIExtract.Views
 
                         TaskDialog.Show(window, page);
                     });
-
-                    return;
                 }
                 catch (Exception ex) when (ex is not OperationCanceledException)
                 {
