@@ -12,5 +12,5 @@ internal static class HStringMarshaller
 {
     public static HSTRING ConvertToManaged(nint nativeValue) => new HSTRING(nativeValue);
 
-    public static nint ConvertToUnmanaged(HSTRING value) => value.Value;
+    public static unsafe nint ConvertToUnmanaged(HSTRING value) => (nint)value.Value;
 }
