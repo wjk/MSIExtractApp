@@ -154,6 +154,16 @@ namespace MSIExtract.Views
 
                         this.Dispatcher.Invoke(() => progressDialog.ReportProgress(percentProgress, null, message));
                     });
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        TaskDialogPage page = new TaskDialogPage();
+                        page.Instruction = "Extraction is complete.";
+                        page.StandardButtons.Add(TaskDialogResult.OK);
+                        page.AllowCancel = true;
+
+                        TaskDialog.Show(window, page);
+                    });
                 }
                 catch (System.IO.FileNotFoundException ex)
                 {
