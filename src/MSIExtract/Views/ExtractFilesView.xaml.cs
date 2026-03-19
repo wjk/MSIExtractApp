@@ -171,7 +171,7 @@ namespace MSIExtract.Views
 
                     return;
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (ex is not OperationCanceledException)
                 {
                     Dispatcher.BeginInvoke((Action)delegate
                     {
