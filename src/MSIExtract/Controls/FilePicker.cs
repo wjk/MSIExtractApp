@@ -52,6 +52,11 @@ namespace MSIExtract.Controls
         /// </summary>
         public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(nameof(Header), typeof(object), typeof(FilePicker), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Provides identity for the <see cref="OpenDialogClientGuid"/> property.
+        /// </summary>
+        public static readonly DependencyProperty OpenDialogClientGuidProperty = DependencyProperty.Register(nameof(OpenDialogClientGuid), typeof(string), typeof(FilePicker), new FrameworkPropertyMetadata(string.Empty));
+
         private Image? iconPart;
         private Button? chooseButtonPart;
 
@@ -96,6 +101,17 @@ namespace MSIExtract.Controls
             set => SetValue(HeaderProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the client GUID of the open dialog displayed by this control.
+        /// This GUID is used to remember the last directory viewed in the open dialog
+        /// for different dialogs in different parts of the program.
+        /// </summary>
+        public string? OpenDialogClientGuid
+        {
+            get => (string)this.GetValue(OpenDialogClientGuidProperty);
+            set => this.SetValue(OpenDialogClientGuidProperty, value);
+        }
+
         /// <inheritdoc/>
         [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Message for non-user-facing exception")]
         public override void OnApplyTemplate()
@@ -131,29 +147,19 @@ namespace MSIExtract.Controls
         /// </summary>
         public void ShowChooseFileDialog()
         {
-            string directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            if (!string.IsNullOrEmpty(FilePath))
-            {
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type (checked immediately below)
-                directory = Path.GetDirectoryName(FilePath);
-#pragma warning restore CS8600
-
-                if (directory == null)
-                {
-                    throw new InvalidOperationException("Path.GetDirectoryName() returned null");
-                }
-            }
-
             var dialog = new OpenFileDialog
             {
                 AddExtension = true,
-                ClientGuid = Guid.Parse("fe9c4d64-6f2d-4bee-8220-ece48200404f"),
                 Filter = OpenDialogFilter,
-                InitialDirectory = directory,
                 Title = "Choose File",
                 CheckPathExists = true,
                 Multiselect = false,
             };
+
+            if (!string.IsNullOrWhiteSpace(OpenDialogClientGuid))
+            {
+                dialog.ClientGuid = Guid.Parse(OpenDialogClientGuid);
+            }
 
             bool? result = dialog.ShowDialog(Window.GetWindow(this));
             if (result.HasValue && result.Value)
