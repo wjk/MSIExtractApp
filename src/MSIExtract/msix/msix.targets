@@ -1,0 +1,37 @@
+<Project>
+  <PropertyGroup>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <UseSdkBuildToolsPackage>true</UseSdkBuildToolsPackage>
+
+    <WindowsPackageType>MSIX</WindowsPackageType>
+    <CreateAppxPackageOnPublish>true</CreateAppxPackageOnPublish>
+    <BuildAppxUploadPackageForUap>true</BuildAppxUploadPackageForUap>
+    <AppxBundleNameForOutput>MSIExtract</AppxBundleNameForOutput>
+    <SDKIdentifier>Windows</SDKIdentifier>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <AppxPackage>true</AppxPackage>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundlePlatforms>x64|ARM64</AppxBundlePlatforms>
+    <AppxBundle>Always</AppxBundle>
+    <SDKVersion>10.0</SDKVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageCertificateKeyFile>$(MSBuildThisFileDirectory)cert.pfx</PackageCertificateKeyFile>
+    <PackageCertificatePassword>1234</PackageCertificatePassword>
+
+    <AppxPackageSigningTimestampServerUrl>http://timestamp.digicert.com</AppxPackageSigningTimestampServerUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="@(AppxAsset)" />
+    <Content Include="@(AppxAsset)" CopyToOutputDirectory="Always" />
+    <PRIResource Include="@(AppxAsset)" />
+  </ItemGroup>
+
+  <!-- Import-PfxCertificate -FilePath .\msix\cert.pfx -CertStoreLocation Cert:\CurrentUser\My\ -ProtectPrivateKey (ConvertTo-SecureString 1234 -AsPlainText) -->
+</Project>
