@@ -4,5 +4,6 @@
     <BaseIntermediateOutputPath>$(RepoRootPath)obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
     <BaseOutputPath>$(RepoRootPath)bin\$(MSBuildProjectName)\</BaseOutputPath>
     <PackageOutputPath>$(RepoRootPath)bin\Packages\$(Configuration)\</PackageOutputPath>
+    <AppxPackageDir>$(RepoRootPath)bin\AppxPackages</AppxPackageDir>
   </PropertyGroup>
 </Project>
