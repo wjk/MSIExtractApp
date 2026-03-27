@@ -3,6 +3,9 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <UseSdkBuildToolsPackage>true</UseSdkBuildToolsPackage>
 
+    <GenerateAppxPackageOnBuild>false</GenerateAppxPackageOnBuild>
+    <PublishAppxPackage>true</PublishAppxPackage>
+
     <WindowsPackageType>MSIX</WindowsPackageType>
     <CreateAppxPackageOnPublish>true</CreateAppxPackageOnPublish>
     <BuildAppxUploadPackageForUap>true</BuildAppxUploadPackageForUap>
