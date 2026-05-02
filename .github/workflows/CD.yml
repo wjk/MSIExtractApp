@@ -23,9 +23,6 @@ jobs:
               with:
                   dotnet-version: "9.0"
 
-            - name: Configure Visual Studio
-              uses: microsoft/setup-msbuild@v2
-
             - name: Update Versions
               id: update_version
               run: |
