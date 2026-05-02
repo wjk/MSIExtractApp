@@ -39,7 +39,7 @@ namespace MSIExtract.ShellExtension
         /// <inheritdoc/>
         public override (string filePath, int resourceId)? GetIcon(IEnumerable<string> selectedFiles)
         {
-            string exePath = Path.Combine(Package.Current.InstalledLocation.Path, "MSIExtract", "MSIExtract.exe");
+            string exePath = Path.Combine(Package.Current.InstalledLocation.Path, "MSIExtract.exe");
             const int resourceId = 32512; // This is the resource ID used for main icons in .NET binaries.
 
             return (exePath, resourceId);
