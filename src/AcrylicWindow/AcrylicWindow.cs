@@ -1,6 +1,7 @@
 ﻿// Copyright (c) William Kent. All rights reserved.
 // Licensed under the MIT License. See LICENSE file in the project root for full license information.
 
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
@@ -16,59 +17,39 @@ namespace AcrylicWindow;
 /// </summary>
 public class AcrylicWindow : Window
 {
-#pragma warning disable SA1117 // Parameters should be on same line or separate lines (wart)
     /// <summary>
     /// Provides the identity for the <see cref="FrameBackground"/> property.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:Parameters should be on same line or separate lines", Justification = "wart")]
     public static readonly DependencyProperty FrameBackgroundProperty =
         DependencyProperty.Register(nameof(FrameBackground), typeof(WindowFrameBackground), typeof(AcrylicWindow),
             new FrameworkPropertyMetadata(WindowFrameBackground.Solid, FrameBackgroundChanged));
 
     /// <summary>
-    /// Provides the identity for the <see cref="EnableFrameDarkMode"/> property.
+    /// Initializes a new instance of the <see cref="AcrylicWindow"/> class.
     /// </summary>
-    public static readonly DependencyProperty EnableFrameDarkModeProperty =
-        DependencyProperty.Register(nameof(EnableFrameDarkMode), typeof(bool), typeof(AcrylicWindow),
-            new FrameworkPropertyMetadata(false, FrameDarkModeChanged));
-#pragma warning restore SA1117 // Parameters should be on same line or separate lines
-
-    /// <summary>
-    /// Gets or sets the kind of background the window frame will have.
-    /// </summary>
-    public WindowFrameBackground FrameBackground
+    public AcrylicWindow()
     {
-        get => (WindowFrameBackground)this.GetValue(FrameBackgroundProperty);
-        set => this.SetValue(FrameBackgroundProperty, value);
+        this.Loaded += OnLoaded;
     }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether or not the system should modify the window frame
-    /// background when Dark Mode is enabled.
-    /// </summary>
-    public bool EnableFrameDarkMode
+    private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        get => (bool)this.GetValue(EnableFrameDarkModeProperty);
-        set => this.SetValue(EnableFrameDarkModeProperty, value);
+        this.SetDwmAttribute();
     }
 
-    private static void FrameBackgroundChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
+    private void SetDwmAttribute()
     {
-        if (e.Property.Name != nameof(FrameBackground))
-        {
-            throw new InvalidOperationException("Unexpected WPF property name");
-        }
-
         if (Environment.OSVersion.Version.Build < 22621)
         {
             // Windows version not new enough to support this feature, bail.
             return;
         }
 
-        AcrylicWindow window = (AcrylicWindow)target;
-        WindowInteropHelper helper = new WindowInteropHelper(window);
+        var helper = new WindowInteropHelper(this);
         helper.EnsureHandle();
 
-        DWM_SYSTEMBACKDROP_TYPE backdropType = (WindowFrameBackground)e.NewValue switch
+        DWM_SYSTEMBACKDROP_TYPE backdropType = FrameBackground switch
         {
             WindowFrameBackground.Solid => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_NONE,
             WindowFrameBackground.MainWindow => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_MAINWINDOW,
@@ -86,31 +67,23 @@ public class AcrylicWindow : Window
         }
     }
 
-    private static void FrameDarkModeChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
+    /// <summary>
+    /// Gets or sets the kind of background the window frame will have.
+    /// </summary>
+    public WindowFrameBackground FrameBackground
     {
-        if (e.Property.Name != nameof(EnableFrameDarkMode))
+        get => (WindowFrameBackground)this.GetValue(FrameBackgroundProperty);
+        set => this.SetValue(FrameBackgroundProperty, value);
+    }
+
+    private static void FrameBackgroundChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
+    {
+        if (e.Property.Name != nameof(FrameBackground))
         {
             throw new InvalidOperationException("Unexpected WPF property name");
         }
 
-        if (Environment.OSVersion.Version.Build < 22000)
-        {
-            // Windows version not new enough to support this feature, bail.
-            return;
-        }
-
         AcrylicWindow window = (AcrylicWindow)target;
-        WindowInteropHelper helper = new WindowInteropHelper(window);
-        helper.EnsureHandle();
-
-        unsafe
-        {
-            BOOL value = (bool)e.NewValue;
-            PInvoke.DwmSetWindowAttribute(
-                new HWND(helper.Handle),
-                DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE,
-                &value,
-                Convert.ToUInt32(sizeof(BOOL)));
-        }
+        window.SetDwmAttribute();
     }
 }
