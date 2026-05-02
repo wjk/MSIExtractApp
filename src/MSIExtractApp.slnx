@@ -1,0 +1,49 @@
+<Solution>
+  <Configurations>
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path="../.editorconfig" />
+    <File Path="../nuget.config" />
+    <File Path="../RepoRoot.props" />
+    <File Path="../version.json" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="stylecop.json" />
+  </Folder>
+  <Project Path="AcrylicWindow/AcrylicWindow.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+  <Project Path="LessIO/LessIO.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+  </Project>
+  <Project Path="MSIExtract.Core/MSIExtract.Core.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+  </Project>
+  <Project Path="MSIExtract/MSIExtract.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+  <Project Path="ShellCommandLib/ShellCommandLib.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+  <Project Path="Shmuelie.WinRTServer/Shmuelie.WinRTServer.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+  <Project Path="TaskDialog/TaskDialog.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+  </Project>
+  <Project Path="WixToolset.Dtf.Compression.Cab/WixToolset.Dtf.Compression.Cab.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+  </Project>
+  <Project Path="WixToolset.Dtf.Compression/WixToolset.Dtf.Compression.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+  </Project>
+  <Project Path="WixToolset.Dtf.WindowsInstaller/WixToolset.Dtf.WindowsInstaller.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+  </Project>
+</Solution>

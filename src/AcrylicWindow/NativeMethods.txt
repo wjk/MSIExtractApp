@@ -1,0 +1,2 @@
+DwmSetWindowAttribute
+DWM_SYSTEMBACKDROP_TYPE
