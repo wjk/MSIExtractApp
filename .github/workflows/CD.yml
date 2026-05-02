@@ -71,17 +71,12 @@ jobs:
                   setAllVars: true
 
             - name: Build
-              working-directory: ./src/MSIExtract.AppxPackage
+              working-directory: ./src/MSIExtract
               run: |
-                & MSBuild.exe /nologo /restore /bl /m /p:Configuration=Release /p:Platform=x64 `
-                  /p:BuildAppxUploadPackageForUap=true `
-                  /p:AppxBundle=Always `
-                  /p:AppxPackageSigningEnabled=true `
-                  /p:PackageCertificateThumbprint=67232A07FF8347D3839848D007238C9A61A599FE `
-                  /p:PackageCertificateKeyFile=.\cert.pfx `
-                  /p:PackageCertificatePassword=1234 `
-                  /p:PublicRelease=true `
-                  /t:Publish
+                ..\..\tools\make-certificate.ps1 -OutputPath .\msix\cert.pfx
+
+                dotnet publish -c Release `
+                  /p:Platform=ARM64 /p:GenerateAppxPackageOnBuild=true /p:PublicRelease=true
 
             - name: Prepare Assets for Upload
               working-directory: ./bin/AppxPackages
@@ -91,6 +86,7 @@ jobs:
                   mv $uploads[0].FullName MSIViewer_${{ steps.update_version.outputs.version }}.msixupload -Verbose
                 } else {
                   Write-Error "Could not find any msixupload files"
+                  exit 1
                 }
 
                 $bundles = (dir *_Test | dir -Include *.msixbundle)
@@ -98,6 +94,7 @@ jobs:
                   mv $bundles[0].FullName MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle -Verbose
                 } else {
                   Write-Error "Could not find any msixbundle files"
+                  exit 1
                 }
 
             - name: Generate SBOM
@@ -116,6 +113,7 @@ jobs:
                 name: 'MSI Viewer ${{ steps.update_version.outputs.version_no_v }}'
                 tag_name: ${{ github.ref_name }}
                 files: |
+                  bin/MSIExtract.spdx.json
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
 
