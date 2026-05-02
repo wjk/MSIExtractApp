@@ -57,9 +57,9 @@ jobs:
                   $version = $version + ".0"
                 }
 
-                [xml]$manifest = Get-Content '.\src\MSIExtract.AppxPackage\Package.appxmanifest'
+                [xml]$manifest = Get-Content '.\src\MSIExtract\Package.appxmanifest'
                 $manifest.Package.Identity.Version = "$($version).0"
-                $manifest.Save('.\src\MSIExtract.AppxPackage\Package.appxmanifest')
+                $manifest.Save('.\src\MSIExtract\Package.appxmanifest')
 
             - name: Nerdbank.GitVersioning
               uses: dotnet/nbgv@master
