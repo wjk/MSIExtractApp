@@ -43,8 +43,8 @@ jobs:
                   exit 1
                 }
 
-                $version = $match.Groups[1]
-                $suffix = $match.Groups[2]
+                $version = $match.Groups[1].Value
+                $suffix = $match.Groups[2].Value
 
                 echo "version=$version" >> $env:GITHUB_OUTPUT
 
