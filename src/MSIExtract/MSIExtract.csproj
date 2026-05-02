@@ -30,7 +30,6 @@
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
     <PackageReference Include="PresentationTheme.Aero" Version="0.6.4" />
     <PackageReference Include="Vanara.PInvoke.Shell32" Version="4.0.1" />
-    <PackageReference Include="FluentWPF" Version="0.10.2" />
 
     <ProjectReference Include="..\AcrylicWindow\AcrylicWindow.csproj" />
     <ProjectReference Include="..\MSIExtract.Core\MSIExtract.Core.csproj" />
