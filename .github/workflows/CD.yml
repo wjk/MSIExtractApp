@@ -73,7 +73,7 @@ jobs:
                 ..\..\tools\make-certificate.ps1 -OutputPath .\msix\cert.pfx
 
                 dotnet publish -c Release `
-                  /p:Platform=ARM64 /p:GenerateAppxPackageOnBuild=true /p:PublicRelease=true
+                  /p:Platform=x64 /p:GenerateAppxPackageOnBuild=true /p:PublicRelease=true
 
             - name: Prepare Assets for Upload
               working-directory: ./bin/AppxPackages
