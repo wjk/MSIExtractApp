@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.1-RTM" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools.MSIX" Version="1.7.260501103">
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools.MSIX" Version="1.7.260513100">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
