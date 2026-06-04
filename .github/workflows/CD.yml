@@ -112,13 +112,13 @@ jobs:
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
 
             - name: Attest Store Assets
-              uses: actions/attest-sbom@v3
+              uses: actions/attest-sbom@v4
               with:
                 subject-path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
                 sbom-path: bin/MSIExtract.spdx.json
 
             - name: Attest Sideload Assets
-              uses: actions/attest-sbom@v3
+              uses: actions/attest-sbom@v4
               with:
                 subject-path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
                 sbom-path: bin/MSIExtract.spdx.json
