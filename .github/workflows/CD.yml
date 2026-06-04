@@ -7,6 +7,7 @@ on:
 permissions:
   id-token: write
   attestations: write
+  artifact-metadata: write
   contents: write
 
 jobs:
@@ -111,14 +112,10 @@ jobs:
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
 
-            - name: Attest Store Assets
-              uses: actions/attest-sbom@v3
+            - name: Attest Build
+              uses: actions/attest@v4.1.0
               with:
-                subject-path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
-                sbom-path: bin/MSIExtract.spdx.json
-
-            - name: Attest Sideload Assets
-              uses: actions/attest-sbom@v3
-              with:
-                subject-path: bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
+                subject-path: |
+                  bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
+                  bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
                 sbom-path: bin/MSIExtract.spdx.json
