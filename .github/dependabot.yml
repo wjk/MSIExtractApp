@@ -6,3 +6,9 @@ updates:
           interval: daily
           time: "00:00"
           timezone: America/Detroit
+    - package-ecosystem: github-actions
+      directory: /
+      schedule:
+          interval: daily
+          time: "00:00"
+          timezone: America/Detroit
