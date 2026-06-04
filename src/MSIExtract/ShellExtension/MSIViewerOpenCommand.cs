@@ -52,7 +52,7 @@ namespace MSIExtract.ShellExtension
 
             foreach (string msiPath in selectedFiles.Where(IsMSIFile))
             {
-                string exePath = Path.Combine(Package.Current.InstalledLocation.Path, "MSIExtract", "MSIExtract.exe");
+                string exePath = Path.Combine(Package.Current.InstalledLocation.Path, "MSIExtract.exe");
 
                 var processInfo = new ProcessStartInfo();
                 processInfo.FileName = exePath;
