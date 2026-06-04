@@ -15,13 +15,11 @@ jobs:
       name: Install .NET Core
       with:
         dotnet-version: "9.0"
-    - uses: microsoft/setup-msbuild@v2
-      name: Configure Visual Studio
     - name: Restore
       working-directory: ./src
       run: |
-        & MSBuild.exe /nologo /t:Restore
+        dotnet restore
     - name: Build
       working-directory: ./src/MSIExtract
       run: |
-        & MSBuild.exe /nologo /m /p:Configuration=Release /p:Platform=x64
+        dotnet build -c Release
