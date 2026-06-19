@@ -15,7 +15,7 @@ jobs:
         runs-on: windows-latest
         steps:
             - name: Clone
-              uses: actions/checkout@v6.0.3
+              uses: actions/checkout@v7.0.0
               with:
                   fetch-depth: 0
 
