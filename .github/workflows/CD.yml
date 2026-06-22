@@ -102,7 +102,7 @@ jobs:
                 output-file: bin/MSIExtract.spdx.json
 
             - name: Upload Release Assets
-              uses: softprops/action-gh-release@v3.0.0
+              uses: softprops/action-gh-release@v3.0.1
               with:
                 draft: true
                 name: 'MSI Viewer ${{ steps.update_version.outputs.version_no_v }}'
