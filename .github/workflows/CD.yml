@@ -113,7 +113,7 @@ jobs:
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}_Sideload.msixbundle
 
             - name: Attest Build
-              uses: actions/attest@v4.1.0
+              uses: actions/attest@v4.1.1
               with:
                 subject-path: |
                   bin/AppxPackages/MSIViewer_${{ steps.update_version.outputs.version }}.msixupload
