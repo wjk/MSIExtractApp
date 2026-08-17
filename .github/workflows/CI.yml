@@ -3,6 +3,9 @@ name: Build Pull Request
 on:
   pull_request:
     branches: [main]
+    paths:
+      - src/**
+      - .github/workflows/CI.yml
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
