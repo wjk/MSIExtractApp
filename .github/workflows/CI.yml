@@ -24,6 +24,14 @@ jobs:
       with:
         dotnet-version: "9.0"
 
+    - uses: actions/cache@v6.1.0
+      name: Cache NuGet Packages
+      with:
+         path: ~/.nuget/packages
+         key: ${{ runner.os }}-nuget-${{ hashFiles('src/**/packages.lock.json') }}
+         restore-keys: |
+           ${{ runner.os }}-nuget-
+
     - name: Restore
       working-directory: ./src
       run: |
