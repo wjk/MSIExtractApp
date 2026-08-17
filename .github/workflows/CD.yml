@@ -5,10 +5,10 @@ on:
         tags: ['v*']
 
 permissions:
-  id-token: write
-  attestations: write
-  artifact-metadata: write
-  contents: write
+    id-token: write
+    attestations: write
+    artifact-metadata: write
+    contents: write
 
 jobs:
     build:
