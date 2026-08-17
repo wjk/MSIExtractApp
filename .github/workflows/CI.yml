@@ -18,14 +18,17 @@ jobs:
       name: Clone
       with:
         fetch-depth: 0
+
     - uses: actions/setup-dotnet@v6.0.0
       name: Install .NET Core
       with:
         dotnet-version: "9.0"
+
     - name: Restore
       working-directory: ./src
       run: |
-        dotnet restore
+        dotnet restore --locked-mode
+
     - name: Build
       working-directory: ./src/MSIExtract
       run: |
