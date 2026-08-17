@@ -35,8 +35,8 @@ jobs:
       with:
         dotnet-version: "9.0"
 
-    - uses: actions/cache@v6.1.0
-      name: Cache NuGet Packages
+    - uses: actions/cache/restore@v6.1.0
+      name: Download Cached NuGet Packages
       with:
          path: ~/.nuget/packages
          key: ${{ runner.os }}-nuget-${{ hashFiles('src/**/packages.lock.json') }}
@@ -47,6 +47,14 @@ jobs:
       working-directory: ./src
       run: |
         dotnet restore
+
+    - uses: actions/cache/save@v6.1.0
+      name: Save Cached NuGet Packages
+      with:
+         path: ~/.nuget/packages
+         key: ${{ runner.os }}-nuget-${{ hashFiles('src/**/packages.lock.json') }}
+         restore-keys: |
+           ${{ runner.os }}-nuget-
 
     - name: Build
       working-directory: ./src/MSIExtract
