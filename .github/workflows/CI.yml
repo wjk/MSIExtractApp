@@ -46,7 +46,7 @@ jobs:
     - name: Restore
       working-directory: ./src
       run: |
-        dotnet restore --locked-mode
+        dotnet restore
 
     - name: Build
       working-directory: ./src/MSIExtract
