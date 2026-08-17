@@ -13,6 +13,8 @@ permissions:
 jobs:
     build:
         runs-on: windows-latest
+        timeout-minutes: 15
+
         steps:
             - name: Clone
               uses: actions/checkout@v7.0.1
