@@ -1,26 +1,59 @@
-name: CI
+name: Build Pull Request
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - src/**
+      - .github/workflows/CI.yml
   pull_request:
     branches: [main]
+    paths:
+      - src/**
+      - .github/workflows/CI.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: windows-latest
+    timeout-minutes: 10
 
     steps:
     - uses: actions/checkout@v7.0.1
       name: Clone
       with:
         fetch-depth: 0
+
     - uses: actions/setup-dotnet@v6.0.0
       name: Install .NET Core
       with:
         dotnet-version: "9.0"
+
+    - uses: actions/cache/restore@v6.1.0
+      name: Download Cached NuGet Packages
+      with:
+         path: ~/.nuget/packages
+         key: ${{ runner.os }}-nuget-${{ hashFiles('src/**/packages.lock.json') }}
+         restore-keys: |
+           ${{ runner.os }}-nuget-
+
     - name: Restore
       working-directory: ./src
       run: |
         dotnet restore
+
+    - uses: actions/cache/save@v6.1.0
+      name: Save Cached NuGet Packages
+      with:
+         path: ~/.nuget/packages
+         key: ${{ runner.os }}-nuget-${{ hashFiles('src/**/packages.lock.json') }}
+
     - name: Build
       working-directory: ./src/MSIExtract
       run: |

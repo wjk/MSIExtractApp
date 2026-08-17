@@ -1,18 +1,20 @@
-name: Continuous Delivery
+name: Build Release
 
 on:
     push:
         tags: ['v*']
 
 permissions:
-  id-token: write
-  attestations: write
-  artifact-metadata: write
-  contents: write
+    id-token: write
+    attestations: write
+    artifact-metadata: write
+    contents: write
 
 jobs:
     build:
         runs-on: windows-latest
+        timeout-minutes: 15
+
         steps:
             - name: Clone
               uses: actions/checkout@v7.0.1
@@ -67,6 +69,19 @@ jobs:
               id: nbgv
               with:
                   setAllVars: true
+
+            - uses: actions/cache@v6.1.0
+              name: Cache NuGet Packages
+              with:
+                 path: ~/.nuget/packages
+                 key: ${{ runner.os }}-nuget-${{ hashFiles('src/**/packages.lock.json') }}
+                 restore-keys: |
+                   ${{ runner.os }}-nuget-
+
+            - name: Restore
+              working-directory: ./src
+              run: |
+                dotnet restore --locked-mode
 
             - name: Build
               working-directory: ./src/MSIExtract

@@ -16,6 +16,7 @@
     <EmbedUntrackedSources>false</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
