@@ -1,11 +1,6 @@
 name: Build Pull Request
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - src/**
-      - .github/workflows/CI.yml
   pull_request:
     branches: [main]
     paths:
