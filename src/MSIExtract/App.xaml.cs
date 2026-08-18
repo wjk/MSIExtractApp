@@ -113,8 +113,10 @@ namespace MSIExtract
                 RunCOMServerTask().GetAwaiter().GetResult();
             }
 
-            // int pid = Process.GetCurrentProcess().Id;
-            // MessageBox.Show($"Pausing to give time to attach to process {pid}.");
+            /*
+            int pid = Process.GetCurrentProcess().Id;
+            MessageBox.Show($"Pausing to give time to attach to process {pid}.");
+            */
 
             Thread thread = new Thread(ThreadEntry);
             thread.SetApartmentState(ApartmentState.MTA);
