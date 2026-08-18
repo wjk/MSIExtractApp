@@ -41,7 +41,7 @@ public class AcrylicWindow : Window
             throw new InvalidOperationException("Unexpected WPF property name");
         }
 
-        AcrylicWindow window = (AcrylicWindow)target;
+        var window = (AcrylicWindow)target;
         window.SetDwmAttribute();
     }
 
