@@ -26,48 +26,6 @@ public class AcrylicWindow : Window
             new FrameworkPropertyMetadata(WindowFrameBackground.Solid, FrameBackgroundChanged));
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AcrylicWindow"/> class.
-    /// </summary>
-    public AcrylicWindow()
-    {
-        this.Loaded += OnLoaded;
-    }
-
-    private void OnLoaded(object sender, RoutedEventArgs e)
-    {
-        this.SetDwmAttribute();
-    }
-
-    private void SetDwmAttribute()
-    {
-        if (Environment.OSVersion.Version.Build < 22621)
-        {
-            // Windows version not new enough to support this feature, bail.
-            return;
-        }
-
-        var helper = new WindowInteropHelper(this);
-        helper.EnsureHandle();
-
-        DWM_SYSTEMBACKDROP_TYPE backdropType = FrameBackground switch
-        {
-            WindowFrameBackground.Solid => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_NONE,
-            WindowFrameBackground.MainWindow => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_MAINWINDOW,
-            WindowFrameBackground.SupportingWindow => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_TRANSIENTWINDOW,
-            _ => throw new ArgumentException("Unexpected type", "e.NewValue")
-        };
-
-        unsafe
-        {
-            PInvoke.DwmSetWindowAttribute(
-                new HWND(helper.Handle),
-                DWMWINDOWATTRIBUTE.DWMWA_SYSTEMBACKDROP_TYPE,
-                &backdropType,
-                sizeof(DWM_SYSTEMBACKDROP_TYPE));
-        }
-    }
-
-    /// <summary>
     /// Gets or sets the kind of background the window frame will have.
     /// </summary>
     public WindowFrameBackground FrameBackground
@@ -83,7 +41,36 @@ public class AcrylicWindow : Window
             throw new InvalidOperationException("Unexpected WPF property name");
         }
 
-        AcrylicWindow window = (AcrylicWindow)target;
+        var window = (AcrylicWindow)target;
         window.SetDwmAttribute();
+    }
+
+    private void SetDwmAttribute()
+    {
+        if (Environment.OSVersion.Version.Build < 22621)
+        {
+            // Windows version not new enough to support this feature, bail.
+            return;
+        }
+
+        var helper = new WindowInteropHelper(this);
+        helper.EnsureHandle();
+
+        DWM_SYSTEMBACKDROP_TYPE backdropType = this.FrameBackground switch
+        {
+            WindowFrameBackground.Solid => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_NONE,
+            WindowFrameBackground.MainWindow => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_MAINWINDOW,
+            WindowFrameBackground.SupportingWindow => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_TRANSIENTWINDOW,
+            _ => throw new ArgumentException("Unexpected FrameBackground value")
+        };
+
+        unsafe
+        {
+            PInvoke.DwmSetWindowAttribute(
+                new HWND(helper.Handle),
+                DWMWINDOWATTRIBUTE.DWMWA_SYSTEMBACKDROP_TYPE,
+                &backdropType,
+                sizeof(DWM_SYSTEMBACKDROP_TYPE));
+        }
     }
 }
