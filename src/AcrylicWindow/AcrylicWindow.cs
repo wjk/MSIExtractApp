@@ -25,6 +25,15 @@ public class AcrylicWindow : Window
         DependencyProperty.Register(nameof(FrameBackground), typeof(WindowFrameBackground), typeof(AcrylicWindow),
             new FrameworkPropertyMetadata(WindowFrameBackground.Solid, FrameBackgroundChanged));
 
+    /// <summary>
+    /// Gets or sets the kind of background the window frame will have.
+    /// </summary>
+    public WindowFrameBackground FrameBackground
+    {
+        get => (WindowFrameBackground)this.GetValue(FrameBackgroundProperty);
+        set => this.SetValue(FrameBackgroundProperty, value);
+    }
+
     private static void FrameBackgroundChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
     {
         if (e.Property.Name != nameof(FrameBackground))
@@ -34,15 +43,6 @@ public class AcrylicWindow : Window
 
         AcrylicWindow window = (AcrylicWindow)target;
         window.SetDwmAttribute();
-    }
-
-    /// <summary>
-    /// Gets or sets the kind of background the window frame will have.
-    /// </summary>
-    public WindowFrameBackground FrameBackground
-    {
-        get => (WindowFrameBackground)this.GetValue(FrameBackgroundProperty);
-        set => this.SetValue(FrameBackgroundProperty, value);
     }
 
     private void SetDwmAttribute()
