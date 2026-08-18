@@ -61,7 +61,7 @@ public class AcrylicWindow : Window
             WindowFrameBackground.Solid => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_NONE,
             WindowFrameBackground.MainWindow => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_MAINWINDOW,
             WindowFrameBackground.SupportingWindow => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_TRANSIENTWINDOW,
-            _ => throw new ArgumentException("Unexpected type", "e.NewValue")
+            _ => throw new ArgumentException("Unexpected FrameBackground value")
         };
 
         unsafe
