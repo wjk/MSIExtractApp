@@ -69,7 +69,7 @@ public class AcrylicWindow : Window
         var helper = new WindowInteropHelper(this);
         helper.EnsureHandle();
 
-        DWM_SYSTEMBACKDROP_TYPE backdropType = FrameBackground switch
+        DWM_SYSTEMBACKDROP_TYPE backdropType = this.FrameBackground switch
         {
             WindowFrameBackground.Solid => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_NONE,
             WindowFrameBackground.MainWindow => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_MAINWINDOW,
