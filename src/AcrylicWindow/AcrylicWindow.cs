@@ -25,12 +25,32 @@ public class AcrylicWindow : Window
         DependencyProperty.Register(nameof(FrameBackground), typeof(WindowFrameBackground), typeof(AcrylicWindow),
             new FrameworkPropertyMetadata(WindowFrameBackground.Solid, FrameBackgroundChanged));
 
+    private static void FrameBackgroundChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
+    {
+        if (e.Property.Name != nameof(FrameBackground))
+        {
+            throw new InvalidOperationException("Unexpected WPF property name");
+        }
+
+        AcrylicWindow window = (AcrylicWindow)target;
+        window.SetDwmAttribute();
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="AcrylicWindow"/> class.
     /// </summary>
     public AcrylicWindow()
     {
         this.Loaded += OnLoaded;
+    }
+
+    /// <summary>
+    /// Gets or sets the kind of background the window frame will have.
+    /// </summary>
+    public WindowFrameBackground FrameBackground
+    {
+        get => (WindowFrameBackground)this.GetValue(FrameBackgroundProperty);
+        set => this.SetValue(FrameBackgroundProperty, value);
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
@@ -65,25 +85,5 @@ public class AcrylicWindow : Window
                 &backdropType,
                 sizeof(DWM_SYSTEMBACKDROP_TYPE));
         }
-    }
-
-    /// <summary>
-    /// Gets or sets the kind of background the window frame will have.
-    /// </summary>
-    public WindowFrameBackground FrameBackground
-    {
-        get => (WindowFrameBackground)this.GetValue(FrameBackgroundProperty);
-        set => this.SetValue(FrameBackgroundProperty, value);
-    }
-
-    private static void FrameBackgroundChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
-    {
-        if (e.Property.Name != nameof(FrameBackground))
-        {
-            throw new InvalidOperationException("Unexpected WPF property name");
-        }
-
-        AcrylicWindow window = (AcrylicWindow)target;
-        window.SetDwmAttribute();
     }
 }
