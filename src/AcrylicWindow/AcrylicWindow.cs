@@ -37,25 +37,12 @@ public class AcrylicWindow : Window
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AcrylicWindow"/> class.
-    /// </summary>
-    public AcrylicWindow()
-    {
-        this.Loaded += OnLoaded;
-    }
-
-    /// <summary>
     /// Gets or sets the kind of background the window frame will have.
     /// </summary>
     public WindowFrameBackground FrameBackground
     {
         get => (WindowFrameBackground)this.GetValue(FrameBackgroundProperty);
         set => this.SetValue(FrameBackgroundProperty, value);
-    }
-
-    private void OnLoaded(object sender, RoutedEventArgs e)
-    {
-        this.SetDwmAttribute();
     }
 
     private void SetDwmAttribute()
