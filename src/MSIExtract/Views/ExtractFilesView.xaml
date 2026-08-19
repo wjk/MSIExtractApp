@@ -50,7 +50,8 @@
         </Grid.ColumnDefinitions>
 
         <ListView x:Name="FileListView" x:FieldModifier="private" Grid.Row="0" Grid.ColumnSpan="4" SelectionMode="Extended"
-                  ItemsSource="{Binding Path=Files, Mode=OneWay}" ItemTemplate="{StaticResource FileListViewItem}">
+                  ItemsSource="{Binding Path=Files, Mode=OneWay}" ItemTemplate="{StaticResource FileListViewItem}"
+                  BorderBrush="{DynamicResource {x:Static SystemColors.AccentColorLight2BrushKey}}" BorderThickness="1">
         </ListView>
 
         <Button Content="Select _All" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 8 0" Command="{x:Static ApplicationCommands.SelectAll}" />
