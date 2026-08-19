@@ -64,7 +64,7 @@
             </MenuItem>
         </Menu>
 
-        <Grid Style="{StaticResource WindowContentBackground}" Grid.Row="1">
+        <Grid Grid.Row="1" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -73,7 +73,7 @@
             <Controls:FilePicker x:Name="FilePicker" Grid.Row="0" Margin="6 4 4 0" Header="File:" HorizontalAlignment="Stretch"
                                  FilePath="{Binding Path=MsiPath, Mode=TwoWay}" OpenDialogFilter="MSI Files (*.msi, *.msm)|*.msi;*.msm"
                                  OpenDialogClientGuid="fe9c4d64-6f2d-4bee-8220-ece48200404f" />
-            <TabControl Grid.Row="1" Margin="8">
+            <TabControl Grid.Row="1" Margin="8" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
                 <TabItem Header="Files">
                     <Views:ExtractFilesView />
                 </TabItem>
