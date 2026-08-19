@@ -17,8 +17,6 @@ using KPreisser.UI;
 using MSIExtract.ShellExtension;
 using MSIExtract.Views;
 
-using PresentationTheme.Aero;
-
 using Shmuelie.WinRTServer;
 
 using Windows.ApplicationModel;
@@ -41,8 +39,6 @@ namespace MSIExtract
                 RunCOMServer();
                 return;
             }
-
-            AeroTheme.SetAsCurrentTheme();
 
             if (e != null && e.Args.Length > 0)
             {
