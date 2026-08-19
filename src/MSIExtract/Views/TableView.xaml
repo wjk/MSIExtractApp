@@ -7,14 +7,15 @@
              xmlns:Views="clr-namespace:MSIExtract.Views"
              xmlns:Msi="clr-namespace:MSIExtract.Msi;assembly=MSIExtract.Core"
              d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{StaticResource DesignTimeAppModel}">
-    <Grid>
+    <Grid Margin="8">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" MinWidth="215" />
             <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="5*" MinWidth="500" />
         </Grid.ColumnDefinitions>
 
-        <ListBox Grid.Column="0" x:Name="TableNamesListBox" ItemsSource="{Binding Path=Tables}" IsEnabled="{Binding IsMsiLoaded}" >
+        <ListBox Grid.Column="0" x:Name="TableNamesListBox" ItemsSource="{Binding Path=Tables}" IsEnabled="{Binding IsMsiLoaded}"
+                 BorderBrush="{DynamicResource {x:Static SystemColors.AccentColorLight2BrushKey}}" BorderThickness="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -37,7 +38,8 @@
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
         <DataGrid Grid.Column="2" DataContext="{Binding ElementName=TableNamesListBox,Path=SelectedItem}" ItemsSource="{Binding Path=Rows}"
-                  AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" CanUserResizeRows="False" CanUserReorderColumns="False" HeadersVisibility="Column" SelectionUnit="Cell" CanUserAddRows="False" CanUserDeleteRows="False" />
+                  AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" CanUserResizeRows="False" CanUserReorderColumns="False" HeadersVisibility="Column" SelectionUnit="Cell" CanUserAddRows="False" CanUserDeleteRows="False"
+                  BorderBrush="{DynamicResource {x:Static SystemColors.AccentColorLight2BrushKey}}" BorderThickness="1" />
 
 
     </Grid>

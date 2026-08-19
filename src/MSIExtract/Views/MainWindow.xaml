@@ -34,7 +34,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0">
+        <Menu Grid.Row="0" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" BorderThickness="0 0 0 1">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open..." Command="{x:Static ApplicationCommands.Open}" />
                 <MenuItem Header="_Recent Files" IsEnabled="{Binding MRUModel, Converter={StaticResource MRUMenuItemEnabledConverter}}">
@@ -64,7 +64,7 @@
             </MenuItem>
         </Menu>
 
-        <Grid Style="{StaticResource WindowContentBackground}" Grid.Row="1">
+        <Grid Grid.Row="1" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -73,7 +73,7 @@
             <Controls:FilePicker x:Name="FilePicker" Grid.Row="0" Margin="6 4 4 0" Header="File:" HorizontalAlignment="Stretch"
                                  FilePath="{Binding Path=MsiPath, Mode=TwoWay}" OpenDialogFilter="MSI Files (*.msi, *.msm)|*.msi;*.msm"
                                  OpenDialogClientGuid="fe9c4d64-6f2d-4bee-8220-ece48200404f" />
-            <TabControl Grid.Row="1" Margin="8">
+            <TabControl Grid.Row="1" Margin="8" BorderBrush="{DynamicResource {x:Static SystemColors.AccentColorLight1BrushKey}}" BorderThickness="1">
                 <TabItem Header="Files">
                     <Views:ExtractFilesView />
                 </TabItem>

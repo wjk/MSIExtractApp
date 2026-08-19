@@ -36,5 +36,9 @@
     <PRIResource Include="@(AppxAsset)" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)' != 'true' and '$(EnableMsixTooling)' == 'true'">
+    <ProjectCapability Include="Msix"/>
+  </ItemGroup>
+
   <!-- Import-PfxCertificate -FilePath .\msix\cert.pfx -CertStoreLocation Cert:\CurrentUser\My\ -ProtectPrivateKey (ConvertTo-SecureString 1234 -AsPlainText) -->
 </Project>

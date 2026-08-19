@@ -37,7 +37,7 @@
         </DataTemplate>
     </UserControl.Resources>
     
-    <Grid>
+    <Grid Margin="8">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -50,14 +50,15 @@
         </Grid.ColumnDefinitions>
 
         <ListView x:Name="FileListView" x:FieldModifier="private" Grid.Row="0" Grid.ColumnSpan="4" SelectionMode="Extended"
-                  ItemsSource="{Binding Path=Files, Mode=OneWay}" ItemTemplate="{StaticResource FileListViewItem}">
+                  ItemsSource="{Binding Path=Files, Mode=OneWay}" ItemTemplate="{StaticResource FileListViewItem}"
+                  BorderBrush="{DynamicResource {x:Static SystemColors.AccentColorLight2BrushKey}}" BorderThickness="1">
         </ListView>
 
-        <Button Content="Select _All" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 8 0" Padding="10 1" Command="{x:Static ApplicationCommands.SelectAll}" />
-        <Button Content="_Deselect All" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 4 0" Padding="10 1" Command="{x:Static Views:ExtractFilesView.SelectNoneCommand}" />
-        <Button Content="_Extract" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4 8 0 0" Padding="10 1" IsDefault="True" Command="{x:Static Views:ExtractFilesView.ExtractCommand}" />
+        <Button Content="Select _All" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 8 0" Command="{x:Static ApplicationCommands.SelectAll}" />
+        <Button Content="_Deselect All" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 4 0" Command="{x:Static Views:ExtractFilesView.SelectNoneCommand}" />
+        <Button Content="Extract" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4 8 0 0" IsDefault="True" Command="{x:Static Views:ExtractFilesView.ExtractCommand}" Style="{StaticResource AccentButtonStyle}" />
         <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" Name="FilterFileListView" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="4,8,0,0" TextWrapping="NoWrap" VerticalAlignment="Bottom" Width="320" IsEnabled="{Binding IsMsiLoaded}" />
-        <TextBlock IsHitTestVisible="False" Grid.Row="1" Grid.Column="2" Text="Enter Search Term Here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,8,0,0" Foreground="{x:Static SystemColors.GrayTextBrush}">
+        <TextBlock IsHitTestVisible="False" Grid.Row="1" Grid.Column="2" Text="Enter Search Term Here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="16,8,0,0" Foreground="{x:Static SystemColors.GrayTextBrush}">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Visibility" Value="Collapsed"/>
