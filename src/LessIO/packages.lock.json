@@ -1,7 +1,7 @@
 {
   "version": 1,
   "dependencies": {
-    "net9.0-windows10.0.22000": {
+    "net10.0-windows10.0.22000": {
       "Microsoft.SourceLink.GitHub": {
         "type": "Direct",
         "requested": "[10.0.400, )",
@@ -38,8 +38,8 @@
         "contentHash": "OzKDcIRkeNJeC8qAsbn8yJXnfTLP1dtkWILe+T56Gf/z+IkAASi7sMqLqJQat08j5z/mRN5xVtoAwbkMNMoBUQ=="
       }
     },
-    "net9.0-windows10.0.22000/win-arm64": {},
-    "net9.0-windows10.0.22000/win-x64": {},
-    "net9.0-windows10.0.22000/win-x86": {}
+    "net10.0-windows10.0.22000/win-arm64": {},
+    "net10.0-windows10.0.22000/win-x64": {},
+    "net10.0-windows10.0.22000/win-x86": {}
   }
 }
