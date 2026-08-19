@@ -9,9 +9,9 @@
              d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{StaticResource DesignTimeAppModel}">
     <Grid Margin="8">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" MinWidth="215" />
             <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="5*" MinWidth="500" />
         </Grid.ColumnDefinitions>
 
         <ListBox Grid.Column="0" x:Name="TableNamesListBox" ItemsSource="{Binding Path=Tables}" IsEnabled="{Binding IsMsiLoaded}"
