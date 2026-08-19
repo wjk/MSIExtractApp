@@ -34,7 +34,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0">
+        <Menu Grid.Row="0" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" BorderThickness="0 0 0 1">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open..." Command="{x:Static ApplicationCommands.Open}" />
                 <MenuItem Header="_Recent Files" IsEnabled="{Binding MRUModel, Converter={StaticResource MRUMenuItemEnabledConverter}}">
