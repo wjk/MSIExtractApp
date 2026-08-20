@@ -1,0 +1,12 @@
+// Copyright (c) William Kent. All rights reserved.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
+
+{
+  "ListViewItem.FileLabel.Text": "File:",
+  "ListViewItem.DirectoryLabel.Text": "Directory:",
+
+  "SelectAllButton.Content": "Select _All",
+  "SelectNoneButton.Content": "_Deselect All",
+  "ExtractButton.Content": "Extract",
+  "SearchPlaceholderLabel.Text": "Enter Search Term Here"
+}

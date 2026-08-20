@@ -5,6 +5,7 @@
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
                xmlns:Controls="clr-namespace:MSIExtract.Controls"
                xmlns:Views="clr-namespace:MSIExtract.Views"
+               xmlns:loc="clr-namespace:MSIExtract.Controls.Localization"
                xmlns:ComponentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
                Title="MSI Viewer" Height="450" Width="800" MinHeight="450" MinWidth="800" Icon="../Setup.ico"
                FrameBackground="SupportingWindow"
@@ -18,6 +19,8 @@
     </AcrylicWindow.CommandBindings>
 
     <AcrylicWindow.Resources>
+        <loc:PRIResourceLoader x:Key="StringLoader" TypeInTargetAssembly="{x:Type Views:MainWindow}" ResourceMap="MainWindow" />
+
         <Controls:MRUMenuItemEnabledConverter x:Key="MRUMenuItemEnabledConverter" />
         <Controls:FileNameConverter x:Key="FileNameConverter" DisplayMode="NameOnly" />
 
@@ -35,14 +38,16 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" BorderThickness="0 0 0 1">
-            <MenuItem Header="_File">
-                <MenuItem Header="_Open..." Command="{x:Static ApplicationCommands.Open}" />
-                <MenuItem Header="_Recent Files" IsEnabled="{Binding MRUModel, Converter={StaticResource MRUMenuItemEnabledConverter}}">
+            <MenuItem x:Uid="FileMenu" Header="{loc:Localize}">
+                <MenuItem x:Uid="OpenMenuItem" Header="{loc:Localize}"
+                          Command="{x:Static ApplicationCommands.Open}" />
+                <MenuItem x:Uid="OpenRecentMenu" Header="{loc:Localize}"
+                          IsEnabled="{Binding MRUModel, Converter={StaticResource MRUMenuItemEnabledConverter}}">
                     <MenuItem.ItemsSource>
                         <CompositeCollection>
                             <CollectionContainer Collection="{Binding Source={StaticResource MRUCollectionViewSource}, Mode=OneWay}" />
                             <Separator />
-                            <MenuItem Header="_Clear List" Command="{x:Static Views:MainWindow.ClearRecentFileListCommand}" />
+                            <MenuItem x:Uid="ClearRecentsMenuItem" Header="{loc:Localize}" Command="{x:Static Views:MainWindow.ClearRecentFileListCommand}" />
                         </CompositeCollection>
                     </MenuItem.ItemsSource>
 
@@ -55,12 +60,13 @@
                     </MenuItem.ItemContainerStyle>
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="E_xit" Command="{x:Static SystemCommands.CloseWindowCommand}" />
+                <MenuItem x:Uid="ExitMenuItem" Header="{loc:Localize}"
+                          Command="{x:Static SystemCommands.CloseWindowCommand}" />
             </MenuItem>
 
-            <MenuItem Header="_Help">
-                <MenuItem Header="_Privacy Policy" Click="PrivacyMenuItem_Click" />
-                <MenuItem Header="_About MSI Viewer" Click="AboutMenuItem_Click" />
+            <MenuItem x:Uid="HelpMenu" Header="{loc:Localize}">
+                <MenuItem x:Uid="PrivacyPolicyMenuItem" Header="{loc:Localize}" Click="PrivacyMenuItem_Click" />
+                <MenuItem x:Uid="AboutMenuItem" Header="{loc:Localize}" Click="AboutMenuItem_Click" />
             </MenuItem>
         </Menu>
 
@@ -70,14 +76,14 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Controls:FilePicker x:Name="FilePicker" Grid.Row="0" Margin="6 4 4 0" Header="File:" HorizontalAlignment="Stretch"
+            <Controls:FilePicker x:Name="FilePicker" x:Uid="FilePicker" Grid.Row="0" Margin="6 4 4 0" Header="{loc:Localize}" HorizontalAlignment="Stretch"
                                  FilePath="{Binding Path=MsiPath, Mode=TwoWay}" OpenDialogFilter="MSI Files (*.msi, *.msm)|*.msi;*.msm"
                                  OpenDialogClientGuid="fe9c4d64-6f2d-4bee-8220-ece48200404f" />
             <TabControl Grid.Row="1" Margin="8" BorderBrush="{DynamicResource {x:Static SystemColors.AccentColorLight1BrushKey}}" BorderThickness="1">
-                <TabItem Header="Files">
+                <TabItem x:Uid="FilesTab" Header="{loc:Localize}">
                     <Views:ExtractFilesView />
                 </TabItem>
-                <TabItem Header="Tables">
+                <TabItem x:Uid="TablesTab" Header="{loc:Localize}">
                     <Views:TableView />
                 </TabItem>
             </TabControl>

@@ -20,6 +20,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using KPreisser.UI;
 using MSIExtract.Controls;
+using MSIExtract.Controls.Localization;
+
 using Vanara.PInvoke;
 
 namespace MSIExtract.Views
@@ -44,6 +46,8 @@ namespace MSIExtract.Views
         /// </summary>
         public static readonly RoutedCommand OpenRecentFileCommand = Commands.CreateCommand("OpenRecentFile", typeof(MainWindow));
 
+        private readonly PRIResourceLoader stringLoader = new PRIResourceLoader(typeof(MainWindow), nameof(MainWindow));
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
@@ -51,6 +55,11 @@ namespace MSIExtract.Views
         {
             this.InitializeComponent();
             DataContext = new AppModel();
+
+            // A LocalizeExtension in the top-level element causes an exception because
+            // it is evaluated before our Resources directionary is created, thus giving
+            // it no way to locate its PRI file.
+            Title = stringLoader.GetString("Window.Title");
         }
 
         /// <summary>
@@ -88,12 +97,12 @@ namespace MSIExtract.Views
                 {
                     AllowCancel = true,
                     Title = "MSI Viewer",
-                    Instruction = $"The file {path} does not exist.",
-                    Text = "Would you like to remove it from the Recent Files list?",
+                    Instruction = string.Format(stringLoader.GetString("FileNotFoundDialog.Instruction"), path),
+                    Text = stringLoader.GetString("FileNotFoundDialog.Text"),
                     Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Warning),
                 };
 
-                TaskDialogCustomButton removeButton = new TaskDialogCustomButton("Remove");
+                TaskDialogCustomButton removeButton = new TaskDialogCustomButton(stringLoader.GetString("FileNotFoundDialog.RemoveButtonText"));
                 removeButton.DefaultButton = true;
                 page.CustomButtons.Add(removeButton);
                 page.StandardButtons.Add(TaskDialogResult.Cancel);
@@ -132,7 +141,7 @@ namespace MSIExtract.Views
         {
             static string GetTaskDialogInstruction()
             {
-                string appTitle = "MSI Viewer";
+                string appTitle = ThisAssembly.AssemblyTitle;
                 string versionString = ThisAssembly.AssemblyVersion;
 
                 if (versionString.EndsWith(".0.0", StringComparison.InvariantCulture))
@@ -150,13 +159,10 @@ namespace MSIExtract.Views
             TaskDialogPage page = new TaskDialogPage
             {
                 AllowCancel = true,
-                Title = "About MSI Viewer",
+                Title = stringLoader.GetString("AboutDialog.Title"),
                 Instruction = GetTaskDialogInstruction(),
                 Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Information),
-                Text = "Copyright © 2019-2020 William Kent. Licensed under the MIT License.\r\n\r\n" +
-                "<a href=\"github\">View on GitHub</a>\r\n" +
-                "<a href=\"tpn\">Third-Party Notices</a>\r\n\r\n" +
-                $"Build {ThisAssembly.AssemblyInformationalVersion}",
+                Text = string.Format(stringLoader.GetString("AboutDialog.Text"), ThisAssembly.AssemblyInformationalVersion),
                 EnableHyperlinks = true,
             };
             page.StandardButtons.Add(TaskDialogResult.OK);
@@ -191,9 +197,9 @@ namespace MSIExtract.Views
 
             TaskDialogPage page = new TaskDialogPage();
             page.AllowCancel = true;
-            page.Title = "MSI Viewer";
-            page.Instruction = $"Could not open \"{fileName}\".";
-            page.Text = "This file may not be a valid MSI or MSM file.";
+            page.Title = stringLoader.GetString("Window.Title");
+            page.Instruction = string.Format(stringLoader.GetString("InvalidFileDialog.Instruction"), fileName);
+            page.Text = stringLoader.GetString("InvalidFileDialog.Text");
             page.Icon = TaskDialogStandardIcon.Error;
             page.StandardButtons.Add(TaskDialogResult.OK);
 
