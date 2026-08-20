@@ -56,18 +56,27 @@ namespace MSIExtract.Controls
                 throw new ArgumentException("Path must be rooted", nameof(value));
             }
 
-            Shell32.IShellItem2? item = Shell32.SHCreateItemFromParsingName<Shell32.IShellItem2>(path);
-            ArgumentNullException.ThrowIfNull(item);
-
-            Shell32.SIGDN sigdn = DisplayMode switch
+            try
             {
-                FileNameDisplayMode.Default => Shell32.SIGDN.SIGDN_NORMALDISPLAY,
-                FileNameDisplayMode.FullPath => Shell32.SIGDN.SIGDN_FILESYSPATH,
-                FileNameDisplayMode.NameOnly => Shell32.SIGDN.SIGDN_PARENTRELATIVEPARSING,
-                _ => throw new InvalidOperationException($"Unexpected {nameof(FileNameDisplayMode)}")
-            };
+                Shell32.IShellItem2? item = Shell32.SHCreateItemFromParsingName<Shell32.IShellItem2>(path);
+                ArgumentNullException.ThrowIfNull(item);
 
-            return item.GetDisplayName(sigdn);
+                Shell32.SIGDN sigdn = DisplayMode switch
+                {
+                    FileNameDisplayMode.Default => Shell32.SIGDN.SIGDN_NORMALDISPLAY,
+                    FileNameDisplayMode.FullPath => Shell32.SIGDN.SIGDN_FILESYSPATH,
+                    FileNameDisplayMode.NameOnly => Shell32.SIGDN.SIGDN_PARENTRELATIVEPARSING,
+                    _ => throw new InvalidOperationException($"Unexpected {nameof(FileNameDisplayMode)}")
+                };
+
+                return item.GetDisplayName(sigdn);
+            }
+            catch
+            {
+                // If the path doesn't exist, SHCreateItemFromParsingName() will throw
+                // a FileNotFoundException. Fall back to a simple System.IO.Path manipulation.
+                return Path.GetFileName(path);
+            }
         }
 
         /// <summary>
