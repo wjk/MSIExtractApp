@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -81,17 +82,14 @@ namespace MSIExtract.Views
             var entry = (MRULib.MRU.Interfaces.IMRUEntryViewModel)e.Parameter;
             var model = (AppModel)DataContext;
 
-            try
-            {
-                model.MsiPath = entry.PathFileName;
-            }
-            catch (WixToolset.Dtf.WindowsInstaller.InstallerException)
+            void ShowFileMissingDialog(string path)
             {
                 TaskDialogPage page = new TaskDialogPage
                 {
                     AllowCancel = true,
                     Title = "MSI Viewer",
-                    Instruction = $"The file {entry.File.Name} does not exist. Would you like to remove it from the Recent Files list?",
+                    Instruction = $"The file {path} does not exist.",
+                    Text = "Would you like to remove it from the Recent Files list?",
                     Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Warning),
                 };
 
@@ -105,6 +103,22 @@ namespace MSIExtract.Views
                 {
                     model.RemoveMRUItem(entry);
                 }
+            }
+
+            if (!File.Exists(entry.PathFileName))
+            {
+                string fileName = System.IO.Path.GetFileName(entry.PathFileName);
+                ShowFileMissingDialog(fileName);
+                return;
+            }
+
+            try
+            {
+                model.MsiPath = entry.PathFileName;
+            }
+            catch (WixToolset.Dtf.WindowsInstaller.InstallerException)
+            {
+                ShowFileMissingDialog(entry.File.Name);
             }
         }
 
