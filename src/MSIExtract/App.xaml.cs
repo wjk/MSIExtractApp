@@ -12,15 +12,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
-using KPreisser.UI;
-
 using MSIExtract.ShellExtension;
 using MSIExtract.Views;
 
 using Shmuelie.WinRTServer;
-
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
 
 namespace MSIExtract
 {
