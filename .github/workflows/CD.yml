@@ -52,9 +52,9 @@ jobs:
                   $version = $version + ".0"
                 }
 
-                $json = Get-Content .\version.json | ConvertFrom-Json
+                $json = Get-Content .\src\version.json | ConvertFrom-Json
                 $json.version = $version + $suffix
-                $json | ConvertTo-Json | Set-Content .\version.json
+                $json | ConvertTo-Json | Set-Content .\src\version.json
 
                 if ($version.Split('.').Length -lt 3) {
                   $version = $version + ".0"
