@@ -6,6 +6,7 @@
              xmlns:Controls="clr-namespace:MSIExtract.Controls"
              xmlns:Views="clr-namespace:MSIExtract.Views"
              xmlns:Msi="clr-namespace:MSIExtract.Msi;assembly=MSIExtract.Core"
+             xmlns:loc="clr-namespace:MSIExtract.Controls.Localization"
              d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{StaticResource DesignTimeAppModel}">
     <UserControl.CommandBindings>
         <CommandBinding Command="{x:Static ApplicationCommands.SelectAll}" Executed="SelectAllCommand_Executed" CanExecute="SelectionCommand_CanExecute" />
@@ -22,13 +23,13 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" TextWrapping="Wrap">
-                    <Run>File:</Run>
+                    <Run x:Uid="ListViewItemFileLabel" Text="{loc:Localize Key=ListViewItem.FileLabel.Text}" />
                     <TextBlock FontWeight="Bold"
                         Controls:HighlightTermBehavior.TermToBeHighlighted="{Binding Path=DataContext.FilterText, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Mode=OneWay}"
                         Controls:HighlightTermBehavior.Text="{Binding Path=LongFileName, Mode=OneWay}" />
                 </TextBlock>
                 <TextBlock Grid.Row="1" TextWrapping="Wrap">
-                    <Run>Directory:</Run>
+                    <Run x:Uid="ListViewItem.DirectoryLabel" Text="{loc:Localize Key=ListViewItem.DirectoryLabel.Text}" />
                     <TextBlock
                         Controls:HighlightTermBehavior.TermToBeHighlighted="{Binding Path=DataContext.FilterText, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Mode=OneWay}"
                         Controls:HighlightTermBehavior.Text="{Binding Path=Directory.FullPath, Mode=OneWay}" />
@@ -36,13 +37,13 @@
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
-    
+
     <Grid Margin="8">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -54,11 +55,11 @@
                   BorderBrush="{DynamicResource {x:Static SystemColors.AccentColorLight2BrushKey}}" BorderThickness="1">
         </ListView>
 
-        <Button Content="Select _All" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 8 0" Command="{x:Static ApplicationCommands.SelectAll}" />
-        <Button Content="_Deselect All" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 4 0" Command="{x:Static Views:ExtractFilesView.SelectNoneCommand}" />
-        <Button Content="Extract" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4 8 0 0" IsDefault="True" Command="{x:Static Views:ExtractFilesView.ExtractCommand}" Style="{StaticResource AccentButtonStyle}" />
+        <Button x:Uid="SelectAllButton" Content="{loc:Localize}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 8 0" Command="{x:Static ApplicationCommands.SelectAll}" />
+        <Button x:Uid="SelectNoneButton" Content="{loc:Localize}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 4 0" Command="{x:Static Views:ExtractFilesView.SelectNoneCommand}" />
+        <Button x:Uid="ExtractButton" Content="{loc:Localize}" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4 8 0 0" IsDefault="True" Command="{x:Static Views:ExtractFilesView.ExtractCommand}" Style="{StaticResource AccentButtonStyle}" />
         <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" Name="FilterFileListView" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="4,8,0,0" TextWrapping="NoWrap" VerticalAlignment="Bottom" Width="320" IsEnabled="{Binding IsMsiLoaded}" />
-        <TextBlock IsHitTestVisible="False" Grid.Row="1" Grid.Column="2" Text="Enter Search Term Here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="16,8,0,0" Foreground="{x:Static SystemColors.GrayTextBrush}">
+        <TextBlock x:Uid="SearchPlaceholderLabel" IsHitTestVisible="False" Grid.Row="1" Grid.Column="2" Text="{loc:Localize}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="16,8,0,0" Foreground="{x:Static SystemColors.GrayTextBrush}">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Visibility" Value="Collapsed"/>

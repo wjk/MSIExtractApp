@@ -1,0 +1,29 @@
+// Copyright (c) William Kent. All rights reserved.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
+
+{
+  "Window.Title": "MSI Viewer",
+
+  "FileMenu.Header": "_File",
+  "OpenMenuItem.Header": "_Open...",
+  "OpenRecentMenu.Header": "_Recent Files",
+  "ClearRecentsMenuItem.Header": "_Clear List",
+  "ExitMenuItem.Header": "E_xit",
+
+  "HelpMenu.Header": "_Help",
+  "PrivacyPolicyMenuItem.Header": "_Privacy Policy",
+  "AboutMenuItem.Header": "_About MSI Viewer",
+
+  "FilePicker.Header": "File:",
+
+  "FilesTab.Header": "Files",
+  "TablesTab.Header": "Tables",
+
+  "FileNotFoundDialog.Instruction": "The file \"{0}\" does not exist.",
+  "FileNotFoundDialog.Text": "Would you like to remove it from the Recent Files list?",
+  "FileNotFoundDialog.RemoveButtonText": "Remove",
+  "InvalidFileDialog.Instruction": "Could not open \"{0}\".",
+  "InvalidFileDialog.Text": "This file may not be a valid MSI or MSM file.",
+  "AboutDialog.Title": "About MSI Viewer",
+  "AboutDialog.Text": "Copyright © 2019-2020 William Kent. Licensed under the MIT License.\r\n\r\n<a href=\"github\">View on GitHub</a>\r\n<a href=\"tpn\">Third-Party Notices</a>\r\n\r\nBuild {0}"
+}

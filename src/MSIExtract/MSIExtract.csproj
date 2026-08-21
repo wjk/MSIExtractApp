@@ -17,6 +17,8 @@
     <PublishReadyToRun>False</PublishReadyToRun>
 
     <IncludePackageReferencesDuringMarkupCompilation>false</IncludePackageReferencesDuringMarkupCompilation>
+    <MRTCoreResourceRoot>PRIResources</MRTCoreResourceRoot>
+    <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +31,7 @@
     <PackageReference Include="Dirkster.MRULib" Version="1.3.0" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
     <PackageReference Include="Vanara.PInvoke.Shell32" Version="4.0.1" />
+    <PackageReference Include="Sunburst.MRTCore" Version="2.0.4" />
 
     <ProjectReference Include="..\AcrylicWindow\AcrylicWindow.csproj" />
     <ProjectReference Include="..\MSIExtract.Core\MSIExtract.Core.csproj" />
