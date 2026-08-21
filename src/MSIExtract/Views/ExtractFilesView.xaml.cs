@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using KPreisser.UI;
 using Microsoft.Win32;
 using MSIExtract.Controls;
+using MSIExtract.Controls.Localization;
 using MSIExtract.Msi;
 
 using ProgressDialog = Ookii.Dialogs.Wpf.ProgressDialog;
@@ -39,6 +40,8 @@ namespace MSIExtract.Views
         /// Identifier for the "Extract" command.
         /// </summary>
         public static readonly RoutedCommand ExtractCommand = Commands.CreateCommand("Extract", typeof(ExtractFilesView));
+
+        private PRIResourceLoader stringLoader = new PRIResourceLoader(typeof(ExtractFilesView), nameof(ExtractFilesView));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtractFilesView"/> class.
@@ -77,7 +80,7 @@ namespace MSIExtract.Views
             {
                 Multiselect = false,
                 ClientGuid = Guid.Parse("924d6b70-cd7a-48be-8346-d546cc83dfe0"),
-                Title = "Select folder to extract to",
+                Title = stringLoader.GetString("ExtractDialog.FileDialogTitle"),
             };
 
             Window window = Window.GetWindow(this);
@@ -90,17 +93,21 @@ namespace MSIExtract.Views
             MsiFile[] filesToExtract = new MsiFile[FileListView.SelectedItems.Count];
             FileListView.SelectedItems.CopyTo(filesToExtract, 0);
 
-            string text = $"Extracting {filesToExtract.Length} files...";
-            if (filesToExtract.Length == 1)
+            string text;
+            if (filesToExtract.Length > 1)
             {
-                text = "Extracting one file...";
+                text = string.Format(stringLoader.GetString("ExtractDialog.Instruction"), filesToExtract.Length);
+            }
+            else
+            {
+                text = stringLoader.GetString("ExtractDialog.Instruction.Singular");
             }
 
             using var progressDialog = new ProgressDialog
             {
                 MinimizeBox = false,
-                WindowTitle = "Extracting Files...",
-                CancellationText = "Canceling...",
+                WindowTitle = stringLoader.GetString("ExtractDialog.WindowTitle"),
+                CancellationText = stringLoader.GetString("ExtractDialog.Instruction.Cancelling"),
                 UseCompactPathsForDescription = true,
                 Text = text,
             };
@@ -127,12 +134,12 @@ namespace MSIExtract.Views
 
                         if (progress.Activity == Wixtracts.ExtractionActivity.Initializing)
                         {
-                            message = "Initializing extraction";
+                            message = stringLoader.GetString("ExtractDialog.Message.Preparing");
                             percentProgress = 0;
                         }
                         else if (progress.Activity == Wixtracts.ExtractionActivity.Uncompressing)
                         {
-                            message = "Decompressing CAB file";
+                            message = stringLoader.GetString("ExtractDialog.Message.Decompressing");
                             percentProgress = 0;
                         }
                         else if (progress.Activity == Wixtracts.ExtractionActivity.ExtractingFile)
@@ -143,7 +150,7 @@ namespace MSIExtract.Views
                         }
                         else if (progress.Activity == Wixtracts.ExtractionActivity.Complete)
                         {
-                            message = "Finishing up";
+                            message = stringLoader.GetString("ExtractDialog.Message.Complete");
                             percentProgress = 100;
                         }
                         else
@@ -169,8 +176,9 @@ namespace MSIExtract.Views
                     Dispatcher.BeginInvoke((Action)delegate
                     {
                         TaskDialogPage page = new TaskDialogPage();
-                        page.Instruction = "Cannot extract the specified files.";
-                        page.Text = $"The file \"{ex.FileName}\" was not found.";
+                        page.Title = stringLoader.GetString("ErrorDialog.Title");
+                        page.Instruction = stringLoader.GetString("FileNotFoundDialog.Instruction");
+                        page.Text = string.Format(stringLoader.GetString("FileNotFoundDialog.Text"), ex.FileName);
                         page.Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Error);
                         page.StandardButtons.Add(TaskDialogResult.Close);
                         page.AllowCancel = true;
@@ -183,8 +191,9 @@ namespace MSIExtract.Views
                     Dispatcher.BeginInvoke((Action)delegate
                     {
                         TaskDialogPage page = new TaskDialogPage();
-                        page.Instruction = "An error occurred during extraction.";
-                        page.Text = $"{ex.GetType().Name}: {ex.Message} (HRESULT 0x{ex.HResult:X8})";
+                        page.Title = stringLoader.GetString("ErrorDialog.Title");
+                        page.Instruction = stringLoader.GetString("ExtractFailureDialog.Instruction");
+                        page.Text = string.Format("ExtractFailureDialog.Text", ex.GetType().Name, ex.Message, ex.HResult.ToString("X8"));
                         page.Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Error);
                         page.StandardButtons.Add(TaskDialogResult.Close);
                         page.AllowCancel = true;

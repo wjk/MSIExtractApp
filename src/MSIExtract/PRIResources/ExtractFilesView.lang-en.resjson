@@ -8,5 +8,24 @@
   "SelectAllButton.Content": "Select _All",
   "SelectNoneButton.Content": "_Deselect All",
   "ExtractButton.Content": "Extract",
-  "SearchPlaceholderLabel.Text": "Enter Search Term Here"
+  "SearchPlaceholderLabel.Text": "Enter Search Term Here",
+
+  "ExtractDialog.FileDialogTitle": "Select folder to extract to",
+  "ExtractDialog.WindowTitle": "Extracting Files...",
+  // {0}: number of files in decimal
+  "ExtractDialog.Instruction": "Extracting {0} files...",
+  "ExtractDialog.Instruction.Singular": "Extracting one file...",
+  "ExtractDialog.Instruction.Cancelling": "Cancelling...",
+  "ExtractDialog.Message.Preparing": "Initializing extraction",
+  "ExtractDialog.Message.Decompressing": "Decompressing CAB file",
+  "ExtractDialog.Message.Complete": "Finishing up",
+  "ExtractDialog.CompletionDialogMessage": "Extraction is complete.",
+
+  "ErrorDialog.Title": "MSI Viewer",
+  "FileNotFoundDialog.Instruction": "Cannot extract the selected files.",
+  // {0}: filename
+  "FileNotFoundDialog.Text": "The file \"{0}\" was not found.",
+  "ExtractFailureDialog.Instruction": "An error occurred during extraction.",
+  // {0}: unqualified name of exception type; {1}: exception message; {2}: exception HRESULT in uppercase hexadecimal
+  "ExtractFailureDialog.Text": "{0}: {1} (HRESULT 0x{2})"
 }
