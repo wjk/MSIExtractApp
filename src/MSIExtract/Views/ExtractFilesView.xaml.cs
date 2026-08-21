@@ -21,7 +21,6 @@ using Microsoft.Win32;
 using MSIExtract.Controls;
 using MSIExtract.Msi;
 
-using FolderBrowserDialog = System.Windows.Forms.FolderBrowserDialog;
 using ProgressDialog = Ookii.Dialogs.Wpf.ProgressDialog;
 
 namespace MSIExtract.Views
