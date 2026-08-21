@@ -15,7 +15,6 @@
   // {0}: number of files in decimal
   "ExtractDialog.Instruction": "Extracting {0} files...",
   "ExtractDialog.Instruction.Singular": "Extracting one file...",
-  "ExtractDialog.Instruction.Cancelling": "Cancelling...",
   "ExtractDialog.Message.Preparing": "Initializing extraction",
   "ExtractDialog.Message.Decompressing": "Decompressing CAB file",
   "ExtractDialog.Message.Complete": "Finishing up",

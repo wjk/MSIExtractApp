@@ -107,8 +107,8 @@ namespace MSIExtract.Views
             {
                 MinimizeBox = false,
                 WindowTitle = stringLoader.GetString("ExtractDialog.WindowTitle"),
-                CancellationText = stringLoader.GetString("ExtractDialog.Instruction.Cancelling"),
                 UseCompactPathsForDescription = true,
+                ShowCancelButton = false,
                 Text = text,
             };
 
