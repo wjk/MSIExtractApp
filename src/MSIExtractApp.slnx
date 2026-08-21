@@ -25,6 +25,7 @@
   <Project Path="MSIExtract/MSIExtract.csproj">
     <Platform Solution="*|ARM64" Project="ARM64" />
     <Platform Solution="*|x64" Project="x64" />
+    <Deploy Solution="Debug|ARM64" />
   </Project>
   <Project Path="ShellCommandLib/ShellCommandLib.csproj">
     <Platform Solution="*|ARM64" Project="ARM64" />
