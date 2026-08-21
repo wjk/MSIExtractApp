@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,8 +17,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 using KPreisser.UI;
+
 using Microsoft.Win32;
+
 using MSIExtract.Controls;
 using MSIExtract.Controls.Localization;
 using MSIExtract.Msi;
@@ -112,6 +116,8 @@ namespace MSIExtract.Views
                 Text = text,
             };
 
+            Exception? caughtException = null;
+
             void DoWork(object? sender, DoWorkEventArgs e)
             {
                 if (string.IsNullOrEmpty(model.MsiPath))
@@ -119,49 +125,80 @@ namespace MSIExtract.Views
                     throw new InvalidOperationException("MsiPath not set, we should not have gotten here");
                 }
 
-                try
+                Wixtracts.ExtractFiles(new LessIO.Path(model.MsiPath), browserDialog.FolderName, filesToExtract, (arg) =>
                 {
-                    Wixtracts.ExtractFiles(new LessIO.Path(model.MsiPath), browserDialog.FolderName, filesToExtract, (arg) =>
+                    var progress = (Wixtracts.ExtractionProgress)arg;
+                    if (progressDialog.CancellationPending)
                     {
-                        var progress = (Wixtracts.ExtractionProgress)arg;
-                        if (progressDialog.CancellationPending)
-                        {
-                            throw new OperationCanceledException();
-                        }
+                        throw new OperationCanceledException();
+                    }
 
-                        int percentProgress;
-                        string message;
+                    int percentProgress;
+                    string message;
 
-                        if (progress.Activity == Wixtracts.ExtractionActivity.Initializing)
-                        {
-                            message = stringLoader.GetString("ExtractDialog.Message.Preparing");
-                            percentProgress = 0;
-                        }
-                        else if (progress.Activity == Wixtracts.ExtractionActivity.Uncompressing)
-                        {
-                            message = stringLoader.GetString("ExtractDialog.Message.Decompressing");
-                            percentProgress = 0;
-                        }
-                        else if (progress.Activity == Wixtracts.ExtractionActivity.ExtractingFile)
-                        {
-                            double fraction = (double)progress.FilesExtractedSoFar / (double)progress.TotalFileCount;
-                            percentProgress = (int)Math.Round(fraction * 100);
-                            message = progress.CurrentFileName;
-                        }
-                        else if (progress.Activity == Wixtracts.ExtractionActivity.Complete)
-                        {
-                            message = stringLoader.GetString("ExtractDialog.Message.Complete");
-                            percentProgress = 100;
-                        }
-                        else
-                        {
-                            throw new ArgumentException("Invalid ExtractionActivity");
-                        }
+                    if (progress.Activity == Wixtracts.ExtractionActivity.Initializing)
+                    {
+                        message = stringLoader.GetString("ExtractDialog.Message.Preparing");
+                        percentProgress = 0;
+                    }
+                    else if (progress.Activity == Wixtracts.ExtractionActivity.Uncompressing)
+                    {
+                        message = stringLoader.GetString("ExtractDialog.Message.Decompressing");
+                        percentProgress = 0;
+                    }
+                    else if (progress.Activity == Wixtracts.ExtractionActivity.ExtractingFile)
+                    {
+                        double fraction = (double)progress.FilesExtractedSoFar / (double)progress.TotalFileCount;
+                        percentProgress = (int)Math.Round(fraction * 100);
+                        message = progress.CurrentFileName;
+                    }
+                    else if (progress.Activity == Wixtracts.ExtractionActivity.Complete)
+                    {
+                        message = stringLoader.GetString("ExtractDialog.Message.Complete");
+                        percentProgress = 100;
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Invalid ExtractionActivity");
+                    }
 
-                        this.Dispatcher.Invoke(() => progressDialog.ReportProgress(percentProgress, null, message));
-                    });
+                    this.Dispatcher.Invoke(() => progressDialog.ReportProgress(percentProgress, null, message));
+                });
+            }
 
-                    this.Dispatcher.Invoke(() =>
+            void RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    Exception? ex = e.Error;
+                    if (ex != null)
+                    {
+                        if (ex is FileNotFoundException fnf)
+                        {
+                            TaskDialogPage page = new TaskDialogPage();
+                            page.Title = stringLoader.GetString("ErrorDialog.Title");
+                            page.Instruction = stringLoader.GetString("FileNotFoundDialog.Instruction");
+                            page.Text = string.Format(stringLoader.GetString("FileNotFoundDialog.Text"), fnf.FileName);
+                            page.Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Error);
+                            page.StandardButtons.Add(TaskDialogResult.Close);
+                            page.AllowCancel = true;
+
+                            TaskDialog.Show(window, page);
+                        }
+                        else if (ex is not OperationCanceledException)
+                        {
+                            TaskDialogPage page = new TaskDialogPage();
+                            page.Title = stringLoader.GetString("ErrorDialog.Title");
+                            page.Instruction = stringLoader.GetString("ExtractFailureDialog.Instruction");
+                            page.Text = string.Format("ExtractFailureDialog.Text", ex.GetType().Name, ex.Message, ex.HResult.ToString("X8"));
+                            page.Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Error);
+                            page.StandardButtons.Add(TaskDialogResult.Close);
+                            page.AllowCancel = true;
+
+                            TaskDialog.Show(window, page);
+                        }
+                    }
+                    else if (!e.Cancelled)
                     {
                         TaskDialogPage page = new TaskDialogPage();
                         page.Instruction = "Extraction is complete.";
@@ -169,41 +206,12 @@ namespace MSIExtract.Views
                         page.AllowCancel = true;
 
                         TaskDialog.Show(window, page);
-                    });
-                }
-                catch (System.IO.FileNotFoundException ex)
-                {
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        TaskDialogPage page = new TaskDialogPage();
-                        page.Title = stringLoader.GetString("ErrorDialog.Title");
-                        page.Instruction = stringLoader.GetString("FileNotFoundDialog.Instruction");
-                        page.Text = string.Format(stringLoader.GetString("FileNotFoundDialog.Text"), ex.FileName);
-                        page.Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Error);
-                        page.StandardButtons.Add(TaskDialogResult.Close);
-                        page.AllowCancel = true;
-
-                        TaskDialog.Show(window, page);
-                    });
-                }
-                catch (Exception ex) when (ex is not OperationCanceledException)
-                {
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        TaskDialogPage page = new TaskDialogPage();
-                        page.Title = stringLoader.GetString("ErrorDialog.Title");
-                        page.Instruction = stringLoader.GetString("ExtractFailureDialog.Instruction");
-                        page.Text = string.Format("ExtractFailureDialog.Text", ex.GetType().Name, ex.Message, ex.HResult.ToString("X8"));
-                        page.Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Error);
-                        page.StandardButtons.Add(TaskDialogResult.Close);
-                        page.AllowCancel = true;
-
-                        TaskDialog.Show(window, page);
-                    });
-                }
+                    }
+                });
             }
 
             progressDialog.DoWork += DoWork;
+            progressDialog.RunWorkerCompleted += RunWorkerCompleted;
             progressDialog.ShowDialog(window);
         }
 
