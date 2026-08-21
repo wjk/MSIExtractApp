@@ -116,8 +116,6 @@ namespace MSIExtract.Views
                 Text = text,
             };
 
-            Exception? caughtException = null;
-
             void DoWork(object? sender, DoWorkEventArgs e)
             {
                 if (string.IsNullOrEmpty(model.MsiPath))
