@@ -19,8 +19,6 @@
     </AcrylicWindow.CommandBindings>
 
     <AcrylicWindow.Resources>
-        <loc:PRIResourceLoader x:Key="StringLoader" TypeInTargetAssembly="{x:Type Views:MainWindow}" ResourceMap="MainWindow" />
-
         <Controls:MRUMenuItemEnabledConverter x:Key="MRUMenuItemEnabledConverter" />
         <Controls:FileNameConverter x:Key="FileNameConverter" DisplayMode="NameOnly" />
 
