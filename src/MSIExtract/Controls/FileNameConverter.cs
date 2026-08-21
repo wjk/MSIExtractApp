@@ -75,7 +75,18 @@ namespace MSIExtract.Controls
             {
                 // If the path doesn't exist, SHCreateItemFromParsingName() will throw
                 // a FileNotFoundException. Fall back to a simple System.IO.Path manipulation.
-                return Path.GetFileName(path);
+                switch (DisplayMode)
+                {
+                    case FileNameDisplayMode.Default:
+                    case FileNameDisplayMode.NameOnly:
+                        return Path.GetFileName(path);
+
+                    case FileNameDisplayMode.FullPath:
+                        return Path.GetFullPath(path);
+
+                    default:
+                        throw new InvalidOperationException($"Unexpected {nameof(FileNameDisplayMode)}");
+                }
             }
         }
 
