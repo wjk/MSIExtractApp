@@ -4,6 +4,7 @@
 
     <Style x:Key="HightlightColors" TargetType="Run">
         <Setter Property="Background" Value="#FFFFFF12" />
+        <Setter Property="Controls:SystemParameterProperties.HighContrast" Value="{DynamicResource {x:Static SystemParameters.HighContrastKey}}" />
 
         <Style.Triggers>
             <Trigger Property="Controls:SystemParameterProperties.HighContrast" Value="True">
