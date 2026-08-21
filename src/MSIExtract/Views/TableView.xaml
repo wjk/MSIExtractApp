@@ -15,7 +15,7 @@
         </Grid.ColumnDefinitions>
 
         <ListBox Grid.Column="0" x:Name="TableNamesListBox" ItemsSource="{Binding Path=Tables}" IsEnabled="{Binding IsMsiLoaded}"
-                 BorderBrush="{DynamicResource {x:Static SystemColors.AccentColorLight2BrushKey}}" BorderThickness="1">
+                 BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" BorderThickness="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -39,7 +39,7 @@
 
         <DataGrid Grid.Column="2" DataContext="{Binding ElementName=TableNamesListBox,Path=SelectedItem}" ItemsSource="{Binding Path=Rows}"
                   AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" CanUserResizeRows="False" CanUserReorderColumns="False" HeadersVisibility="Column" SelectionUnit="Cell" CanUserAddRows="False" CanUserDeleteRows="False"
-                  BorderBrush="{DynamicResource {x:Static SystemColors.AccentColorLight2BrushKey}}" BorderThickness="1" />
+                  BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" BorderThickness="1" />
 
 
     </Grid>
