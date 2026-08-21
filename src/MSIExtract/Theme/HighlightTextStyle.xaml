@@ -4,10 +4,12 @@
 
     <Style x:Key="HightlightColors" TargetType="Run">
         <Setter Property="Background" Value="#FFFFFF12" />
+        <Setter Property="Controls:SystemParameterProperties.HighContrast" Value="{DynamicResource {x:Static SystemParameters.HighContrastKey}}" />
 
         <Style.Triggers>
             <Trigger Property="Controls:SystemParameterProperties.HighContrast" Value="True">
-                <Setter Property="Background" Value="#C300FF" />
+                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
             </Trigger>
         </Style.Triggers>
     </Style>

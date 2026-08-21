@@ -52,14 +52,14 @@
 
         <ListView x:Name="FileListView" x:FieldModifier="private" Grid.Row="0" Grid.ColumnSpan="4" SelectionMode="Extended"
                   ItemsSource="{Binding Path=Files, Mode=OneWay}" ItemTemplate="{StaticResource FileListViewItem}"
-                  BorderBrush="{DynamicResource {x:Static SystemColors.AccentColorLight2BrushKey}}" BorderThickness="1">
+                  BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" BorderThickness="1">
         </ListView>
 
         <Button x:Uid="SelectAllButton" Content="{loc:Localize}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 8 0" Command="{x:Static ApplicationCommands.SelectAll}" />
         <Button x:Uid="SelectNoneButton" Content="{loc:Localize}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0 8 4 0" Command="{x:Static Views:ExtractFilesView.SelectNoneCommand}" />
         <Button x:Uid="ExtractButton" Content="{loc:Localize}" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4 8 0 0" IsDefault="True" Command="{x:Static Views:ExtractFilesView.ExtractCommand}" Style="{StaticResource AccentButtonStyle}" />
         <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" Name="FilterFileListView" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="4,8,0,0" TextWrapping="NoWrap" VerticalAlignment="Bottom" Width="320" IsEnabled="{Binding IsMsiLoaded}" />
-        <TextBlock x:Uid="SearchPlaceholderLabel" IsHitTestVisible="False" Grid.Row="1" Grid.Column="2" Text="{loc:Localize}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="16,8,0,0" Foreground="{x:Static SystemColors.GrayTextBrush}">
+        <TextBlock x:Uid="SearchPlaceholderLabel" IsHitTestVisible="False" Grid.Row="1" Grid.Column="2" Text="{loc:Localize}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,9,18,5" Foreground="{x:Static SystemColors.GrayTextBrush}">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Visibility" Value="Collapsed"/>

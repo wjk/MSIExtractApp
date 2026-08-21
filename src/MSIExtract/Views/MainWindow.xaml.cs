@@ -96,7 +96,7 @@ namespace MSIExtract.Views
                 TaskDialogPage page = new TaskDialogPage
                 {
                     AllowCancel = true,
-                    Title = "MSI Viewer",
+                    Title = stringLoader.GetString("Window.Title"),
                     Instruction = string.Format(stringLoader.GetString("FileNotFoundDialog.Instruction"), path),
                     Text = stringLoader.GetString("FileNotFoundDialog.Text"),
                     Icon = TaskDialogIcon.Get(TaskDialogStandardIcon.Warning),
