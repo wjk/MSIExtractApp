@@ -5,6 +5,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
+
+using Windows.UI.ViewManagement;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.Graphics.Dwm;
@@ -25,6 +27,9 @@ public class AcrylicWindow : Window
         DependencyProperty.Register(nameof(FrameBackground), typeof(WindowFrameBackground), typeof(AcrylicWindow),
             new FrameworkPropertyMetadata(WindowFrameBackground.Solid, FrameBackgroundChanged));
 
+    private UISettings themeSettings = new UISettings();
+    private bool hookedThemeChanged = false;
+
     /// <summary>
     /// Gets or sets the kind of background the window frame will have.
     /// </summary>
@@ -32,6 +37,18 @@ public class AcrylicWindow : Window
     {
         get => (WindowFrameBackground)this.GetValue(FrameBackgroundProperty);
         set => this.SetValue(FrameBackgroundProperty, value);
+    }
+
+    /// <inheritdoc/>
+    protected override void OnContentRendered(EventArgs e)
+    {
+        base.OnContentRendered(e);
+
+        if (!this.hookedThemeChanged)
+        {
+            this.themeSettings.ColorValuesChanged += this.ThemeSettings_ColorValuesChanged;
+            this.hookedThemeChanged = true;
+        }
     }
 
     private static void FrameBackgroundChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
@@ -43,6 +60,13 @@ public class AcrylicWindow : Window
 
         var window = (AcrylicWindow)target;
         window.SetDwmAttribute();
+    }
+
+    private void ThemeSettings_ColorValuesChanged(UISettings sender, object args)
+    {
+        // This method is called on a background thread. If we try to access
+        // the window's handle from a background thread, an exception occurs.
+        this.Dispatcher.BeginInvoke(this.SetDwmAttribute);
     }
 
     private void SetDwmAttribute()
