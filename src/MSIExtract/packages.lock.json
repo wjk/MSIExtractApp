@@ -260,14 +260,6 @@
         "type": "Project"
       }
     },
-    "net10.0-windows10.0.22000/linux-x64": {
-      "Sunburst.MRTCore": {
-        "type": "Direct",
-        "requested": "[2.0.5, )",
-        "resolved": "2.0.5",
-        "contentHash": "yMOaibm7reWZ8zrjxL9u/spQpAlvaIsrT0ScQyDLsPFu/v55pr9uINhrlln+8dhFgg0LBDvBAWeFDXG97ph8Jg=="
-      }
-    },
     "net10.0-windows10.0.22000/win-arm64": {
       "Sunburst.MRTCore": {
         "type": "Direct",
