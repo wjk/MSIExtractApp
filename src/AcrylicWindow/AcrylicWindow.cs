@@ -51,6 +51,18 @@ public class AcrylicWindow : Window
         }
     }
 
+    /// <inheritdoc/>
+    protected override void OnClosed(EventArgs e)
+    {
+        base.OnClosed(e);
+
+        if (this.hookedThemeChanged)
+        {
+            this.themeSettings.ColorValuesChanged -= this.ThemeSettings_ColorValuesChanged;
+            this.hookedThemeChanged = false;
+        }
+    }
+
     private static void FrameBackgroundChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
     {
         if (e.Property.Name != nameof(FrameBackground))
