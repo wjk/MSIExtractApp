@@ -27,7 +27,8 @@ public class AcrylicWindow : Window
         DependencyProperty.Register(nameof(FrameBackground), typeof(WindowFrameBackground), typeof(AcrylicWindow),
             new FrameworkPropertyMetadata(WindowFrameBackground.Solid, FrameBackgroundChanged));
 
-    private UISettings themeSettings = new UISettings();
+    private static readonly UISettings ThemeSettings = new UISettings();
+
     private bool hookedThemeChanged = false;
 
     /// <summary>
@@ -46,8 +47,20 @@ public class AcrylicWindow : Window
 
         if (!this.hookedThemeChanged)
         {
-            this.themeSettings.ColorValuesChanged += this.ThemeSettings_ColorValuesChanged;
+            ThemeSettings.ColorValuesChanged += this.ThemeSettings_ColorValuesChanged;
             this.hookedThemeChanged = true;
+        }
+    }
+
+    /// <inheritdoc/>
+    protected override void OnClosed(EventArgs e)
+    {
+        base.OnClosed(e);
+
+        if (this.hookedThemeChanged)
+        {
+            ThemeSettings.ColorValuesChanged -= this.ThemeSettings_ColorValuesChanged;
+            this.hookedThemeChanged = false;
         }
     }
 
