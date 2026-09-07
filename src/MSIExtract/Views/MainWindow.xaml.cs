@@ -53,12 +53,6 @@ namespace MSIExtract.Views
         {
             this.InitializeComponent();
             DataContext = new AppModel();
-
-            // A LocalizeExtension in the top-level element causes an exception because
-            // it is evaluated before our Resources directionary is created, thus giving
-            // it no way to locate its PRI file.
-            PRIResourceLoader stringLoader = PRIResourceLoader.GetContextLoader(this) !;
-            Title = stringLoader.GetString("Window.Title");
         }
 
         /// <summary>
