@@ -38,6 +38,10 @@
         </DataTemplate>
     </UserControl.Resources>
 
+    <loc:PRIResourceLoader.ContextLoader>
+        <loc:PRIResourceLoader TypeInTargetAssembly="{x:Type Views:ExtractFilesView}" ResourceMap="ExtractFilesView" />
+    </loc:PRIResourceLoader.ContextLoader>
+
     <Grid Margin="8">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

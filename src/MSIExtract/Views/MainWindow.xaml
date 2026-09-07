@@ -28,7 +28,11 @@
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
     </AcrylicWindow.Resources>
-    
+
+    <loc:PRIResourceLoader.ContextLoader>
+        <loc:PRIResourceLoader TypeInTargetAssembly="{x:Type Views:MainWindow}" ResourceMap="MainWindow" />
+    </loc:PRIResourceLoader.ContextLoader>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
