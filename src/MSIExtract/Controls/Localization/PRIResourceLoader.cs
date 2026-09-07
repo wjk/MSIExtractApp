@@ -3,6 +3,8 @@
 
 using System;
 using System.IO;
+using System.Windows;
+
 using Microsoft.ApplicationModel.Resources;
 
 namespace MSIExtract.Controls.Localization;
@@ -17,6 +19,15 @@ namespace MSIExtract.Controls.Localization;
 /// </remarks>
 public class PRIResourceLoader
 {
+    /// <summary>
+    /// Provides identity for the PRIResourceLoader.ContextLoader attached dependency property.
+    /// </summary>
+    public static readonly DependencyProperty ContextLoaderProperty = DependencyProperty.RegisterAttached(
+        "ContextLoader",
+        typeof(PRIResourceLoader),
+        typeof(PRIResourceLoader),
+        new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender) { Inherits = true });
+
     private ResourceManager? resourceManager;
     private ResourceMap? resourceLoader;
 
@@ -55,6 +66,37 @@ public class PRIResourceLoader
     /// Gets or sets a string designating the submap of the *.pri file to reference.
     /// </summary>
     public string ResourceMap { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets the <see cref="PRIResourceLoader" /> instance to be used when resolving
+    /// resources for the given <paramref name="owner"/> or a child element thereof.
+    /// </summary>
+    /// <param name="owner">
+    /// A <see cref="UIElement"/>.
+    /// </param>
+    /// <returns>
+    /// A <see cref="PRIResourceLoader"/>, or <see langword="null"/> if no
+    /// resource loader has been set.
+    /// </returns>
+    public static PRIResourceLoader? GetContextLoader(UIElement owner)
+    {
+        return (PRIResourceLoader?)owner.GetValue(ContextLoaderProperty);
+    }
+
+    /// <summary>
+    /// Sets the <see cref="PRIResourceLoader"/> instance to be used when resolving
+    /// resources for the given <paramref name="owner"/> or a child element thereof.
+    /// </summary>
+    /// <param name="owner">
+    /// A <see cref="UIElement"/>.
+    /// </param>
+    /// <param name="value">
+    /// A <see cref="PRIResourceLoader"/> instance.
+    /// </param>
+    public static void SetContextLoader(UIElement owner, PRIResourceLoader? value)
+    {
+        owner.SetValue(ContextLoaderProperty, value);
+    }
 
     /// <summary>
     /// Looks up a string. An exception will be thrown if the <paramref name="key"/> is not found.
