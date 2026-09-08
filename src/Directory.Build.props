@@ -20,6 +20,7 @@
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <NoWarn>SA1009;$(NoWarn)</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

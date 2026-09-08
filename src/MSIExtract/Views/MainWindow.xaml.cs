@@ -46,8 +46,6 @@ namespace MSIExtract.Views
         /// </summary>
         public static readonly RoutedCommand OpenRecentFileCommand = Commands.CreateCommand("OpenRecentFile", typeof(MainWindow));
 
-        private readonly PRIResourceLoader stringLoader = new PRIResourceLoader(typeof(MainWindow), nameof(MainWindow));
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
@@ -55,11 +53,6 @@ namespace MSIExtract.Views
         {
             this.InitializeComponent();
             DataContext = new AppModel();
-
-            // A LocalizeExtension in the top-level element causes an exception because
-            // it is evaluated before our Resources directionary is created, thus giving
-            // it no way to locate its PRI file.
-            Title = stringLoader.GetString("Window.Title");
         }
 
         /// <summary>
@@ -90,6 +83,7 @@ namespace MSIExtract.Views
         {
             var entry = (MRULib.MRU.Interfaces.IMRUEntryViewModel)e.Parameter;
             var model = (AppModel)DataContext;
+            PRIResourceLoader stringLoader = PRIResourceLoader.GetContextLoader(this)!;
 
             void ShowFileMissingDialog(string path)
             {
@@ -139,6 +133,8 @@ namespace MSIExtract.Views
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:Parameters should be on same line or separate lines", Justification = "wart")]
         private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            PRIResourceLoader stringLoader = PRIResourceLoader.GetContextLoader(this)!;
+
             static string GetTaskDialogInstruction()
             {
                 string appTitle = ThisAssembly.AssemblyTitle;
@@ -193,6 +189,7 @@ namespace MSIExtract.Views
 
         private void ShowInvalidFileCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            PRIResourceLoader stringLoader = PRIResourceLoader.GetContextLoader(this)!;
             string fileName = System.IO.Path.GetFileName((string)e.Parameter);
 
             TaskDialogPage page = new TaskDialogPage();

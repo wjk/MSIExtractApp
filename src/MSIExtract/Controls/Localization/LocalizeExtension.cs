@@ -34,6 +34,19 @@ namespace MSIExtract.Controls.Localization
         {
             ArgumentNullException.ThrowIfNull(serviceProvider);
 
+            IProvideValueTarget? valueTarget = (IProvideValueTarget?)serviceProvider.GetService(typeof(IProvideValueTarget));
+
+            if (Loader == null)
+            {
+                if (valueTarget != null)
+                {
+                    if (valueTarget.TargetObject is UIElement element)
+                    {
+                        this.Loader = PRIResourceLoader.GetContextLoader(element);
+                    }
+                }
+            }
+
             if (Loader == null)
             {
                 IRootObjectProvider? rootObjectProvider = (IRootObjectProvider?)serviceProvider.GetService(typeof(IRootObjectProvider));
@@ -49,7 +62,6 @@ namespace MSIExtract.Controls.Localization
             string? key = this.Key;
             if (key == null)
             {
-                IProvideValueTarget? valueTarget = (IProvideValueTarget?)serviceProvider.GetService(typeof(IProvideValueTarget));
                 if (valueTarget == null)
                 {
                     throw new InvalidOperationException("Could not get IProvideValueTarget");
