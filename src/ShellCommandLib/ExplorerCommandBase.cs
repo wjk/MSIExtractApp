@@ -26,7 +26,7 @@ namespace ShellCommandLib
         /// <summary>
         /// Gets a <see cref="ExplorerCommandFlag"/> instance that describes how the command should be displayed.
         /// </summary>
-        public abstract ExplorerCommandFlag Flags { get; }
+        public virtual ExplorerCommandFlag Flags => ExplorerCommandFlag.Default;
 
         /// <summary>
         /// Gets the sub-commands of this command, or <see langword="null"/> if there are none.
