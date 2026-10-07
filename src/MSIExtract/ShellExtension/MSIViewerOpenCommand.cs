@@ -21,9 +21,6 @@ namespace MSIExtract.ShellExtension
     public sealed partial class MSIViewerOpenCommand : ExplorerCommandBase
     {
         /// <inheritdoc/>
-        public override ExplorerCommandFlag Flags => ExplorerCommandFlag.Default;
-
-        /// <inheritdoc/>
         public override ExplorerCommandState GetState(IEnumerable<string> selectedFiles)
         {
             ArgumentNullException.ThrowIfNull(selectedFiles);
