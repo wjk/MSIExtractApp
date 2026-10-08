@@ -85,11 +85,11 @@
       },
       "Microsoft.Windows.CsWin32": {
         "type": "Transitive",
-        "resolved": "0.3.333",
-        "contentHash": "UigiQ8BYaIJfon0FZ9rTy9reygbXr4VijncifNe/Az/GSnqd958ptd1/Hp9u9lyYrwI+3/xeIUHgqrLr1o5hQQ==",
+        "resolved": "0.3.355",
+        "contentHash": "1swtrijICFezO+OsAEW0Qu6Z3yRCNXH/fv3Zf+Z0Zt0tdlgZkbNczpLb2V8Ll4bXITGGBd7UV+0h2kU0jqvaXg==",
         "dependencies": {
           "Microsoft.Windows.SDK.Win32Docs": "0.1.42-alpha",
-          "Microsoft.Windows.SDK.Win32Metadata": "71.0.14-preview",
+          "Microsoft.Windows.SDK.Win32Metadata": "71.0.28-preview",
           "Microsoft.Windows.WDK.Win32Metadata": "0.13.25-experimental"
         }
       },
@@ -100,8 +100,8 @@
       },
       "Microsoft.Windows.SDK.Win32Metadata": {
         "type": "Transitive",
-        "resolved": "71.0.14-preview",
-        "contentHash": "39I8YpjHYJF7Qncztn6+cu15Ti35myn5QQnLZwN6AngBsfaU1l3Nsxvt2087AlExLxg5a/llFIRSeahK7GW/Dw=="
+        "resolved": "71.0.28-preview",
+        "contentHash": "bwq5tE4KriF+cXk2xemgFrEqzl82n1yoXOcLIUEDW9E0qQwwWRAvY6XbFYH2v4cCcbC9A2xPnvAH/4eu7e56Sg=="
       },
       "Microsoft.Windows.WDK.Win32Metadata": {
         "type": "Transitive",
@@ -224,7 +224,7 @@
       "acrylicwindow": {
         "type": "Project",
         "dependencies": {
-          "Microsoft.Windows.CSWin32": "[0.3.333, )"
+          "Microsoft.Windows.CSWin32": "[0.3.355, )"
         }
       },
       "lessio": {
@@ -258,14 +258,6 @@
       },
       "wixtoolset.dtf.windowsinstaller": {
         "type": "Project"
-      }
-    },
-    "net10.0-windows10.0.22000/linux-x64": {
-      "Sunburst.MRTCore": {
-        "type": "Direct",
-        "requested": "[2.0.5, )",
-        "resolved": "2.0.5",
-        "contentHash": "yMOaibm7reWZ8zrjxL9u/spQpAlvaIsrT0ScQyDLsPFu/v55pr9uINhrlln+8dhFgg0LBDvBAWeFDXG97ph8Jg=="
       }
     },
     "net10.0-windows10.0.22000/win-arm64": {
