@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.CSWin32" Version="0.3.366" />
+    <PackageReference Include="Microsoft.Windows.CSWin32" Version="0.3.367" />
   </ItemGroup>
 
 </Project>
