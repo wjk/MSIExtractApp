@@ -51,9 +51,9 @@
       },
       "Sunburst.MRTCore": {
         "type": "Direct",
-        "requested": "[2.0.6, )",
-        "resolved": "2.0.6",
-        "contentHash": "wa+Hohe2xUXXvDKWQVoildSIJLSsAAWrGfVuAU5YZtcKDEVWo8ClNyJQ+03JHGpVrXcLCpYzAzYM0VDo5Vm/sA=="
+        "requested": "[2.0.5, )",
+        "resolved": "2.0.5",
+        "contentHash": "yMOaibm7reWZ8zrjxL9u/spQpAlvaIsrT0ScQyDLsPFu/v55pr9uINhrlln+8dhFgg0LBDvBAWeFDXG97ph8Jg=="
       },
       "Vanara.PInvoke.Shell32": {
         "type": "Direct",
@@ -263,25 +263,25 @@
     "net10.0-windows10.0.22000/linux-x64": {
       "Sunburst.MRTCore": {
         "type": "Direct",
-        "requested": "[2.0.6, )",
-        "resolved": "2.0.6",
-        "contentHash": "wa+Hohe2xUXXvDKWQVoildSIJLSsAAWrGfVuAU5YZtcKDEVWo8ClNyJQ+03JHGpVrXcLCpYzAzYM0VDo5Vm/sA=="
+        "requested": "[2.0.5, )",
+        "resolved": "2.0.5",
+        "contentHash": "yMOaibm7reWZ8zrjxL9u/spQpAlvaIsrT0ScQyDLsPFu/v55pr9uINhrlln+8dhFgg0LBDvBAWeFDXG97ph8Jg=="
       }
     },
     "net10.0-windows10.0.22000/win-arm64": {
       "Sunburst.MRTCore": {
         "type": "Direct",
-        "requested": "[2.0.6, )",
-        "resolved": "2.0.6",
-        "contentHash": "wa+Hohe2xUXXvDKWQVoildSIJLSsAAWrGfVuAU5YZtcKDEVWo8ClNyJQ+03JHGpVrXcLCpYzAzYM0VDo5Vm/sA=="
+        "requested": "[2.0.5, )",
+        "resolved": "2.0.5",
+        "contentHash": "yMOaibm7reWZ8zrjxL9u/spQpAlvaIsrT0ScQyDLsPFu/v55pr9uINhrlln+8dhFgg0LBDvBAWeFDXG97ph8Jg=="
       }
     },
     "net10.0-windows10.0.22000/win-x64": {
       "Sunburst.MRTCore": {
         "type": "Direct",
-        "requested": "[2.0.6, )",
-        "resolved": "2.0.6",
-        "contentHash": "wa+Hohe2xUXXvDKWQVoildSIJLSsAAWrGfVuAU5YZtcKDEVWo8ClNyJQ+03JHGpVrXcLCpYzAzYM0VDo5Vm/sA=="
+        "requested": "[2.0.5, )",
+        "resolved": "2.0.5",
+        "contentHash": "yMOaibm7reWZ8zrjxL9u/spQpAlvaIsrT0ScQyDLsPFu/v55pr9uINhrlln+8dhFgg0LBDvBAWeFDXG97ph8Jg=="
       }
     }
   }
