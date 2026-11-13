@@ -31,7 +31,7 @@
     <PackageReference Include="Dirkster.MRULib" Version="1.3.0" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
     <PackageReference Include="Vanara.PInvoke.Shell32" Version="5.0.8" />
-    <PackageReference Include="Sunburst.MRTCore" Version="2.0.5" />
+    <PackageReference Include="Sunburst.MRTCore" Version="2.0.7" />
 
     <ProjectReference Include="..\AcrylicWindow\AcrylicWindow.csproj" />
     <ProjectReference Include="..\MSIExtract.Core\MSIExtract.Core.csproj" />
