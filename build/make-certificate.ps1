@@ -1,12 +1,12 @@
 param(
     [Parameter(Mandatory)]
-    [string]$OutputPath
+    [string]$OutputPath,
 
     [Parameter(Mandatory)]
     [string]$CommonName,
 
     [Parameter(Mandatory)]
-    [string]$Password,
+    [string]$Password
 )
 
 Import-Module PKI -SkipEditionCheck
