@@ -47,7 +47,8 @@
     <ProjectCapability Include="Msix"/>
   </ItemGroup>
 
-  <Target Name="_CreatePackageCertificateKeyFile" Condition="!Exists('$(PackageCertificateKeyFile)')">
+  <Target Name="_CreatePackageCertificateKeyFile" Condition="!Exists('$(PackageCertificateKeyFile)')"
+          BeforeTargets="PrepareForBuild">
     <Error Text="PackageCertificateCommonName must be set to automatically generate MSIX signing certificate."
            Condition="'$(PackageCertificateCommonName)' == ''" />
 
