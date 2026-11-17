@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -21,8 +21,6 @@ using System.Windows.Shapes;
 using KPreisser.UI;
 using MSIExtract.Controls;
 using MSIExtract.Controls.Localization;
-
-using Vanara.PInvoke;
 
 namespace MSIExtract.Views
 {
@@ -130,7 +128,6 @@ namespace MSIExtract.Views
             FilePicker.ShowChooseFileDialog();
         }
 
-        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:Parameters should be on same line or separate lines", Justification = "wart")]
         private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
         {
             PRIResourceLoader stringLoader = PRIResourceLoader.GetContextLoader(this)!;
@@ -165,26 +162,34 @@ namespace MSIExtract.Views
 
             page.HyperlinkClicked += (s, e) =>
             {
+                string command;
+
                 if (e.Hyperlink == "github")
                 {
-                    Shell32.ShellExecute(nint.Zero, "open", "https://github.com/wjk/MSIExtractApp",
-                       null, null, ShowWindowCommand.SW_SHOWDEFAULT);
+                    command = "https://github.com/wjk/MSIExtractApp";
                 }
                 else if (e.Hyperlink == "tpn")
                 {
-                    Shell32.ShellExecute(nint.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/main/legal/ThirdPartyNotices.md",
-                        null, null, ShowWindowCommand.SW_SHOWDEFAULT);
+                    command = "https://github.com/wjk/MSIExtractApp/blob/main/legal/ThirdPartyNotices.md";
                 }
+                else
+                {
+                    throw new ArgumentException("Unrecognized hyperlink");
+                }
+
+                var startInfo = new ProcessStartInfo(command);
+                startInfo.UseShellExecute = true;
+                Process.Start(startInfo)?.Dispose();
             };
 
             TaskDialog.Show(this, page);
         }
 
-        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:Parameters should be on same line or separate lines", Justification = "wart")]
         private void PrivacyMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Shell32.ShellExecute(nint.Zero, "open", "https://github.com/wjk/MSIExtractApp/blob/main/legal/PrivacyPolicy.md",
-                null, null, ShowWindowCommand.SW_SHOWDEFAULT);
+            ProcessStartInfo startInfo = new ProcessStartInfo("https://github.com/wjk/MSIExtractApp/blob/main/legal/PrivacyPolicy.md");
+            startInfo.UseShellExecute = true;
+            Process.Start(startInfo)?.Dispose();
         }
 
         private void ShowInvalidFileCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
