@@ -41,6 +41,7 @@
   <ItemGroup>
     <Resource Include="Setup.ico" />
     <AppxAsset Include="Assets\*" />
+    <None Include="app.manifest" />
   </ItemGroup>
 
   <ItemGroup>
