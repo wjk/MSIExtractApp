@@ -24,6 +24,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="11.0.100" PrivateAssets="All" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.10.94" PrivateAssets="all" />
+
+    <Using Include="System.Diagnostics.CodeAnalysis" />
   </ItemGroup>
 
   <!-- ============== Code Analysis ============== -->
