@@ -10,7 +10,7 @@
     <Nullable>disable</Nullable>
 
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <IsThirdPartyProject>true</IsThirdPartyProject>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
     <Platforms>AnyCPU;ARM64</Platforms>
 
     <UseWindowsForms>true</UseWindowsForms>

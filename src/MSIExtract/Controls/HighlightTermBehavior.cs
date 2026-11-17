@@ -23,11 +23,12 @@ namespace MSIExtract.Controls
             typeof(HighlightTermBehavior),
             new FrameworkPropertyMetadata(string.Empty, OnTextChanged));
 
+        [SuppressMessage("WpfAnalyzers.DependencyProperty", "WPF0005:Name of PropertyChangedCallback should match registered name.", Justification = "Applying this fix would create a second method that duplicates OnTextChanged.")]
         private static readonly DependencyProperty TermToBeHighlightedProperty = DependencyProperty.RegisterAttached(
             "TermToBeHighlighted",
             typeof(string),
             typeof(HighlightTermBehavior),
-            new FrameworkPropertyMetadata(string.Empty, OnTextChanged2));
+            new FrameworkPropertyMetadata(string.Empty, OnTextChanged));
 
         /// <summary>
         /// Accessor for the Text.
@@ -65,17 +66,9 @@ namespace MSIExtract.Controls
             }
         }
 
-        private static void OnTextChanged2(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is TextBlock textBlock)
-            {
-                SetTextBlockTextAndHighlightTerm(textBlock, GetText(textBlock), GetTermToBeHighlighted(textBlock));
-            }
-        }
-
         private static void SetTextBlockTextAndHighlightTerm(TextBlock textBlock, string text, string termToBeHighlighted)
         {
-            textBlock.Text = string.Empty;
+            textBlock.SetCurrentValue(TextBlock.TextProperty, string.Empty);
 
             if (TextIsEmpty(text))
             {

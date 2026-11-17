@@ -1,0 +1,57 @@
+<Project>
+  <PropertyGroup>
+    <UseSdkBuildToolsPackage>true</UseSdkBuildToolsPackage>
+
+    <GenerateAppxPackageOnBuild>false</GenerateAppxPackageOnBuild>
+    <PublishAppxPackage>true</PublishAppxPackage>
+
+    <WindowsPackageType>MSIX</WindowsPackageType>
+    <CreateAppxPackageOnPublish>true</CreateAppxPackageOnPublish>
+    <BuildAppxUploadPackageForUap>true</BuildAppxUploadPackageForUap>
+    <AppxBundleNameForOutput>MSIExtract</AppxBundleNameForOutput>
+    <SDKIdentifier>Windows</SDKIdentifier>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <AppxPackage>true</AppxPackage>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundlePlatforms>x64|ARM64</AppxBundlePlatforms>
+    <AppxBundle>Always</AppxBundle>
+    <SDKVersion>10.0</SDKVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageCertificateKeyFile Condition="'$(PackageCertificateKeyFile)' == ''">$(MSBuildProjectDirectory)\msix.pfx</PackageCertificateKeyFile>
+    <PackageCertificatePassword Condition="'$(PackageCertificatePassword)' == ''">1234</PackageCertificatePassword>
+
+    <AppxPackageSigningTimestampServerUrl>http://timestamp.digicert.com</AppxPackageSigningTimestampServerUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2957" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools.MSIX" Version="1.7.261102100">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvailableItemType Include="AppxAsset" />
+    <Content Include="@(AppxAsset)" CopyToOutputDirectory="Always" Visible="false" />
+    <PRIResource Include="@(AppxAsset)" Visisble="false" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)' != 'true'">
+    <ProjectCapability Include="Msix"/>
+  </ItemGroup>
+
+  <Target Name="_CreatePackageCertificateKeyFile" Condition="!Exists('$(PackageCertificateKeyFile)')"
+          BeforeTargets="PrepareForBuild">
+    <Error Text="PackageCertificateCommonName must be set to automatically generate MSIX signing certificate."
+           Condition="'$(PackageCertificateCommonName)' == ''" />
+
+    <Exec Command="pwsh -ExecutionPolicy Bypass &quot;$(MSBuildThisFileDirectory)\make-certificate.ps1&quot; -OutputPath &quot;$(PackageCertificateKeyFile)&quot; -CommonName &quot;$(PackageCertificateCommonName)&quot; -Password &quot;$(PackageCertificatePassword)&quot;" />
+  </Target>
+</Project>

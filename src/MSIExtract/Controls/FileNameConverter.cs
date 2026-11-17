@@ -66,7 +66,7 @@ namespace MSIExtract.Controls
                     FileNameDisplayMode.Default => Shell32.SIGDN.SIGDN_NORMALDISPLAY,
                     FileNameDisplayMode.FullPath => Shell32.SIGDN.SIGDN_FILESYSPATH,
                     FileNameDisplayMode.NameOnly => Shell32.SIGDN.SIGDN_PARENTRELATIVEPARSING,
-                    _ => throw new InvalidOperationException($"Unexpected {nameof(FileNameDisplayMode)}")
+                    _ => throw new InvalidOperationException($"Unexpected {nameof(FileNameDisplayMode)}"),
                 };
 
                 return item.GetDisplayName(sigdn);

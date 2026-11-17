@@ -16,7 +16,7 @@ trim_trailing_whitespace = true
 indent_size = 4
 
 # Xml project files
-[*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
+[*.{csproj,vbproj,vcxproj,wapproj,vcxproj.filters,proj,projitems,shproj}]
 indent_size = 2
 
 [*.vcxproj]

@@ -82,7 +82,7 @@ namespace MSIExtract
                         return;
                     }
 
-                    fileList.Source = container.Files;
+                    fileList.SetCurrentValue(CollectionViewSource.SourceProperty, container.Files);
                     Tables = new ObservableCollection<TableWithData>(container.Tables);
 
                     MRUModel.UpdateEntry(msiPath);
@@ -90,7 +90,7 @@ namespace MSIExtract
                 }
                 else
                 {
-                    fileList.Source = Array.Empty<MsiFile>();
+                    fileList.SetCurrentValue(CollectionViewSource.SourceProperty, Array.Empty<MsiFile>());
                     Tables = new ObservableCollection<TableWithData>();
                 }
 
@@ -117,7 +117,10 @@ namespace MSIExtract
         /// </summary>
         public string FilterText
         {
-            get => filterText ?? string.Empty;
+            get
+            {
+                return filterText ?? string.Empty;
+            }
 
             set
             {

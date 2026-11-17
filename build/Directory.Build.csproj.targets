@@ -1,0 +1,58 @@
+<Project>  
+  <ItemGroup>
+    <AvailableItemName Include="Manifest" />
+    <AvailableItemName Include="AppxManifest" />
+  </ItemGroup>
+
+  <!-- ============== Code Analysis ============== -->
+
+  <PropertyGroup Condition="'$(EnableNETAnalyzers)' == 'true'">
+    <CodeAnalysisRuleSet>$(StyleCopRuleset)</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(EnableNETAnalyzers)' == 'true'">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.3.180" PrivateAssets="all" />
+    <AdditionalFiles Include="$(StyleCopJSON)" Link="stylecop.json" />
+    <None Include="$(StyleCopRuleset)" Link="StyleCop.ruleset" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(EnableNETAnalyzers)' == 'true' and '$(UseWPF)' == 'true'">
+    <PackageReference Include="WPFAnalyzers" Version="2.4.5" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!-- ============== Restore and publish ============== -->
+
+  <Target Name="AddReadyToRunToRestore" BeforeTargets="Restore">
+    <PropertyGroup>
+      <PublishReadyToRun>true</PublishReadyToRun>
+    </PropertyGroup>
+  </Target>
+
+  <!-- ============== NativeAOT ============== -->
+
+  <ItemGroup>
+    <AvailableItemName Include="RdXmlFile" />
+  </ItemGroup>
+
+  <!-- ============== CsWinRT ============== -->
+
+  <Target Name="CsWinRTGetReferenceWinMDFiles" BeforeTargets="CsWinRTGenerateProjection">
+    <PropertyGroup>
+      <_NativePlatform Condition="'$(Platform)' == 'x86' or '$(Platform)' == 'AnyCPU'">Win32</_NativePlatform>
+      <_NativePlatform Condition="'$(_NativePlatform)' == ''">$(Platform)</_NativePlatform>
+    </PropertyGroup>
+
+    <MSBuild Projects="@(_MSBuildProjectReferenceExistent)" Targets="Build" Condition="'%(_MSBuildProjectReferenceExistent.CsWinRTSource)' == 'true'"
+             Properties="Platform=$(_NativePlatform);Configuration=$(Configuration)">
+      <Output TaskParameter="TargetOutputs" ItemName="CsWinRTProjectOutputs" />
+    </MSBuild>
+
+    <ItemGroup>
+      <CSWinRTInputs Include="@(CsWinRTProjectOutputs)" Condition="'%(Extension)' == '.winmd'" />
+    </ItemGroup>
+  </Target>
+
+  <!-- ============== MSIX packaging ============== -->
+
+  <Import Project="msix.targets" Condition="'$(EnableMsixTooling)' == 'true'" />
+</Project>

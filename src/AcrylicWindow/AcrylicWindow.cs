@@ -25,7 +25,7 @@ public class AcrylicWindow : Window
     [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:Parameters should be on same line or separate lines", Justification = "wart")]
     public static readonly DependencyProperty FrameBackgroundProperty =
         DependencyProperty.Register(nameof(FrameBackground), typeof(WindowFrameBackground), typeof(AcrylicWindow),
-            new FrameworkPropertyMetadata(WindowFrameBackground.Solid, FrameBackgroundChanged));
+            new FrameworkPropertyMetadata(WindowFrameBackground.Solid, OnFrameBackgroundChanged));
 
     private static readonly UISettings ThemeSettings = new UISettings();
 
@@ -64,7 +64,7 @@ public class AcrylicWindow : Window
         }
     }
 
-    private static void FrameBackgroundChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
+    private static void OnFrameBackgroundChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
     {
         if (e.Property.Name != nameof(FrameBackground))
         {
@@ -98,7 +98,7 @@ public class AcrylicWindow : Window
             WindowFrameBackground.Solid => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_NONE,
             WindowFrameBackground.MainWindow => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_MAINWINDOW,
             WindowFrameBackground.SupportingWindow => DWM_SYSTEMBACKDROP_TYPE.DWMSBT_TRANSIENTWINDOW,
-            _ => throw new ArgumentException("Unexpected FrameBackground value")
+            _ => throw new ArgumentException("Unexpected FrameBackground value"),
         };
 
         unsafe

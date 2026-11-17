@@ -4,13 +4,24 @@
     <Platform Name="x64" />
   </Configurations>
   <Folder Name="/Solution Items/">
-    <File Path="../.editorconfig" />
-    <File Path="../nuget.config" />
-    <File Path="../RepoRoot.props" />
     <File Path="../version.json" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Build.targets" />
-    <File Path="stylecop.json" />
+  </Folder>
+  <Folder Name="/Solution Items/build/">
+    <File Path="../build/Directory.Build.csproj.props" />
+    <File Path="../build/Directory.Build.csproj.targets" />
+    <File Path="../build/Directory.Build.vcxproj.props" />
+    <File Path="../build/Directory.Build.vcxproj.targets" />
+    <File Path="../build/make-certificate.ps1" />
+    <File Path="../build/msix.targets" />
+  </Folder>
+  <Folder Name="/Solution Items/toplevel/">
+    <File Path="../.editorconfig" />
+    <File Path="../Directory.Build.props" />
+    <File Path="../Directory.Build.targets" />
+    <File Path="../nuget.config" />
+    <File Path="../RepoRoot.props" />
   </Folder>
   <Project Path="AcrylicWindow/AcrylicWindow.csproj">
     <Platform Solution="*|ARM64" Project="ARM64" />

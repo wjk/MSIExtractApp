@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <BaseOutputPath>$([MSBuild]::MakeRelative($(MSBuildProjectDirectory), $(BaseOutputPath)))\</BaseOutputPath>
+    <BaseIntermediateOutputPath>$([MSBuild]::MakeRelative($(MSBuildProjectDirectory), $(BaseIntermediateOutputPath)))\</BaseIntermediateOutputPath>
+    <AppxPackageDir>$([MSBuild]::MakeRelative($(MSBuildProjectDirectory), $(RepoRootPath)))bin\AppxPackages\</AppxPackageDir>
+  </PropertyGroup>
+</Project>
