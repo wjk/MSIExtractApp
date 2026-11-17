@@ -87,8 +87,6 @@ jobs:
             - name: Build
               working-directory: ./src/MSIExtract
               run: |
-                ..\..\tools\make-certificate.ps1 -OutputPath .\msix\cert.pfx
-
                 dotnet publish -c Release `
                   /p:Platform=x64 /p:GenerateAppxPackageOnBuild=true /p:PublicRelease=true
 
