@@ -13,6 +13,7 @@
     <File Path="../build/Directory.Build.csproj.targets" />
     <File Path="../build/Directory.Build.vcxproj.props" />
     <File Path="../build/Directory.Build.vcxproj.targets" />
+    <File Path="../build/msix.targets" />
   </Folder>
   <Folder Name="/Solution Items/toplevel/">
     <File Path="../.editorconfig" />

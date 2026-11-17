@@ -51,4 +51,8 @@
       <CSWinRTInputs Include="@(CsWinRTProjectOutputs)" Condition="'%(Extension)' == '.winmd'" />
     </ItemGroup>
   </Target>
+
+  <!-- ============== MSIX packaging ============== -->
+
+  <Import Project="msix.targets" Condition="'$(EnableMsixTooling)' == 'true'" />
 </Project>
