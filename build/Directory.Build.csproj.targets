@@ -4,6 +4,22 @@
     <AvailableItemName Include="AppxManifest" />
   </ItemGroup>
 
+  <!-- ============== Code Analysis ============== -->
+
+  <PropertyGroup Condition="'$(EnableNETAnalyzers)' == 'true'">
+    <CodeAnalysisRuleSet>$(StyleCopRuleset)</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(EnableNETAnalyzers)' == 'true'">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
+    <AdditionalFiles Include="$(StyleCopJSON)" Link="stylecop.json" />
+    <None Include="$(StyleCopRuleset)" Link="StyleCop.ruleset" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(EnableNETAnalyzers)' == 'true' and '$(UseWPF)' == 'true'">
+    <PackageReference Include="WPFAnalyzers" Version="2.4.5" PrivateAssets="all" />
+  </ItemGroup>
+
   <!-- ============== Restore and publish ============== -->
 
   <Target Name="AddReadyToRunToRestore" BeforeTargets="Restore">

@@ -1,24 +1,17 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\Directory.Build.props" />
-  
 
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)\strongname.snk</AssemblyOriginatorKeyFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
 
     <Product>MSI Viewer</Product>
     <Company>William Kent</Company>
     <Authors>William Kent</Authors>
+
+    <StyleCopJSON>$(MSBuildThisFileDirectory)stylecop.json</StyleCopJSON>
+    <NoWarn>SA1009;$(NoWarn)</NoWarn>
   </PropertyGroup>
-
-  <ItemGroup Condition="'$(IsThirdPartyProject)' != 'true'">
-    <!-- Override the shared stylecop.json with ours as they are different. -->
-    <AdditionalFiles Remove="$(MSBuildThisFileDirectory)..\build\stylecop.json" />
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" Link="stylecop.json" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(IsThirdPartyProject)' == 'true'">
-    <PackageReference Remove="StyleCop.Analyzers" />
-    <AdditionalFiles Remove="$(MSBuildThisFileDirectory)..\build\stylecop.json" />
-  </ItemGroup>
 </Project>

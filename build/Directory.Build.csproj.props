@@ -13,26 +13,25 @@
     <EnableNETAnalyzers Condition="'$(EnableNETAnalyzers)' == ''">true</EnableNETAnalyzers>
     <EnableDefaultNoneItems>false</EnableDefaultNoneItems>
     <ImplicitUsings>True</ImplicitUsings>
+
+    <EmbedUntrackedSources>false</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.8.118" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="11.0.100" PrivateAssets="All" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.10.94" PrivateAssets="all" />
   </ItemGroup>
 
   <!-- ============== Code Analysis ============== -->
 
-  <PropertyGroup Condition="'$(EnableNETAnalyzers)' == 'true'">
-    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)StyleCop.ruleset</CodeAnalysisRuleSet>
+  <PropertyGroup>
+    <StyleCopRuleset Condition="'$(StyleCopRuleset)' == ''">$(MSBuildThisFileDirectory)StyleCop.ruleset</StyleCopRuleset>
+    <StyleCopJSON Condition="'$(StyleCopJSON)' == ''">$(MSBuildThisFileDirectory)stylecop.json</StyleCopJSON>
   </PropertyGroup>
-
-  <ItemGroup Condition="'$(EnableNETAnalyzers)' == 'true'">
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" Link="stylecop.json" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(EnableNETAnalyzers)' == 'true' and '$(UseWPF)' == 'true'">
-    <PackageReference Include="WPFAnalyzers" Version="2.4.5" PrivateAssets="all" />
-  </ItemGroup>
 
   <!-- ============== Reproducible Builds ============== -->
 
