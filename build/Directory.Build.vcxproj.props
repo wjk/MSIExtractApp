@@ -16,8 +16,6 @@
     </ClCompile>
   </ItemDefinitionGroup>
 
-  <Import Project="vcxproj\DetectCI.props" />
-  <Import Project="vcxproj\DeterministicBuild.props" />
   <Import Project="$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.props" Condition="Exists('$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.props')" />
 
   <ItemGroup>

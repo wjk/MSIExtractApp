@@ -21,6 +21,5 @@
     <NuGetTargetMoniker>native,Version=0.0</NuGetTargetMoniker>
   </PropertyGroup>
 
-  <Import Project="vcxproj\DeterministicBuild.targets" />
   <Import Project="$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.targets" Condition="Exists('$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.targets')" />
 </Project>
