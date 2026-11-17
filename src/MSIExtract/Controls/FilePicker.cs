@@ -218,13 +218,13 @@ namespace MSIExtract.Controls
 
                 var imageFactory = (Shell32.IShellItemImageFactory)shellItem;
                 imageFactory.GetImage(iconSize, Shell32.SIIGBF.SIIGBF_RESIZETOFIT | Shell32.SIIGBF.SIIGBF_ICONONLY, out var bitmap);
-                BitmapSource source = Imaging.CreateBitmapSourceFromHBitmap(bitmap.DangerousGetHandle(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                BitmapSource source = Imaging.CreateBitmapSourceFromHBitmap(bitmap.DangerousGetHandle(), nint.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                 iconPart.SetCurrentValue(Image.SourceProperty, source);
                 bitmap.Dispose();
             }
             else
             {
-                iconPart.Source = null;
+                iconPart.SetCurrentValue(Image.SourceProperty, null);
             }
         }
     }

@@ -78,7 +78,7 @@ namespace MSIExtract.Controls.Localization
                     {
                         DependencyProperty prop => prop.Name,
                         System.Reflection.PropertyInfo prop => prop.Name,
-                        _ => throw new InvalidOperationException("Unexpected TargetProperty type")
+                        _ => throw new InvalidOperationException("Unexpected TargetProperty type"),
                     };
 
                     key = element.Uid + "." + propertyName;
