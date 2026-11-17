@@ -35,7 +35,7 @@ namespace MSIExtract.Controls
             typeof(FilePicker),
             new FrameworkPropertyMetadata(
                 propertyChangedCallback: (obj, args) => ((FilePicker)obj).FilePropertyChanged((string)args.NewValue),
-                coerceValueCallback: (obj, val) => CoerceFile(val)));
+                coerceValueCallback: (obj, val) => CoerceFilePath(val)));
 
         /// <summary>
         /// Provides identity for the <see cref="IsReadOnly"/> dependency property.
@@ -164,11 +164,11 @@ namespace MSIExtract.Controls
             bool? result = dialog.ShowDialog(Window.GetWindow(this));
             if (result.HasValue && result.Value)
             {
-                FilePath = dialog.FileName;
+                SetCurrentValue(FilePathProperty, dialog.FileName);
             }
         }
 
-        private static string? CoerceFile(object value)
+        private static string? CoerceFilePath(object value)
         {
             if (value == null)
             {
@@ -218,7 +218,8 @@ namespace MSIExtract.Controls
 
                 var imageFactory = (Shell32.IShellItemImageFactory)shellItem;
                 imageFactory.GetImage(iconSize, Shell32.SIIGBF.SIIGBF_RESIZETOFIT | Shell32.SIIGBF.SIIGBF_ICONONLY, out var bitmap);
-                iconPart.Source = Imaging.CreateBitmapSourceFromHBitmap(bitmap.DangerousGetHandle(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                BitmapSource source = Imaging.CreateBitmapSourceFromHBitmap(bitmap.DangerousGetHandle(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                iconPart.SetCurrentValue(Image.SourceProperty, source);
                 bitmap.Dispose();
             }
             else
