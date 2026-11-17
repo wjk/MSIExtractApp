@@ -10,7 +10,7 @@
     <Platforms>x86;x64;ARM64</Platforms>
     <Nullable>enable</Nullable>
 
-    <IsThirdPartyProject>true</IsThirdPartyProject>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
   </PropertyGroup>
 
   <ItemGroup>
