@@ -9,17 +9,4 @@
       <Manifest Include="@(CppWinRTMdMergeInputs -> '$(IntDir)%(FileName).winmd.manifest')" />
     </ItemGroup>
   </Target>
-
-  <Target Name="CheckPackageRestore" BeforeTargets="_PrepareForBuild">
-    <Error Text="NuGet PackageReferences have not been restored. Please run msbuild /t:Restore in this project's directory."
-           Condition="'@(PackageReference)' != '' and !Exists('$(MSBuildProjectExtensionsPath)project.assets.json')" />
-  </Target>
-
-  <PropertyGroup>
-    <ResolveNuGetPackages>false</ResolveNuGetPackages>
-    <TargetFrameworkMoniker>native,Version=0.0</TargetFrameworkMoniker>
-    <NuGetTargetMoniker>native,Version=0.0</NuGetTargetMoniker>
-  </PropertyGroup>
-
-  <Import Project="$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.targets" Condition="Exists('$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.targets')" />
 </Project>
