@@ -39,8 +39,6 @@
 
   <ItemGroup>
     <AvailableItemType Include="AppxAsset" />
-    <Content Include="@(AppxAsset)" CopyToOutputDirectory="Always" Visible="false" />
-    <PRIResource Include="@(AppxAsset)" Visisble="false" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)' != 'true'">
@@ -55,5 +53,15 @@
            Condition="'$(PackageCertificatePassword)' == ''" />
 
     <Exec Command="powershell -ExecutionPolicy Bypass &quot;$(MSBuildThisFileDirectory)\make-certificate.ps1&quot; -OutputPath &quot;$(PackageCertificateKeyFile)&quot; -CommonName &quot;$(PackageCertificateCommonName)&quot; -Password &quot;$(PackageCertificatePassword)&quot;" />
+  </Target>
+
+  <Target Name="_TranslateAppxAssets" BeforeTargets="PrepareForBuild">
+    <ItemGroup>
+      <Content Include="@(AppxAsset)">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+
+      <PRIResource Include="@(AppxAsset)" />
+    </ItemGroup>
   </Target>
 </Project>
