@@ -64,4 +64,20 @@
       <PRIResource Include="@(AppxAsset)" />
     </ItemGroup>
   </Target>
+
+  <Target Name="_TranslatePriEmbeddedFiles" BeforeTargets="_GenerateProjectPriConfigurationFiles">
+    <ItemGroup>
+      <PriEmbeddedFile Update="@(PriEmbeddedFile)" Condition="'%(PriEmbeddedFile.TargetPath)' == ''">
+        <TargetPath>%(FileName)%(Extension)</TargetPath>
+      </PriEmbeddedFile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PriOutputs Include="@(PriEmbeddedFile)">
+        <OutputGroup>EmbedOutputGroupForPackaging</OutputGroup>
+        <ProjectName>$(ProjectName)</ProjectName>
+        <TargetPath>%(TargetPath)</TargetPath>
+      </PriOutputs>
+    </ItemGroup>
+  </Target>
 </Project>
