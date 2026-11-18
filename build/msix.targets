@@ -8,7 +8,7 @@
     <WindowsPackageType>MSIX</WindowsPackageType>
     <CreateAppxPackageOnPublish>true</CreateAppxPackageOnPublish>
     <BuildAppxUploadPackageForUap>true</BuildAppxUploadPackageForUap>
-    <AppxBundleNameForOutput>MSIExtract</AppxBundleNameForOutput>
+    <AppxBundleNameForOutput>$(MSBuildProjectName)</AppxBundleNameForOutput>
     <SDKIdentifier>Windows</SDKIdentifier>
     <DefaultLanguage>en-US</DefaultLanguage>
     <AppxPackage>true</AppxPackage>
