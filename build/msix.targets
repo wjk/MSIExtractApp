@@ -54,6 +54,6 @@
     <Error Text="PackageCertificatePassword must be set to automatically generate MSIX signing certificate."
            Condition="'$(PackageCertificatePassword)' == ''" />
 
-    <Exec Command="pwsh -ExecutionPolicy Bypass &quot;$(MSBuildThisFileDirectory)\make-certificate.ps1&quot; -OutputPath &quot;$(PackageCertificateKeyFile)&quot; -CommonName &quot;$(PackageCertificateCommonName)&quot; -Password &quot;$(PackageCertificatePassword)&quot;" />
+    <Exec Command="powershell -ExecutionPolicy Bypass &quot;$(MSBuildThisFileDirectory)\make-certificate.ps1&quot; -OutputPath &quot;$(PackageCertificateKeyFile)&quot; -CommonName &quot;$(PackageCertificateCommonName)&quot; -Password &quot;$(PackageCertificatePassword)&quot;" />
   </Target>
 </Project>

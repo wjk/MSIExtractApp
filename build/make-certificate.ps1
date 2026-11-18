@@ -9,7 +9,7 @@ param(
     [string]$Password
 )
 
-Import-Module PKI -SkipEditionCheck
+Import-Module PKI
 $cert = New-SelfSignedCertificate -Type Custom -Subject $CommonName -KeyUsage DigitalSignature `
 	-FriendlyName "Test MSIX Package Signing Certificate" `
 	-CertStoreLocation "Cert:\CurrentUser\My" `
