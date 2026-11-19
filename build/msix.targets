@@ -8,6 +8,7 @@
     <PublishAppxPackage>true</PublishAppxPackage>
 
     <WindowsPackageType>MSIX</WindowsPackageType>
+    <WinUISDKReferences>false</WinUISDKReferences>
     <CreateAppxPackageOnPublish>true</CreateAppxPackageOnPublish>
     <BuildAppxUploadPackageForUap>true</BuildAppxUploadPackageForUap>
     <AppxBundleNameForOutput>$(MSBuildProjectName)</AppxBundleNameForOutput>
@@ -33,6 +34,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2957" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools.WinApp" Version="0.8.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools.MSIX" Version="1.7.261102100">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -46,6 +48,10 @@
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)' != 'true'">
     <ProjectCapability Include="Msix"/>
   </ItemGroup>
+
+  <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)' != 'true'">
+    <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+  </PropertyGroup>
 
   <Target Name="_CreatePackageCertificateKeyFile" Condition="!Exists('$(PackageCertificateKeyFile)')"
           BeforeTargets="PrepareForBuild">
