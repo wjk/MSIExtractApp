@@ -1,4 +1,6 @@
 <Project>
+  <Import Project="$(MSBuildThisFileDirectory)\msix.Tasks.targets" />
+
   <PropertyGroup>
     <UseSdkBuildToolsPackage>true</UseSdkBuildToolsPackage>
 
@@ -47,12 +49,10 @@
 
   <Target Name="_CreatePackageCertificateKeyFile" Condition="!Exists('$(PackageCertificateKeyFile)')"
           BeforeTargets="PrepareForBuild">
-    <Error Text="PackageCertificateCommonName must be set to automatically generate MSIX signing certificate."
-           Condition="'$(PackageCertificateCommonName)' == ''" />
-    <Error Text="PackageCertificatePassword must be set to automatically generate MSIX signing certificate."
-           Condition="'$(PackageCertificatePassword)' == ''" />
-
-    <Exec Command="powershell -ExecutionPolicy Bypass &quot;$(MSBuildThisFileDirectory)\make-certificate.ps1&quot; -OutputPath &quot;$(PackageCertificateKeyFile)&quot; -CommonName &quot;$(PackageCertificateCommonName)&quot; -Password &quot;$(PackageCertificatePassword)&quot;" />
+    <CreateAppxCertificate Script="$(MSBuildThisFileDirectory)\make-certificate.ps1"
+                           CertificateFile="$(PackageCertificateKeyFile)"
+                           CommonName="$(PackageCertificateCommonName)"
+                           Password="$(PackageCertificatePassword)" />
   </Target>
 
   <Target Name="_TranslateAppxAssets" BeforeTargets="PrepareForBuild">

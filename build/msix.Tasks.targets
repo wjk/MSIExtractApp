@@ -1,0 +1,48 @@
+<Project>
+  <UsingTask TaskName="CreateAppxCertificate" TaskFactory="RoslynCodeTaskFactory"
+             AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <Script ParameterType="Microsoft.Build.Framework.ITaskItem" Required="true" />
+      <CertificateFile ParameterType="Microsoft.Build.Framework.ITaskItem" Required="true" />
+      <CommonName ParameterType="System.String" Required="true" />
+      <Password ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+
+    <Task>
+      <Using Namespace="System.Diagnostics" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+          string modulePath = Environment.GetEnvironmentVariable("PSModulePath");
+          Environment.SetEnvironmentVariable("PSModulePath", null);
+
+          CommandLineBuilder builder = new();
+          builder.AppendFileNameIfNotNull(Script.GetMetadata("FullPath"));
+          builder.AppendSwitchIfNotNull("-OutputPath ", CertificateFile.GetMetadata("FullPath"));
+          builder.AppendSwitchIfNotNull("-CommonName ", CommonName);
+          builder.AppendSwitchIfNotNull("-Password ", Password);
+          Log.LogCommandLine(builder.ToString());
+
+          ProcessStartInfo startInfo = new ProcessStartInfo(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe");
+          startInfo.Arguments = builder.ToString();
+
+          Process process = Process.Start(startInfo);
+          if (process != null)
+          {
+            process.WaitForExit();
+            if (process.ExitCode != 0)
+            {
+              Log.LogError("Script exited with code {0}", process.ExitCode);
+            }
+          }
+          else
+          {
+            Log.LogError("Could not start script");
+          }
+
+          Environment.SetEnvironmentVariable("PSModulePath", modulePath);
+          return !Log.HasLoggedErrors;
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+</Project>

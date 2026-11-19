@@ -15,6 +15,7 @@
     <File Path="../build/Directory.Build.vcxproj.targets" />
     <File Path="../build/make-certificate.ps1" />
     <File Path="../build/msix.targets" />
+    <File Path="../build/msix.Tasks.targets" />
   </Folder>
   <Folder Name="/Solution Items/toplevel/">
     <File Path="../.editorconfig" />
