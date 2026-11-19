@@ -1,4 +1,6 @@
 <Project>
+  <Import Project="$(MSBuildThisFileDirectory)\msix.Tasks.targets" />
+
   <PropertyGroup>
     <UseSdkBuildToolsPackage>true</UseSdkBuildToolsPackage>
 
@@ -6,9 +8,10 @@
     <PublishAppxPackage>true</PublishAppxPackage>
 
     <WindowsPackageType>MSIX</WindowsPackageType>
+    <WinUISDKReferences>false</WinUISDKReferences>
     <CreateAppxPackageOnPublish>true</CreateAppxPackageOnPublish>
     <BuildAppxUploadPackageForUap>true</BuildAppxUploadPackageForUap>
-    <AppxBundleNameForOutput>MSIExtract</AppxBundleNameForOutput>
+    <AppxBundleNameForOutput>$(MSBuildProjectName)</AppxBundleNameForOutput>
     <SDKIdentifier>Windows</SDKIdentifier>
     <DefaultLanguage>en-US</DefaultLanguage>
     <AppxPackage>true</AppxPackage>
@@ -31,6 +34,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2957" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools.WinApp" Version="0.8.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools.MSIX" Version="1.7.261102100">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -39,19 +43,47 @@
 
   <ItemGroup>
     <AvailableItemType Include="AppxAsset" />
-    <Content Include="@(AppxAsset)" CopyToOutputDirectory="Always" Visible="false" />
-    <PRIResource Include="@(AppxAsset)" Visisble="false" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)' != 'true'">
     <ProjectCapability Include="Msix"/>
   </ItemGroup>
 
+  <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)' != 'true'">
+    <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+  </PropertyGroup>
+
   <Target Name="_CreatePackageCertificateKeyFile" Condition="!Exists('$(PackageCertificateKeyFile)')"
           BeforeTargets="PrepareForBuild">
-    <Error Text="PackageCertificateCommonName must be set to automatically generate MSIX signing certificate."
-           Condition="'$(PackageCertificateCommonName)' == ''" />
+    <CreateAppxCertificate Script="$(MSBuildThisFileDirectory)\make-certificate.ps1"
+                           CertificateFile="$(PackageCertificateKeyFile)"
+                           CommonName="$(PackageCertificateCommonName)"
+                           Password="$(PackageCertificatePassword)" />
+  </Target>
 
-    <Exec Command="pwsh -ExecutionPolicy Bypass &quot;$(MSBuildThisFileDirectory)\make-certificate.ps1&quot; -OutputPath &quot;$(PackageCertificateKeyFile)&quot; -CommonName &quot;$(PackageCertificateCommonName)&quot; -Password &quot;$(PackageCertificatePassword)&quot;" />
+  <Target Name="_TranslateAppxAssets" BeforeTargets="PrepareForBuild">
+    <ItemGroup>
+      <Content Include="@(AppxAsset)">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+
+      <PRIResource Include="@(AppxAsset)" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="_TranslatePriEmbeddedFiles" BeforeTargets="_GenerateProjectPriConfigurationFiles">
+    <ItemGroup>
+      <PriEmbeddedFile Update="@(PriEmbeddedFile)" Condition="'%(PriEmbeddedFile.TargetPath)' == ''">
+        <TargetPath>%(FileName)%(Extension)</TargetPath>
+      </PriEmbeddedFile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PriOutputs Include="@(PriEmbeddedFile)">
+        <OutputGroup>EmbedOutputGroupForPackaging</OutputGroup>
+        <ProjectName>$(ProjectName)</ProjectName>
+        <TargetPath>%(TargetPath)</TargetPath>
+      </PriOutputs>
+    </ItemGroup>
   </Target>
 </Project>

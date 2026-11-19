@@ -5,9 +5,10 @@
     <OutDirWasSpecified>true</OutDirWasSpecified>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectCapability Include="PackageReferences" />
-  </ItemGroup>
+  <PropertyGroup>
+    <EnableNativePackageReferenceSupport>true</EnableNativePackageReferenceSupport>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
 
   <ItemDefinitionGroup>
     <ClCompile>
@@ -15,8 +16,6 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
   </ItemDefinitionGroup>
-
-  <Import Project="$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.props" Condition="Exists('$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.props')" />
 
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.8.118" />

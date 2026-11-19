@@ -55,4 +55,9 @@
   <!-- ============== MSIX packaging ============== -->
 
   <Import Project="msix.targets" Condition="'$(EnableMsixTooling)' == 'true'" />
+
+  <Target Name="_CheckTranslatePriEmbeddedFiles" BeforeTargets="BeforeBuild" Condition="'$(EnableMsixTooling)' == 'false'">
+    <Error Text="PriEmbeddedFile items will not be honored unless MSIX tooling is enabled."
+           Condition="'@(PriEmbeddedFile)' != ''" />
+  </Target>
 </Project>

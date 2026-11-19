@@ -41,4 +41,10 @@
     <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.39" />
   </ItemGroup>
   <Import Project="Sdk.props" Sdk="DotNet.ReproducibleBuilds.Isolated" Version="1.2.39" />
+
+  <!-- ============== MSIX packaging ============== -->
+
+  <ItemGroup>
+    <AvailableItemName Include="PriEmbeddedFile" />
+  </ItemGroup>
 </Project>

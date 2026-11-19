@@ -37,6 +37,12 @@
         "resolved": "1.7.261102100",
         "contentHash": "2iMu69T4eSxcwmI6zMPDt7nAVL2dL+G3XXRIz0cYnwej3qmP8pg/CLyxrvD7T8YSxyQrTJnO8zgafzHXDCijSA=="
       },
+      "Microsoft.Windows.SDK.BuildTools.WinApp": {
+        "type": "Direct",
+        "requested": "[0.8.0, )",
+        "resolved": "0.8.0",
+        "contentHash": "Dc5mlJAypeWELkicp2CJronPZ3TGEDEGaUJZUzSr/cbqojkQ4ws5a2+Gpq9FOl5jjYVtg2QI8Bee2knULqvU1Q=="
+      },
       "Nerdbank.GitVersioning": {
         "type": "Direct",
         "requested": "[3.10.94, )",

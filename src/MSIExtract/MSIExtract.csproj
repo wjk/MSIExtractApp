@@ -21,7 +21,7 @@
     <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
 
     <EnableMsixTooling>true</EnableMsixTooling>
-    <!-- N.B. This must be kept in sync with the Package/Publisher/@Identity attribute in src\Sunburst.WixSharpApp.AppxPackage\Package.appxmanifest -->
+    <!-- N.B. This must be kept in sync with the Package/Publisher/@Identity attribute in Package.appxmanifest -->
     <PackageCertificateCommonName>CN=382B267D-6047-4C7A-8414-C3EC3B88FF82</PackageCertificateCommonName>
   </PropertyGroup>
 
@@ -42,11 +42,5 @@
     <Resource Include="Setup.ico" />
     <AppxAsset Include="Assets\*" />
     <None Include="app.manifest" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <!-- If I let these stand, I get a crapton of double-definition errors. -->
-    <Using Remove="System.Drawing" />
-    <Using Remove="System.Windows.Forms" />
   </ItemGroup>
 </Project>
