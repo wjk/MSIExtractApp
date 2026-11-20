@@ -1,14 +1,6 @@
 <Project>
   <Import Project="..\Directory.Build.targets" />
 
-  <PropertyGroup Condition="'$(_TargetAssemblyProjectName)' != ''">
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
-
-  <ItemGroup Condition="'$(_TargetAssemblyProjectName)' != ''">
-    <Compile Include="$(IntermediateOutputPath)$(_TargetAssemblyProjectName).Version.cs" />
-  </ItemGroup>
-
   <!-- ============== Restore and publish ============== -->
 
   <Target Name="AddReadyToRunToRestore" BeforeTargets="Restore">
