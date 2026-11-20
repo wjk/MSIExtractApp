@@ -1,11 +1,3 @@
 <Project>
   <Import Project="..\Directory.Build.targets" />
-
-  <!-- ============== Restore and publish ============== -->
-
-  <Target Name="AddReadyToRunToRestore" BeforeTargets="Restore">
-    <PropertyGroup>
-      <PublishReadyToRun>true</PublishReadyToRun>
-    </PropertyGroup>
-  </Target>
 </Project>
