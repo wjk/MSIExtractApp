@@ -4,9 +4,9 @@
     <Platform Name="x64" />
   </Configurations>
   <Folder Name="/Solution Items/">
-    <File Path="../version.json" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Build.targets" />
+    <File Path="version.json" />
   </Folder>
   <Folder Name="/Solution Items/build/">
     <File Path="../build/Directory.Build.csproj.props" />

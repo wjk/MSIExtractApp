@@ -4,6 +4,14 @@
     <AvailableItemName Include="AppxManifest" />
   </ItemGroup>
 
+  <PropertyGroup Condition="'$(_TargetAssemblyProjectName)' != ''">
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(_TargetAssemblyProjectName)' != ''">
+    <Compile Include="$(IntermediateOutputPath)$(_TargetAssemblyProjectName).Version.cs" />
+  </ItemGroup>
+
   <!-- ============== Code Analysis ============== -->
 
   <PropertyGroup Condition="'$(EnableNETAnalyzers)' == 'true'">
