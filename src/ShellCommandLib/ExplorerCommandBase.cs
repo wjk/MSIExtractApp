@@ -85,7 +85,7 @@ namespace ShellCommandLib
         /// the resource ID of the icon (in the file's *.rc segment), or <see langword="null" />
         /// if no icon should be displayed.
         /// </returns>
-        public virtual (string filePath, int resourceId)? GetIcon(IEnumerable<string> selectedFiles) => null;
+        public virtual (string FilePath, int ResourceId)? GetIcon(IEnumerable<string> selectedFiles) => null;
 
         private static IEnumerable<string> ConvertShellItemArray(IShellItemArray itemArray)
         {
@@ -129,7 +129,7 @@ namespace ShellCommandLib
                 selectedFiles = Array.Empty<string>();
             }
 
-            (string filePath, int resourceId)? tuple = this.GetIcon(selectedFiles);
+            (string, int)? tuple = this.GetIcon(selectedFiles);
 
             if (tuple != null && tuple.HasValue)
             {
