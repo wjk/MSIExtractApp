@@ -40,7 +40,7 @@
           }
 
           Environment.SetEnvironmentVariable("PSModulePath", modulePath);
-          return !Log.HasLoggedErrors;
+          Success = !Log.HasLoggedErrors;
         ]]>
       </Code>
     </Task>
